@@ -1,0 +1,2743 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تصريح | Tasreeh — منصة معاملات العمال الأجانب في العراق</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #0a1f3d;
+  --primary-mid: #0d2a52;
+  --accent: #1a56db;
+  --accent-light: #dbeafe;
+  --accent-glow: rgba(26,86,219,0.18);
+  --gold: #c8a84b;
+  --gold-light: rgba(200,168,75,0.12);
+  --text: #0f172a;
+  --text-sec: #64748b;
+  --text-muted: #94a3b8;
+  --border: rgba(15,23,42,0.08);
+  --border-strong: rgba(15,23,42,0.14);
+  --surface: #f8fafc;
+  --surface2: #f1f5f9;
+  --white: #ffffff;
+  --success: #059669;
+  --success-bg: #d1fae5;
+  --warning: #d97706;
+  --warning-bg: #fef3c7;
+  --danger: #dc2626;
+  --danger-bg: #fee2e2;
+  --radius: 14px;
+  --radius-sm: 9px;
+  --radius-xs: 6px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow: 0 4px 16px rgba(0,0,0,0.07), 0 1px 4px rgba(0,0,0,0.04);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.1), 0 2px 8px rgba(0,0,0,0.06);
+  --transition: 0.2s cubic-bezier(0.4,0,0.2,1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'IBM Plex Sans Arabic', 'IBM Plex Sans', sans-serif;
+  color: var(--text);
+  background: var(--white);
+  font-size: 15px;
+  line-height: 1.65;
+  direction: rtl;
+  -webkit-font-smoothing: antialiased;
+}
+
+body.ltr {
+  direction: ltr;
+  font-family: 'IBM Plex Sans', 'IBM Plex Sans Arabic', sans-serif;
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/* ─── TOPBAR ─── */
+.topbar {
+  background: var(--primary);
+  padding: 0 28px;
+  height: 62px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  backdrop-filter: blur(12px);
+}
+
+.logo {
+  color: #fff;
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.logo-badge {
+  width: 28px; height: 28px;
+  border-radius: 7px;
+  background: linear-gradient(135deg, var(--accent) 0%, #3b82f6 100%);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700; color: white;
+}
+
+.logo-arabic { color: #fff; }
+.logo-slash { color: var(--gold); margin: 0 2px; opacity: 0.7; font-weight: 300; }
+.logo-en { color: rgba(255,255,255,0.55); font-size: 14px; font-weight: 500; }
+
+.nav-links { display: flex; gap: 1px; }
+
+.nav-link {
+  color: rgba(255,255,255,0.58);
+  font-size: 13px;
+  padding: 7px 15px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-weight: 500;
+  transition: all var(--transition);
+  white-space: nowrap;
+}
+
+.nav-link:hover { color: rgba(255,255,255,0.9); background: rgba(255,255,255,0.07); }
+.nav-link.active { color: #fff; background: rgba(255,255,255,0.11); }
+
+.topbar-right { display: flex; align-items: center; gap: 8px; }
+
+.lang-toggle {
+  display: flex;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 22px;
+  padding: 2px;
+  gap: 1px;
+}
+
+.lang-btn {
+  color: rgba(255,255,255,0.5);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 11px;
+  border-radius: 20px;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  transition: all var(--transition);
+  letter-spacing: 0.3px;
+}
+
+.lang-btn.active {
+  background: rgba(255,255,255,0.16);
+  color: #fff;
+}
+
+.btn-login {
+  color: rgba(255,255,255,0.75);
+  font-size: 13px;
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 7px 16px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  background: transparent;
+  font-family: inherit;
+  font-weight: 500;
+  transition: all var(--transition);
+}
+
+.btn-login:hover { border-color: rgba(255,255,255,0.45); color: #fff; background: rgba(255,255,255,0.05); }
+
+.btn-signup {
+  background: var(--accent);
+  color: white;
+  font-size: 13px;
+  padding: 7px 18px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+  font-weight: 600;
+  transition: all var(--transition);
+  box-shadow: 0 2px 8px rgba(26,86,219,0.35);
+}
+
+.btn-signup:hover { background: #1d4ed8; transform: translateY(-1px); box-shadow: 0 4px 14px rgba(26,86,219,0.45); }
+
+/* mobile hamburger */
+.hamburger {
+  display: none;
+  flex-direction: column; gap: 5px;
+  background: transparent; border: none; cursor: pointer; padding: 6px;
+}
+.hamburger span { display: block; width: 20px; height: 2px; background: rgba(255,255,255,0.8); border-radius: 2px; transition: all 0.2s; }
+
+/* ─── PAGES ─── */
+.page { display: none; }
+.page.active { display: block; animation: fadeUp 0.3s ease; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── HERO ─── */
+.hero {
+  background: var(--primary);
+  padding: 80px 32px 90px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 110%, rgba(26,86,219,0.28) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 30% at 20% 20%, rgba(200,168,75,0.07) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(26,86,219,0.4), transparent);
+}
+
+/* grid pattern */
+.hero-grid {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 40%, transparent 100%);
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(200,168,75,0.12);
+  border: 1px solid rgba(200,168,75,0.3);
+  border-radius: 22px;
+  padding: 5px 16px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--gold);
+  margin-bottom: 28px;
+  position: relative;
+}
+
+.hero-badge-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--gold);
+  animation: pulse-gold 2s ease-in-out infinite;
+}
+
+@keyframes pulse-gold {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+.hero h1 {
+  font-size: 42px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.28;
+  margin-bottom: 20px;
+  letter-spacing: -0.6px;
+  position: relative;
+}
+
+.hero h1 em {
+  font-style: normal;
+  background: linear-gradient(135deg, #60a5fa, #93c5fd);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+  font-size: 16px;
+  color: rgba(255,255,255,0.55);
+  max-width: 500px;
+  margin: 0 auto 40px;
+  line-height: 1.85;
+  position: relative;
+}
+
+.hero-btns {
+  display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+  position: relative;
+}
+
+.btn-hero-p {
+  background: var(--accent);
+  color: white;
+  padding: 13px 34px;
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all var(--transition);
+  box-shadow: 0 4px 16px rgba(26,86,219,0.4);
+}
+
+.btn-hero-p:hover { background: #1d4ed8; transform: translateY(-2px); box-shadow: 0 6px 24px rgba(26,86,219,0.5); }
+
+.btn-hero-o {
+  background: rgba(255,255,255,0.07);
+  color: rgba(255,255,255,0.85);
+  padding: 13px 34px;
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  font-weight: 500;
+  border: 1px solid rgba(255,255,255,0.18);
+  cursor: pointer;
+  font-family: inherit;
+  transition: all var(--transition);
+  backdrop-filter: blur(8px);
+}
+
+.btn-hero-o:hover { border-color: rgba(255,255,255,0.4); color: #fff; background: rgba(255,255,255,0.12); }
+
+/* ─── STATS ─── */
+.stats-bar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 24px 32px;
+}
+
+.stats-inner {
+  max-width: 820px; margin: 0 auto;
+  display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px;
+}
+
+.stat-item { text-align: center; }
+.stat-num { font-size: 26px; font-weight: 700; color: var(--accent); letter-spacing: -0.5px; }
+.stat-label { font-size: 12px; color: var(--text-sec); margin-top: 3px; font-weight: 500; }
+
+/* ─── SECTIONS ─── */
+.section {
+  padding: 72px 32px;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.sec-header { text-align: center; margin-bottom: 48px; }
+
+.sec-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+.sec-title { font-size: 28px; font-weight: 700; color: var(--text); margin-bottom: 10px; letter-spacing: -0.3px; }
+.sec-sub { font-size: 15px; color: var(--text-sec); max-width: 480px; margin: 0 auto; }
+
+.divider { height: 1px; background: var(--border); margin: 0 32px; }
+
+/* ─── SERVICE CARDS ─── */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 16px;
+}
+
+.scard {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  cursor: pointer;
+  transition: all var(--transition);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.scard::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--accent), #3b82f6);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition);
+}
+
+body.ltr .scard::before { transform-origin: right; }
+
+.scard:hover { border-color: rgba(26,86,219,0.2); transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+.scard:hover::before { transform: scaleX(1); }
+
+.sicon {
+  width: 46px; height: 46px;
+  border-radius: 11px;
+  background: var(--accent-light);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 16px;
+  transition: all var(--transition);
+}
+
+.scard:hover .sicon { background: var(--accent); }
+.scard:hover .sicon svg { stroke: white; }
+
+.sicon svg { width: 20px; height: 20px; stroke: var(--accent); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: stroke var(--transition); }
+
+.stitle { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 7px; }
+.sdesc { font-size: 13px; color: var(--text-sec); line-height: 1.75; }
+
+.scard-arrow {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 12px; font-weight: 600; color: var(--accent);
+  margin-top: 14px;
+  opacity: 0; transform: translateX(6px);
+  transition: all var(--transition);
+}
+
+body.ltr .scard-arrow { transform: translateX(-6px); }
+
+.scard:hover .scard-arrow { opacity: 1; transform: translateX(0); }
+
+/* ─── STEPS ─── */
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0;
+  position: relative;
+}
+
+.steps-grid::before {
+  content: '';
+  position: absolute;
+  top: 18px;
+  right: calc(50% / 4 * 3);
+  left: calc(50% / 4 * 3);
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-light), var(--accent-light));
+  z-index: 0;
+}
+
+.step {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 28px 20px;
+  text-align: center;
+  position: relative;
+  border: 1px solid var(--border);
+  margin: 8px;
+  transition: all var(--transition);
+}
+
+.step:hover { box-shadow: var(--shadow); border-color: var(--border-strong); transform: translateY(-2px); }
+
+.step-n {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 16px;
+  position: relative; z-index: 1;
+  box-shadow: 0 0 0 4px var(--accent-light);
+}
+
+.step-t { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 7px; }
+.step-d { font-size: 12px; color: var(--text-sec); line-height: 1.7; }
+
+/* ─── TRUST SECTION ─── */
+.trust-section {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 40px 32px;
+  text-align: center;
+}
+
+.trust-label { font-size: 12px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; }
+.trust-logos { display: flex; justify-content: center; align-items: center; gap: 32px; flex-wrap: wrap; }
+.trust-logo { font-size: 13px; font-weight: 600; color: var(--text-muted); padding: 8px 18px; border: 1px solid var(--border); border-radius: 8px; letter-spacing: 0.3px; }
+
+/* ─── INVEST PAGE ─── */
+.invest-hero {
+  background: var(--primary);
+  padding: 52px 32px 60px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.invest-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 80% at 50% 120%, rgba(26,86,219,0.22) 0%, transparent 65%);
+}
+
+.invest-hero h1 { font-size: 30px; font-weight: 700; color: #fff; margin-bottom: 10px; position: relative; }
+.invest-hero p { font-size: 14px; color: rgba(255,255,255,0.58); position: relative; }
+
+.invest-tabs-wrap {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 0 32px;
+  display: flex; gap: 0;
+  overflow-x: auto;
+  position: sticky; top: 62px; z-index: 100;
+}
+
+.itab {
+  padding: 17px 22px;
+  font-size: 13px;
+  color: var(--text-sec);
+  cursor: pointer; border: none;
+  background: transparent;
+  border-bottom: 2.5px solid transparent;
+  font-family: inherit;
+  white-space: nowrap;
+  transition: all var(--transition);
+  font-weight: 600;
+}
+
+.itab:hover { color: var(--text); }
+.itab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+.invest-body { max-width: 780px; margin: 0 auto; padding: 44px 32px; }
+
+.invest-content { display: none; }
+.invest-content.active { display: block; animation: fadeUp 0.25s ease; }
+
+.req-list { display: flex; flex-direction: column; gap: 12px; }
+
+.req-item {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition);
+}
+
+.req-item:hover { border-color: rgba(26,86,219,0.2); box-shadow: var(--shadow); }
+
+.req-num {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.req-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 5px; }
+.req-desc { font-size: 13px; color: var(--text-sec); line-height: 1.75; }
+
+.invest-cta { margin-top: 32px; text-align: center; }
+
+/* ─── PRICING ─── */
+.pricing-hero {
+  background: linear-gradient(180deg, var(--surface) 0%, var(--white) 100%);
+  padding: 64px 32px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+}
+
+.pricing-hero h1 { font-size: 32px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.4px; }
+.pricing-hero p { font-size: 15px; color: var(--text-sec); }
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 20px;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 52px 32px;
+}
+
+.pcard {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 34px 28px;
+  position: relative;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition);
+}
+
+.pcard:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); }
+
+.pcard.featured {
+  border: 2px solid var(--accent);
+  box-shadow: var(--shadow), 0 0 0 4px var(--accent-glow);
+}
+
+.pcard.featured:hover { box-shadow: var(--shadow-lg), 0 0 0 6px var(--accent-glow); }
+
+.feat-badge {
+  position: absolute;
+  top: -13px; left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, var(--accent), #3b82f6);
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 18px;
+  border-radius: 20px;
+  white-space: nowrap;
+  letter-spacing: 0.3px;
+}
+
+.p-name { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+.p-amount { font-size: 34px; font-weight: 700; color: var(--accent); letter-spacing: -1px; }
+.p-curr { font-size: 15px; font-weight: 600; color: var(--accent); }
+.p-period { font-size: 12px; color: var(--text-sec); margin-bottom: 14px; font-weight: 500; }
+
+.p-quota {
+  display: inline-block;
+  background: var(--accent-light);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 14px;
+  border-radius: 7px;
+  margin-bottom: 22px;
+}
+
+.p-feats { list-style: none; margin-bottom: 26px; }
+
+.p-feats li {
+  font-size: 13px;
+  color: var(--text-sec);
+  padding: 9px 0;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.p-feats li:last-child { border-bottom: none; }
+body.ltr .p-feats li { flex-direction: row-reverse; justify-content: flex-end; }
+
+.ck {
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--success-bg);
+  color: var(--success);
+  font-size: 10px;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+.p-btn {
+  width: 100%;
+  padding: 13px;
+  border: 1.5px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all var(--transition);
+}
+
+.p-btn:hover { background: var(--accent-light); }
+.pcard.featured .p-btn { background: var(--accent); color: white; border-color: var(--accent); }
+.pcard.featured .p-btn:hover { background: #1d4ed8; }
+
+/* ─── FAQ (bonus section) ─── */
+.faq-section { max-width: 680px; margin: 0 auto; padding: 0 32px 64px; }
+.faq-title { font-size: 20px; font-weight: 700; text-align: center; margin-bottom: 28px; }
+.faq-item { border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 10px; overflow: hidden; }
+.faq-q {
+  padding: 16px 20px; font-size: 14px; font-weight: 600; cursor: pointer;
+  display: flex; justify-content: space-between; align-items: center;
+  transition: background var(--transition);
+}
+.faq-q:hover { background: var(--surface); }
+.faq-q .faq-icon { font-size: 18px; color: var(--text-sec); transition: transform 0.2s; flex-shrink: 0; margin-right: 8px; }
+body.ltr .faq-q .faq-icon { margin-right: 0; margin-left: 8px; }
+.faq-item.open .faq-icon { transform: rotate(45deg); color: var(--accent); }
+.faq-a { font-size: 13px; color: var(--text-sec); line-height: 1.75; padding: 0 20px; max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease; }
+.faq-item.open .faq-a { max-height: 200px; padding: 0 20px 16px; }
+
+/* ─── LOGIN / REGISTER ─── */
+.auth-page {
+  min-height: calc(100vh - 62px);
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  position: relative;
+}
+
+.auth-page::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 50% 40% at 50% 0%, rgba(26,86,219,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.auth-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 44px 40px;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+}
+
+.auth-tabs {
+  display: flex; gap: 0;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 4px;
+  margin-bottom: 32px;
+  background: var(--surface);
+}
+
+.auth-tab {
+  flex: 1; padding: 9px;
+  text-align: center; font-size: 13px; font-weight: 600;
+  cursor: pointer; border: none; background: transparent;
+  font-family: inherit; color: var(--text-sec);
+  border-radius: 7px;
+  transition: all var(--transition);
+}
+
+.auth-tab.active { background: var(--white); color: var(--accent); box-shadow: var(--shadow-sm); }
+
+.auth-form { display: none; }
+.auth-form.active { display: block; animation: fadeUp 0.2s ease; }
+
+.login-logo { text-align: center; margin-bottom: 28px; }
+.login-logo-name { font-size: 22px; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 8px; justify-content: center; }
+.login-logo-badge { width: 28px; height: 28px; border-radius: 7px; background: linear-gradient(135deg, var(--accent), #3b82f6); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: white; }
+.login-sub { font-size: 13px; color: var(--text-sec); margin-top: 5px; }
+
+.form-group { margin-bottom: 18px; }
+.form-label { font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 6px; display: block; letter-spacing: 0.2px; }
+.form-input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  background: var(--white);
+  color: var(--text);
+  outline: none;
+  font-family: inherit;
+  transition: all var(--transition);
+}
+
+.form-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(26,86,219,0.1); }
+.form-input::placeholder { color: var(--text-muted); }
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+.form-btn {
+  width: 100%;
+  padding: 13px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  margin-top: 6px;
+  transition: all var(--transition);
+  box-shadow: 0 2px 8px rgba(26,86,219,0.3);
+}
+
+.form-btn:hover { background: #1d4ed8; transform: translateY(-1px); box-shadow: 0 4px 14px rgba(26,86,219,0.4); }
+
+.form-link { text-align: center; font-size: 12px; color: var(--text-sec); margin-top: 16px; }
+.form-link a { color: var(--accent); cursor: pointer; text-decoration: none; font-weight: 600; }
+.form-divider { display: flex; align-items: center; gap: 12px; margin: 20px 0; }
+.form-divider span { font-size: 11px; color: var(--text-muted); white-space: nowrap; }
+.form-divider::before, .form-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+.google-btn {
+  width: 100%;
+  padding: 11px;
+  background: var(--white);
+  color: var(--text);
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all var(--transition);
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+
+.google-btn:hover { background: var(--surface); border-color: var(--border-strong); }
+
+/* ─── DASHBOARD ─── */
+.dash-wrap { display: flex; min-height: calc(100vh - 62px); }
+
+.dash-sidebar {
+  width: 230px;
+  background: var(--primary);
+  padding: 20px 12px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  position: sticky; top: 62px; height: calc(100vh - 62px);
+  overflow-y: auto;
+}
+
+.sidebar-section-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: rgba(255,255,255,0.25);
+  padding: 14px 12px 6px;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  color: rgba(255,255,255,0.55);
+  font-size: 13px;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  width: 100%;
+  text-align: right;
+  transition: all var(--transition);
+  font-weight: 500;
+}
+
+body.ltr .sidebar-item { text-align: left; }
+.sidebar-item:hover { color: rgba(255,255,255,0.9); background: rgba(255,255,255,0.07); }
+.sidebar-item.active { color: #fff; background: rgba(255,255,255,0.13); }
+.sidebar-item.active .si-icon { background: rgba(26,86,219,0.4); }
+
+.si-icon {
+  width: 30px; height: 30px;
+  border-radius: 7px;
+  background: rgba(255,255,255,0.07);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: all var(--transition);
+}
+
+.si-icon svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+.sidebar-upgrade {
+  margin-top: auto;
+  background: linear-gradient(135deg, rgba(26,86,219,0.2), rgba(59,130,246,0.15));
+  border: 1px solid rgba(26,86,219,0.25);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.sidebar-upgrade:hover { border-color: rgba(26,86,219,0.4); background: rgba(26,86,219,0.25); }
+.sidebar-upgrade-title { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.9); margin-bottom: 3px; }
+.sidebar-upgrade-sub { font-size: 11px; color: rgba(255,255,255,0.45); }
+
+.dash-main { flex: 1; background: var(--surface); overflow: auto; }
+
+.dash-header {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 18px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.dash-welcome { font-size: 17px; font-weight: 700; color: var(--text); }
+.dash-sub { font-size: 12px; color: var(--text-sec); margin-top: 2px; font-weight: 500; }
+
+.dash-header-right { display: flex; align-items: center; gap: 10px; }
+
+.notif-btn {
+  width: 36px; height: 36px;
+  border-radius: 9px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: all var(--transition);
+  position: relative;
+}
+
+.notif-btn:hover { background: var(--surface2); border-color: var(--border-strong); }
+.notif-btn svg { width: 16px; height: 16px; stroke: var(--text-sec); fill: none; stroke-width: 2; }
+.notif-dot { position: absolute; top: 6px; right: 6px; width: 7px; height: 7px; border-radius: 50%; background: var(--danger); border: 1.5px solid white; }
+
+.dash-plan-badge {
+  background: var(--accent-light);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 14px;
+  border-radius: 22px;
+}
+
+.dash-body { padding: 24px 28px; }
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.metric-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition);
+  display: flex; flex-direction: column;
+}
+
+.metric-card:hover { box-shadow: var(--shadow); transform: translateY(-1px); }
+
+.m-icon {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 12px;
+}
+
+.m-icon svg { width: 15px; height: 15px; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+.m-icon.blue { background: var(--accent-light); }
+.m-icon.blue svg { stroke: var(--accent); }
+.m-icon.amber { background: #fef3c7; }
+.m-icon.amber svg { stroke: var(--warning); }
+.m-icon.green { background: var(--success-bg); }
+.m-icon.green svg { stroke: var(--success); }
+.m-icon.red { background: var(--danger-bg); }
+.m-icon.red svg { stroke: var(--danger); }
+
+.m-val { font-size: 28px; font-weight: 700; color: var(--text); letter-spacing: -0.5px; margin-bottom: 2px; }
+.m-label { font-size: 12px; color: var(--text-sec); font-weight: 500; }
+
+.quota-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px 24px;
+  margin-bottom: 22px;
+  box-shadow: var(--shadow-sm);
+}
+
+.quota-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+.quota-title { font-size: 14px; font-weight: 700; color: var(--text); }
+.quota-info { font-size: 12px; color: var(--text-sec); font-weight: 600; }
+.quota-track { height: 8px; background: var(--surface2); border-radius: 4px; overflow: hidden; }
+.quota-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(--accent), #3b82f6); transition: width 0.6s ease; }
+.quota-footer { display: flex; justify-content: space-between; margin-top: 10px; font-size: 12px; color: var(--text-sec); font-weight: 500; }
+
+.table-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.table-head {
+  padding: 16px 22px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.table-title { font-size: 15px; font-weight: 700; color: var(--text); }
+
+.table-filters { display: flex; gap: 6px; }
+
+.filter-btn {
+  font-size: 12px; font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-sec);
+  cursor: pointer; font-family: inherit;
+  transition: all var(--transition);
+}
+
+.filter-btn:hover, .filter-btn.active { background: var(--accent-light); color: var(--accent); border-color: rgba(26,86,219,0.2); }
+
+.btn-new {
+  background: var(--accent);
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+  transition: all var(--transition);
+  display: flex; align-items: center; gap: 5px;
+  box-shadow: 0 2px 6px rgba(26,86,219,0.3);
+}
+
+.btn-new:hover { background: #1d4ed8; }
+
+table.rt { width: 100%; border-collapse: collapse; font-size: 13px; }
+table.rt th { color: var(--text-sec); padding: 11px 22px; border-bottom: 1px solid var(--border); font-weight: 700; text-align: right; background: var(--surface); font-size: 11px; text-transform: uppercase; letter-spacing: 0.4px; }
+body.ltr table.rt th { text-align: left; }
+table.rt td { padding: 14px 22px; border-bottom: 1px solid var(--border); color: var(--text); font-weight: 500; }
+table.rt tr:last-child td { border-bottom: none; }
+table.rt tr:hover td { background: var(--surface); }
+
+.status-badge { padding: 3px 11px; border-radius: 20px; font-size: 11px; font-weight: 700; display: inline-block; }
+.s-prog { background: var(--warning-bg); color: var(--warning); }
+.s-done { background: var(--success-bg); color: var(--success); }
+.s-pend { background: var(--surface2); color: var(--text-sec); border: 1px solid var(--border); }
+
+.worker-cell { display: flex; align-items: center; gap: 10px; }
+.worker-avatar { width: 28px; height: 28px; border-radius: 50%; background: var(--accent-light); color: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
+
+/* ─── CTA ─── */
+.cta-section {
+  background: var(--primary);
+  padding: 80px 32px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-section::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 70% at 50% 50%, rgba(26,86,219,0.2) 0%, transparent 65%);
+}
+
+.cta-section h2 { font-size: 32px; font-weight: 700; color: #fff; margin-bottom: 12px; position: relative; letter-spacing: -0.3px; }
+.cta-section p { font-size: 15px; color: rgba(255,255,255,0.55); margin-bottom: 32px; position: relative; }
+
+/* ─── FOOTER ─── */
+footer {
+  background: #040d1a;
+  color: rgba(255,255,255,0.4);
+  padding: 28px 32px;
+  font-size: 13px;
+}
+
+.footer-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.footer-logo { font-size: 16px; font-weight: 700; color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 6px; }
+.footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+.footer-links a { color: rgba(255,255,255,0.35); text-decoration: none; font-size: 12px; transition: color var(--transition); cursor: pointer; }
+.footer-links a:hover { color: rgba(255,255,255,0.7); }
+
+/* ─── TOAST ─── */
+.toast-wrap { position: fixed; bottom: 24px; left: 24px; z-index: 9999; display: flex; flex-direction: column; gap: 8px; }
+body.ltr .toast-wrap { left: auto; right: 24px; }
+
+.toast {
+  background: var(--text);
+  color: white;
+  padding: 12px 18px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 500;
+  box-shadow: var(--shadow-lg);
+  display: flex; align-items: center; gap: 10px;
+  max-width: 300px;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.toast.success { background: #064e3b; }
+.toast.error { background: #7f1d1d; }
+
+/* ─── MOBILE DRAWER ─── */
+.mobile-overlay {
+  display: none;
+  position: fixed; inset: 0; z-index: 300;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(4px);
+}
+
+.mobile-overlay.open { display: block; }
+
+.mobile-drawer {
+  position: fixed; top: 0; right: -280px; bottom: 0; width: 280px;
+  background: var(--primary);
+  z-index: 400;
+  transition: right 0.3s cubic-bezier(0.4,0,0.2,1);
+  padding: 24px 16px;
+  display: flex; flex-direction: column; gap: 4px;
+  overflow-y: auto;
+}
+
+body.ltr .mobile-drawer { right: auto; left: -280px; transition: left 0.3s cubic-bezier(0.4,0,0.2,1); }
+
+.mobile-overlay.open .mobile-drawer { right: 0; }
+body.ltr .mobile-overlay.open .mobile-drawer { right: auto; left: 0; }
+
+.drawer-close { align-self: flex-end; background: rgba(255,255,255,0.08); border: none; border-radius: 8px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; margin-bottom: 12px; }
+.drawer-close svg { width: 16px; height: 16px; stroke: rgba(255,255,255,0.7); fill: none; stroke-width: 2; }
+
+.drawer-nav-link {
+  display: flex; align-items: center; gap: 10px;
+  color: rgba(255,255,255,0.65);
+  font-size: 14px; font-weight: 600;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  cursor: pointer; border: none; background: transparent; font-family: inherit; width: 100%; text-align: right;
+  transition: all var(--transition);
+}
+
+body.ltr .drawer-nav-link { text-align: left; }
+.drawer-nav-link:hover { color: white; background: rgba(255,255,255,0.08); }
+
+/* ─── INVEST PAGE COMPONENTS ─── */
+.invest-tab-panel { animation: fadeUp 0.25s ease; }
+.inv-step-card { display:flex; gap:18px; cursor:pointer; position:relative; margin-bottom:20px; }
+.inv-step-card:not(:last-child) .inv-step-left::after { content:''; position:absolute; width:2px; background:var(--border); right:18px; top:44px; bottom:-20px; }
+body.ltr .inv-step-card:not(:last-child) .inv-step-left::after { right:auto; left:18px; }
+.inv-step-left { flex-shrink:0; position:relative; }
+.inv-step-num { width:38px; height:38px; border-radius:50%; background:var(--accent); color:#fff; font-size:14px; font-weight:700; display:flex; align-items:center; justify-content:center; border:3px solid var(--white); box-shadow:0 0 0 2px var(--accent); flex-shrink:0; z-index:1; position:relative; }
+.inv-step-body { flex:1; background:var(--white); border:1px solid var(--border); border-radius:var(--radius); padding:18px 20px; box-shadow:var(--shadow-sm); transition:all var(--transition); }
+.inv-step-card:hover .inv-step-body, .inv-step-card.is-open .inv-step-body { border-color:rgba(26,86,219,0.25); box-shadow:var(--shadow); }
+.inv-step-card.is-open .inv-step-body { border-color:var(--accent); background:#fafcff; }
+.inv-step-hdr { display:flex; justify-content:space-between; align-items:flex-start; gap:10px; }
+.inv-step-title { font-size:14px; font-weight:700; color:var(--text); margin-bottom:3px; }
+.inv-step-meta { font-size:12px; color:var(--text-sec); }
+.inv-step-tag { background:var(--accent-light); color:var(--accent); font-size:11px; font-weight:700; padding:3px 10px; border-radius:20px; white-space:nowrap; flex-shrink:0; }
+.inv-step-desc { font-size:13px; color:var(--text-sec); line-height:1.75; margin-top:10px; display:none; }
+.inv-step-card.is-open .inv-step-desc { display:block; }
+.inv-docs-list { margin-top:12px; display:none; flex-direction:column; gap:6px; }
+.inv-step-card.is-open .inv-docs-list { display:flex; }
+.inv-doc-item { font-size:12px; color:var(--text-sec); background:var(--surface); border:1px solid var(--border); border-radius:7px; padding:7px 12px; }
+.inv-note { margin-top:10px; padding:9px 13px; border-radius:var(--radius-sm); font-size:12px; display:none; align-items:flex-start; gap:6px; }
+.inv-step-card.is-open .inv-note { display:flex; }
+.inv-note-green { background:var(--success-bg); border:1px solid rgba(5,150,105,0.15); color:var(--success); }
+.inv-note-amber { background:var(--warning-bg); border:1px solid rgba(217,119,6,0.15); color:var(--warning); }
+.rq-item { display:flex; align-items:flex-start; gap:10px; padding:10px 12px; border-radius:var(--radius-sm); border:1px solid var(--border); background:var(--surface); transition:all var(--transition); margin-bottom:8px; }
+.rq-item:hover { border-color:rgba(26,86,219,0.2); background:var(--white); }
+.rq-ck { width:20px; height:20px; border-radius:50%; background:var(--success-bg); color:var(--success); display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; flex-shrink:0; margin-top:1px; }
+.rq-t { font-size:13px; font-weight:600; color:var(--text); }
+.rq-s { font-size:11px; color:var(--text-sec); margin-top:2px; }
+.opp-f { padding:7px 16px; border-radius:22px; font-size:13px; font-weight:600; border:1.5px solid var(--border); background:var(--white); color:var(--text-sec); cursor:pointer; font-family:inherit; transition:all var(--transition); }
+.opp-f:hover { border-color:var(--accent); color:var(--accent); }
+.opp-f.active { background:var(--accent); color:white; border-color:var(--accent); }
+.opp-card { background:var(--white); border:1px solid var(--border); border-radius:var(--radius); padding:20px; box-shadow:var(--shadow-sm); transition:all var(--transition); position:relative; overflow:hidden; }
+.opp-card::before { content:''; position:absolute; top:0; right:0; left:0; height:3px; }
+.opp-card[data-s="transport"]::before { background:linear-gradient(90deg,#10b981,#34d399); }
+.opp-card[data-s="energy"]::before { background:linear-gradient(90deg,#f59e0b,#fbbf24); }
+.opp-card[data-s="housing"]::before { background:linear-gradient(90deg,#3b82f6,#60a5fa); }
+.opp-card[data-s="industry"]::before { background:linear-gradient(90deg,#8b5cf6,#a78bfa); }
+.opp-card[data-s="health"]::before { background:linear-gradient(90deg,#ef4444,#f87171); }
+.opp-card[data-s="agri"]::before { background:linear-gradient(90deg,#16a34a,#4ade80); }
+.opp-card[data-s="tourism"]::before { background:linear-gradient(90deg,#0891b2,#22d3ee); }
+.opp-card:hover { transform:translateY(-3px); box-shadow:var(--shadow-lg); border-color:rgba(26,86,219,0.15); }
+.opp-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; gap:6px; }
+.opp-badge { font-size:11px; font-weight:700; padding:3px 10px; border-radius:20px; }
+.ob-transport { background:#d1fae5; color:#065f46; }
+.ob-energy { background:#fef3c7; color:#b45309; }
+.ob-housing { background:#dbeafe; color:#1d4ed8; }
+.ob-industry { background:#ede9fe; color:#7c3aed; }
+.ob-health { background:#fee2e2; color:#b91c1c; }
+.ob-agri { background:#dcfce7; color:#15803d; }
+.ob-tourism { background:#cffafe; color:#0e7490; }
+.opp-status { font-size:11px; font-weight:700; padding:3px 10px; border-radius:20px; }
+.os-open { background:var(--success-bg); color:var(--success); }
+.os-review { background:var(--warning-bg); color:var(--warning); }
+.opp-title { font-size:14px; font-weight:700; color:var(--text); margin-bottom:5px; line-height:1.4; }
+.opp-loc { font-size:12px; color:var(--text-sec); margin-bottom:10px; }
+.opp-tags { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:14px; }
+.opp-tag { font-size:11px; color:var(--text-sec); background:var(--surface); padding:3px 9px; border-radius:6px; border:1px solid var(--border); }
+.opp-foot { display:flex; justify-content:space-between; align-items:center; padding-top:12px; border-top:1px solid var(--border); }
+.opp-val-lbl { font-size:10px; color:var(--text-muted); }
+.opp-val { font-size:13px; font-weight:700; color:var(--accent); }
+.opp-apply-btn { font-size:12px; font-weight:700; padding:6px 14px; background:var(--accent); color:white; border:none; border-radius:var(--radius-sm); cursor:pointer; font-family:inherit; text-decoration:none; display:inline-block; transition:all var(--transition); }
+.opp-apply-btn:hover { background:#1d4ed8; }
+.ben-card { background:var(--white); border:1px solid var(--border); border-radius:var(--radius); padding:22px; box-shadow:var(--shadow-sm); transition:all var(--transition); }
+.ben-card:hover { transform:translateY(-2px); box-shadow:var(--shadow); }
+.ben-icon { width:40px; height:40px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px; margin-bottom:12px; }
+.ben-title { font-size:14px; font-weight:700; color:var(--text); margin-bottom:6px; }
+.ben-desc { font-size:12px; color:var(--text-sec); line-height:1.7; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .btn-login, .btn-signup { display: none; }
+  .hamburger { display: flex; }
+  .topbar { padding: 0 16px; }
+  .hero { padding: 56px 20px 64px; }
+  .hero h1 { font-size: 28px; }
+  .hero p { font-size: 14px; }
+  .dash-sidebar { display: none; }
+  .section { padding: 48px 16px; }
+  .stats-bar { padding: 18px 16px; }
+  .pricing-grid { padding: 32px 16px; }
+  .auth-card { padding: 32px 24px; }
+  .form-row { grid-template-columns: 1fr; }
+  .dash-body { padding: 16px; }
+  .dash-header { padding: 14px 16px; }
+  .table-filters { display: none; }
+  .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-inner { flex-direction: column; text-align: center; }
+  .footer-links { justify-content: center; }
+  .invest-tabs-wrap { padding: 0 12px; }
+  .invest-body { padding: 28px 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ BETA BANNER ═══ -->
+<div id="beta-banner" style="background:linear-gradient(90deg,#1e40af,#1a56db,#1e40af);padding:9px 20px;text-align:center;position:relative;z-index:300;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;">
+  <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);border-radius:20px;padding:3px 12px;font-size:11px;font-weight:700;color:#fcd34d;letter-spacing:0.5px;">
+    <span style="width:6px;height:6px;border-radius:50%;background:#fcd34d;display:inline-block;animation:betapulse 1.5s ease-in-out infinite;"></span>
+    <span id="beta-tag">نسخة تجريبية • Beta</span>
+  </span>
+  <span id="beta-msg" style="font-size:13px;color:rgba(255,255,255,0.9);font-weight:500;">هذا الموقع في مرحلة الاختبار — بعض الخدمات غير مفعّلة بعد · This site is in testing — some features are not yet active</span>
+  <a href="mailto:info@tasreeh.com" id="beta-link" style="font-size:12px;font-weight:700;color:#fcd34d;text-decoration:none;border:1px solid rgba(252,211,77,0.4);border-radius:6px;padding:4px 12px;transition:all 0.2s;" onmouseover="this.style.background='rgba(252,211,77,0.15)'" onmouseout="this.style.background='transparent'">أرسل ملاحظة / Send Feedback ↗</a>
+  <button onclick="document.getElementById('beta-banner').style.display='none'" style="position:absolute;left:14px;background:transparent;border:none;color:rgba(255,255,255,0.5);font-size:18px;cursor:pointer;line-height:1;padding:2px 6px;border-radius:4px;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.5)'">✕</button>
+</div>
+<style>
+@keyframes betapulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.4;transform:scale(0.7);} }
+body.ltr #beta-banner button { left:auto; right:14px; }
+</style>
+
+<!-- ═══ TOPBAR ═══ -->
+<div class="topbar">
+  <div class="logo" onclick="showPage('home')">
+    <div class="logo-badge">ت</div>
+    <span class="logo-arabic" id="nav-logo">تصريح</span>
+    <span class="logo-slash">/</span>
+    <span class="logo-en">Tasreeh</span>
+  </div>
+  <div class="nav-links">
+    <button class="nav-link active" onclick="showPage('home')" id="nl-home">الرئيسية</button>
+    <button class="nav-link" onclick="showPage('invest')" id="nl-invest">الاستثمار والشركات</button>
+    <button class="nav-link" onclick="showPage('pricing')" id="nl-pricing">الأسعار</button>
+    <button class="nav-link" onclick="showPage('dashboard')" id="nl-dash">لوحة التحكم</button>
+  </div>
+  <div class="topbar-right">
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('ar')">ع</button>
+      <button class="lang-btn" onclick="setLang('en')">EN</button>
+    </div>
+    <button class="btn-login" onclick="showPage('login')" id="btn-login-nav">تسجيل الدخول</button>
+    <button class="btn-signup" onclick="showPage('login')" id="btn-signup-nav">ابدأ الآن</button>
+    <button class="hamburger" onclick="openDrawer()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</div>
+
+<!-- ═══ MOBILE DRAWER ═══ -->
+<div class="mobile-overlay" id="mobile-overlay" onclick="closeDrawer()">
+  <div class="mobile-drawer" onclick="event.stopPropagation()">
+    <button class="drawer-close" onclick="closeDrawer()">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <button class="drawer-nav-link" onclick="navTo('home')">🏠 <span id="dnl-home">الرئيسية</span></button>
+    <button class="drawer-nav-link" onclick="navTo('invest')">🏗 <span id="dnl-invest">الاستثمار والشركات</span></button>
+    <button class="drawer-nav-link" onclick="navTo('pricing')">💳 <span id="dnl-pricing">الأسعار</span></button>
+    <button class="drawer-nav-link" onclick="navTo('dashboard')">📊 <span id="dnl-dash">لوحة التحكم</span></button>
+    <div style="margin-top:16px; padding-top:16px; border-top:1px solid rgba(255,255,255,0.08);">
+      <button class="drawer-nav-link" onclick="navTo('login')">🔐 <span id="dnl-login">تسجيل الدخول</span></button>
+    </div>
+    <div style="margin-top:8px;">
+      <div class="lang-toggle" style="justify-content:center;width:fit-content;margin:8px auto 0;">
+        <button class="lang-btn active" onclick="setLang('ar')">ع</button>
+        <button class="lang-btn" onclick="setLang('en')">EN</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ HOME PAGE ═══ -->
+<div id="page-home" class="page active">
+
+  <div class="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      <span id="h-badge">منصة معاملات العمال الأجانب في العراق</span>
+    </div>
+    <h1 id="h-title">أنجز معاملاتك <em>بسرعة</em><br>مع فريق متخصص</h1>
+    <p id="h-desc">إجازات العمل · الضمان الاجتماعي · تأشيرات الدخول والإقامة<br>تأسيس الشركات · دعم الاستثمار</p>
+    <div class="hero-btns">
+      <button class="btn-hero-p" onclick="showPage('login')" id="h-btn1">ابدأ الآن</button>
+      <button class="btn-hero-o" onclick="showPage('invest')" id="h-btn2">استثمر في العراق</button>
+    </div>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stats-inner">
+      <div class="stat-item"><div class="stat-num">+500</div><div class="stat-label" id="s1">معاملة منجزة</div></div>
+      <div class="stat-item"><div class="stat-num">+100</div><div class="stat-label" id="s2">شركة تثق بنا</div></div>
+      <div class="stat-item"><div class="stat-num">3</div><div class="stat-label" id="s3">أيام متوسط الإنجاز</div></div>
+      <div class="stat-item"><div class="stat-num">98%</div><div class="stat-label" id="s4">نسبة رضا العملاء</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-header">
+      <div class="sec-eyebrow" id="srv-eyebrow">الخدمات</div>
+      <div class="sec-title" id="srv-title">كل ما تحتاجه في مكان واحد</div>
+      <div class="sec-sub" id="srv-sub">كل ما يحتاجه العامل الأجنبي والمستثمر في العراق</div>
+    </div>
+    <div class="services-grid">
+      <div class="scard" onclick="showPage('invest')">
+        <div class="sicon"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg></div>
+        <div class="stitle" id="sv1">إجازة العمل</div>
+        <div class="sdesc" id="sv1d">استخراج وتجديد تصاريح العمل بالتنسيق مع وزارة العمل العراقية</div>
+        <div class="scard-arrow" id="sv1-arr">← المزيد</div>
+      </div>
+      <div class="scard">
+        <div class="sicon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div class="stitle" id="sv2">الضمان الاجتماعي</div>
+        <div class="sdesc" id="sv2d">تسجيل العمال وإدارة الاشتراكات في منظومة الضمان الاجتماعي</div>
+        <div class="scard-arrow" id="sv2-arr">← المزيد</div>
+      </div>
+      <div class="scard">
+        <div class="sicon"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div>
+        <div class="stitle" id="sv3">تأشيرة الدخول والإقامة</div>
+        <div class="sdesc" id="sv3d">إجراءات التأشيرة وتصاريح الإقامة للعمال الأجانب في العراق</div>
+        <div class="scard-arrow" id="sv3-arr">← المزيد</div>
+      </div>
+      <div class="scard" onclick="showPage('invest')">
+        <div class="sicon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+        <div class="stitle" id="sv4">تأسيس الشركات</div>
+        <div class="sdesc" id="sv4d">متطلبات تأسيس الشركات الأجنبية والعراقية ومشاريع الاستثمار</div>
+        <div class="scard-arrow" id="sv4-arr">← المزيد</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="trust-section">
+    <div class="trust-label" id="trust-label">جهات حكومية معتمدة</div>
+    <div class="trust-logos">
+      <div class="trust-logo" id="tl1">وزارة العمل والشؤون الاجتماعية</div>
+      <div class="trust-logo" id="tl2">هيئة الاستثمار الوطنية</div>
+      <div class="trust-logo" id="tl3">وزارة الداخلية</div>
+      <div class="trust-logo" id="tl4">وزارة التجارة</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="sec-header">
+      <div class="sec-eyebrow" id="how-eyebrow">كيف نعمل</div>
+      <div class="sec-title" id="how-title">أربع خطوات بسيطة</div>
+      <div class="sec-sub" id="how-sub">أنجز معاملتك بدون تعقيد</div>
+    </div>
+    <div class="steps-grid">
+      <div class="step"><div class="step-n">١</div><div class="step-t" id="st1">أنشئ حساباً</div><div class="step-d" id="sd1">سجّل بإيميل وكلمة مرور واختر الباقة المناسبة لحجم شركتك</div></div>
+      <div class="step"><div class="step-n">٢</div><div class="step-t" id="st2">قدّم طلبك</div><div class="step-d" id="sd2">أدخل بيانات العامل وارفع الوثائق المطلوبة إلكترونياً</div></div>
+      <div class="step"><div class="step-n">٣</div><div class="step-t" id="st3">تابع الحالة</div><div class="step-d" id="sd3">راقب تقدم المعاملة لحظة بلحظة من لوحة التحكم</div></div>
+      <div class="step"><div class="step-n">٤</div><div class="step-t" id="st4">استلم المستندات</div><div class="step-d" id="sd4">حمّل المستندات المعتمدة بصيغة PDF جاهزة للطباعة والإرسال</div></div>
+    </div>
+  </div>
+
+  <div class="cta-section">
+    <h2 id="cta-title">جاهز تبدأ؟</h2>
+    <p id="cta-desc">أنشئ حسابك الآن وأنجز أول معاملة خلال دقائق</p>
+    <button class="btn-hero-p" onclick="showPage('login')" id="cta-btn">أنشئ حساباً مجانياً</button>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <div class="logo-badge" style="width:22px;height:22px;font-size:10px;">ت</div>
+        <span id="footer-name">تصريح | Tasreeh</span>
+      </div>
+      <div class="footer-links">
+        <a onclick="showPage('invest')">الاستثمار</a>
+        <a onclick="showPage('pricing')">الأسعار</a>
+        <a onclick="showPage('login')">تسجيل الدخول</a>
+        <a>سياسة الخصوصية</a>
+      </div>
+      <span id="footer-copy">جميع الحقوق محفوظة © 2025</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══ INVEST PAGE ═══ -->
+<div id="page-invest" class="page">
+
+  <!-- HERO -->
+  <div class="invest-hero" style="padding-bottom:52px;">
+    <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);background-size:48px 48px;mask-image:radial-gradient(ellipse 80% 70% at 50% 50%,black 40%,transparent 100%);"></div>
+    <div class="hero-badge" style="margin-bottom:18px;position:relative;">
+      <span class="hero-badge-dot"></span>
+      <span id="inv-badge" data-t="inv-badge">الهيئة الوطنية للاستثمار — جمهورية العراق</span>
+    </div>
+    <h1 id="inv-title" data-t="inv-title" style="position:relative;">دليلك الشامل للاستثمار<br>وتأسيس الشركات في العراق</h1>
+    <p id="inv-desc" data-t="inv-desc" style="position:relative;">خطوات التسجيل · شروط التقديم · الفرص الاستثمارية المتاحة · الإعفاءات والمزايا</p>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;position:relative;margin-top:28px;">
+      <a href="https://inic.gov.iq/ossfrontend/ara/pages/view/introduction" target="_blank" class="btn-hero-p" style="text-decoration:none;display:inline-flex;align-items:center;gap:7px;" data-t="inv-btn-portal">🔗 بوابة التقديم الإلكتروني</a>
+      <button class="btn-hero-o" onclick="switchInvestTab('opportunities')" data-t="inv-btn-opps">📋 تصفح الفرص الاستثمارية</button>
+    </div>
+    <!-- Stats bar inside hero -->
+    <div style="display:flex;gap:28px;justify-content:center;flex-wrap:wrap;margin-top:36px;position:relative;">
+      <div style="text-align:center;"><div style="font-size:22px;font-weight:700;color:#60a5fa;">+135</div><div style="font-size:11px;color:rgba(255,255,255,0.45);margin-top:2px;" data-t="inv-stat1-lbl">فرصة استثمارية</div></div>
+      <div style="width:1px;background:rgba(255,255,255,0.1);"></div>
+      <div style="text-align:center;"><div style="font-size:22px;font-weight:700;color:#60a5fa;" data-t="opp10-val">10 سنوات</div><div style="font-size:11px;color:rgba(255,255,255,0.45);margin-top:2px;" data-t="inv-stat2-lbl" data-t="opp6-t2" data-t="opp10-val-lbl">إعفاء ضريبي</div></div>
+      <div style="width:1px;background:rgba(255,255,255,0.1);"></div>
+      <div style="text-align:center;"><div style="font-size:22px;font-weight:700;color:#60a5fa;">100%</div><div style="font-size:11px;color:rgba(255,255,255,0.45);margin-top:2px;" data-t="inv-stat3-lbl">تملك أجنبي مسموح</div></div>
+      <div style="width:1px;background:rgba(255,255,255,0.1);"></div>
+      <div style="text-align:center;"><div style="font-size:22px;font-weight:700;color:#60a5fa;">450B$</div><div style="font-size:11px;color:rgba(255,255,255,0.45);margin-top:2px;" data-t="inv-stat4-lbl">حجم الفرص الإجمالي</div></div>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="invest-tabs-wrap" style="gap:0;">
+    <button class="itab active" onclick="switchInvestTab('steps')" id="itab-steps" data-t="itab-steps">📋 خطوات التسجيل</button>
+    <button class="itab" onclick="switchInvestTab('requirements')" id="itab-requirements" data-t="itab-requirements">📄 المتطلبات والوثائق</button>
+    <button class="itab" onclick="switchInvestTab('opportunities')" id="itab-opportunities" data-t="itab-opportunities">🏗 الفرص الاستثمارية</button>
+    <button class="itab" onclick="switchInvestTab('benefits')" id="itab-benefits" data-t="itab-benefits">🎁 الإعفاءات والمزايا</button>
+  </div>
+
+  <!-- TAB PANELS WRAPPER -->
+  <div style="max-width:1100px;margin:0 auto;padding:36px 24px 64px;">
+
+    <!-- ── STEPS TAB ── -->
+    <div id="invest-tab-steps" class="invest-tab-panel" style="display:block;">
+      <div style="display:grid;grid-template-columns:1fr 300px;gap:28px;align-items:start;">
+        <div>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:6px;" data-t="inv-steps-eyebrow">الإجراءات الرسمية</div>
+          <div style="font-size:20px;font-weight:700;margin-bottom:6px;letter-spacing:-0.3px;" data-t="inv-steps-title">خطوات الحصول على إجازة الاستثمار</div>
+          <div style="font-size:14px;color:var(--text-sec);margin-bottom:28px;" data-t="inv-steps-sub">اتبع هذه الخطوات للتسجيل في الهيئة الوطنية للاستثمار والحصول على الترخيص الرسمي</div>
+
+          <!-- Step 1 -->
+          <div class="inv-step-card" onclick="toggleInvStep(this)">
+            <div class="inv-step-left"><div class="inv-step-num">1</div></div>
+            <div class="inv-step-body">
+              <div class="inv-step-hdr">
+                <div><div class="inv-step-title" data-t="s1-title">إنشاء حساب في البوابة الإلكترونية</div><div class="inv-step-meta" data-t="s1-meta">النافذة الواحدة — inic.gov.iq</div></div>
+                <span class="inv-step-tag" data-t="s1-dur">1-2 يوم</span>
+              </div>
+              <div class="inv-step-desc" data-t="s1-desc">توجّه إلى البوابة الإلكترونية للهيئة الوطنية للاستثمار وأنشئ حساباً خاصاً بك. من خلاله تستطيع تقديم الطلبات الاستثمارية ومتابعتها إلكترونياً في جميع المراحل.</div>
+              <div class="inv-docs-list">
+                <div class="inv-doc-item" data-t="s1-d1">📧 بريد إلكتروني فعّال ورقم هاتف للتحقق</div>
+                <div class="inv-doc-item" data-t="s1-d2">🪪 نسخة من جواز السفر أو الهوية الوطنية</div>
+              </div>
+              <div class="inv-note inv-note-green" data-t="s1-note">✅ البوابة تتيح تتبع حالة الطلب آنياً دون مراجعة شخصية في المرحلة الأولى</div>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="inv-step-card" onclick="toggleInvStep(this)">
+            <div class="inv-step-left"><div class="inv-step-num">2</div></div>
+            <div class="inv-step-body">
+              <div class="inv-step-hdr">
+                <div><div class="inv-step-title" data-t="s2-title">اختيار الفرصة وتعبئة الاستمارة</div><div class="inv-step-meta" data-t="s2-meta">تحديد القطاع والمشروع المستهدف</div></div>
+                <span class="inv-step-tag" data-t="s2-dur">3-5 أيام</span>
+              </div>
+              <div class="inv-step-desc" data-t="s2-desc">تصفح قائمة الفرص الاستثمارية المعلنة واختر المشروع المناسب لرأس مالك وقطاعك. عبّئ الاستمارة الرسمية بدقة مع تحديد نوع النشاط ورأس المال المخصص.</div>
+              <div class="inv-docs-list">
+                <div class="inv-doc-item" data-t="s2-d1">🏭 نوع النشاط التجاري والقطاع المستهدف</div>
+                <div class="inv-doc-item" data-t="s2-d2">💰 رأس المال المخصص للمشروع</div>
+                <div class="inv-doc-item" data-t="s2-d3">📍 الموقع الجغرافي المقترح للمشروع</div>
+                <div class="inv-doc-item" data-t="s2-d4">👷 عدد فرص العمل العراقية المتوقعة</div>
+              </div>
+              <div class="inv-note inv-note-amber" data-t="s2-note">⚠ رسوم الاستمارة: 500,000 د.ع · رسوم وثائق التقديم: 1,000,000 د.ع</div>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="inv-step-card" onclick="toggleInvStep(this)">
+            <div class="inv-step-left"><div class="inv-step-num">3</div></div>
+            <div class="inv-step-body">
+              <div class="inv-step-hdr">
+                <div><div class="inv-step-title" data-t="s3-title">تجهيز وتقديم الوثائق المطلوبة</div><div class="inv-step-meta" data-t="s3-meta">رفع الملفات عبر البوابة أو النافذة الواحدة</div></div>
+                <span class="inv-step-tag" data-t="s3-dur">7-14 يوم</span>
+              </div>
+              <div class="inv-step-desc" data-t="s3-desc">جهّز الوثائق وارفعها عبر البوابة الإلكترونية. يمكن تسليم المستندات ورقياً في ظرف مغلق إلى قسم النافذة الواحدة في الهيئة.</div>
+              <div class="inv-docs-list">
+                <div class="inv-doc-item" data-t="s3-d1">📜 عقد تأسيس الشركة موثق لدى الكاتب العدل</div>
+                <div class="inv-doc-item" data-t="s3-d2">🛂 جوازات سفر جميع المؤسسين والشركاء</div>
+                <div class="inv-doc-item" data-t="s3-d3">🏢 شهادة تسجيل الشركة في بلد المنشأ (للأجانب)</div>
+                <div class="inv-doc-item" data-t="s3-d4">📊 دراسة جدوى اقتصادية وفنية مصدقة من مكتب استشاري معتمد</div>
+                <div class="inv-doc-item" data-t="s3-d5">🏗 المخططات الأولية للمشروع</div>
+                <div class="inv-doc-item" data-t="s3-d6">🏦 كفاءة مالية بخطة تمويل معتمدة من مصرف رصين</div>
+                <div class="inv-doc-item" data-t="s3-d7">📋 القوائم المالية المعتمدة للسنوات الثلاث الأخيرة</div>
+              </div>
+              <div class="inv-note inv-note-amber" data-t="s3-note">⚠ دراسة الجدوى يجب أن تكون مصدقة من مكتب استشاري هندسي معتمد</div>
+            </div>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="inv-step-card" onclick="toggleInvStep(this)">
+            <div class="inv-step-left"><div class="inv-step-num">4</div></div>
+            <div class="inv-step-body">
+              <div class="inv-step-hdr">
+                <div><div class="inv-step-title" data-t="s4-title">مراجعة الطلب والدراسة الفنية</div><div class="inv-step-meta" data-t="s4-meta">الدائرة الاقتصادية والفنية في الهيئة</div></div>
+                <span class="inv-step-tag" data-t="s4-dur">30-60 يوم عمل</span>
+              </div>
+              <div class="inv-step-desc" data-t="s4-desc">تتولى الهيئة مراجعة الطلب والتحقق من اكتمال الوثائق وسلامة الإجراءات القانونية وموافقة الجهات المالكة. قد يُطلب تقديم معلومات إضافية أو تعديلات.</div>
+              <div class="inv-docs-list">
+                <div class="inv-doc-item" data-t="s4-d1">✅ التحقق من اكتمال الوثائق وصحتها القانونية</div>
+                <div class="inv-doc-item" data-t="s4-d2">📈 تقييم الجدوى الاقتصادية وحجم الاستثمار</div>
+                <div class="inv-doc-item" data-t="s4-d3">👷 التحقق من عدد فرص العمل للمواطنين العراقيين</div>
+                <div class="inv-doc-item" data-t="s4-d4">🌿 الالتزام بمعايير البيئة والسلامة العامة</div>
+              </div>
+              <div class="inv-note inv-note-amber" data-t="s4-note">⚠ المشاريع التي لم تحقق نسب إنجاز في طلبات سابقة قد يُهمل طلبها</div>
+            </div>
+          </div>
+
+          <!-- Step 5 -->
+          <div class="inv-step-card" style="margin-bottom:0;" onclick="toggleInvStep(this)">
+            <div class="inv-step-left" style=""><div class="inv-step-num" style="background:var(--success);">5</div></div>
+            <div class="inv-step-body" style="margin-bottom:0;">
+              <div class="inv-step-hdr">
+                <div><div class="inv-step-title" data-t="s5-title">استلام إجازة الاستثمار وبدء التنفيذ</div><div class="inv-step-meta" data-t="s5-meta">الترخيص الرسمي من الهيئة الوطنية</div></div>
+                <span class="inv-step-tag" style="background:var(--success-bg);color:var(--success);" data-t="s5-dur">✓ إنجاز</span>
+              </div>
+              <div class="inv-step-desc" data-t="s5-desc">بعد الموافقة تُصدر الهيئة إجازة الاستثمار الرسمية التي تمنحك الامتيازات والإعفاءات بموجب قانون الاستثمار رقم 13 لسنة 2006. يمكنك الشروع في إجراءات التأسيس الفعلي.</div>
+              <div class="inv-docs-list">
+                <div class="inv-doc-item" data-t="s5-d1">💸 إعفاء ضريبي كامل لمدة تصل إلى 10 سنوات</div>
+                <div class="inv-doc-item" data-t="s5-d2">🏛 إعفاء من الرسوم الجمركية على مستلزمات المشروع</div>
+                <div class="inv-doc-item" data-t="s5-d3">🌍 حق تحويل الأرباح إلى الخارج بالكامل</div>
+                <div class="inv-doc-item" data-t="s5-d4">🛡 حماية من التأميم وضمان الملكية الكاملة</div>
+              </div>
+              <div class="inv-note inv-note-green" data-t="s5-note">✅ منصة تصريح تتابع جميع مراحل حصولك على الإجازة نيابة عنك</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar: Quick Info -->
+        <div style="display:flex;flex-direction:column;gap:14px;position:sticky;top:80px;">
+          <!-- Fees -->
+          <div style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow-sm);">
+            <div style="font-size:13px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:6px;" data-t="inv-fees-title">💳 الرسوم الرسمية</div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 12px;background:var(--surface);border-radius:7px;font-size:13px;">
+                <span style="color:var(--text-sec);" data-t="inv-fee1-lbl">استمارة طلب الإجازة</span>
+                <span style="font-weight:700;" data-t="inv-fee1-val">500,000 د.ع</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 12px;background:var(--surface);border-radius:7px;font-size:13px;">
+                <span style="color:var(--text-sec);" data-t="inv-fee2-lbl">وثائق التقديم للفرصة</span>
+                <span style="font-weight:700;" data-t="inv-fee2-val">1,000,000 د.ع</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 12px;background:var(--success-bg);border-radius:7px;font-size:13px;">
+                <span style="color:var(--success);" data-t="inv-fee3-lbl">الضرائب بعد الموافقة</span>
+                <span style="font-weight:700;color:var(--success);" data-t="inv-fee3-val">معفى 10 سنوات</span>
+              </div>
+            </div>
+          </div>
+          <!-- Contact -->
+          <div style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow-sm);">
+            <div style="font-size:13px;font-weight:700;margin-bottom:12px;" data-t="inv-contact-title">🏛 تواصل مع الهيئة</div>
+            <div style="display:flex;flex-direction:column;gap:10px;font-size:13px;">
+              <div><span style="color:var(--text-sec);font-size:11px;display:block;margin-bottom:2px;" data-t="inv-contact-lbl1">البوابة الإلكترونية</span><a href="https://inic.gov.iq" target="_blank" style="color:var(--accent);font-weight:600;text-decoration:none;">inic.gov.iq ↗</a></div>
+              <div><span style="color:var(--text-sec);font-size:11px;display:block;margin-bottom:2px;" data-t="inv-contact-lbl2">موقع الهيئة</span><a href="https://investpromo.gov.iq/ar/" target="_blank" style="color:var(--accent);font-weight:600;text-decoration:none;">investpromo.gov.iq ↗</a></div>
+              <div><span style="color:var(--text-sec);font-size:11px;display:block;margin-bottom:2px;" data-t="inv-contact-lbl3">أوقات العمل</span><span style="font-weight:600;" data-t="inv-contact-val3">الأحد – الخميس، 9 ص – 3 م</span></div>
+            </div>
+          </div>
+          <!-- CTA -->
+          <div style="background:linear-gradient(135deg,var(--primary),#0d2a52);border-radius:var(--radius);padding:20px;text-align:center;">
+            <div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:6px;" data-t="inv-cta-title">تحتاج مساعدة في التقديم؟</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:14px;" data-t="inv-cta-sub">فريق تصريح يتولى الإجراءات كاملة نيابة عنك</div>
+            <button onclick="showPage('login')" class="btn-hero-p" style="width:100%;font-size:13px;padding:11px;" data-t="inv-cta-btn">ابدأ مع تصريح</button>
+          </div>
+          <!-- Quick Links -->
+          <div style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow-sm);">
+            <div style="font-size:13px;font-weight:700;margin-bottom:12px;" data-t="inv-links-title">🔗 روابط مفيدة</div>
+            <div style="display:flex;flex-direction:column;gap:7px;">
+              <a href="https://inic.gov.iq/ossfrontend/ara/pages/view/introduction" target="_blank" style="display:flex;align-items:center;gap:8px;padding:9px 12px;border:1px solid var(--border);border-radius:7px;font-size:12px;font-weight:600;color:var(--text);text-decoration:none;transition:all 0.15s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text)'">📝 بوابة التقديم الإلكتروني <span style="margin-right:auto;font-size:10px;color:var(--text-muted);">↗</span></a>
+              <a href="https://investpromo.gov.iq/wp-content/uploads/2025/06/كراس-ملتقى-العراق-للاستثمار-2025.pdf" target="_blank" style="display:flex;align-items:center;gap:8px;padding:9px 12px;border:1px solid var(--border);border-radius:7px;font-size:12px;font-weight:600;color:var(--text);text-decoration:none;transition:all 0.15s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text)'">📄 كراس فرص الاستثمار 2025 <span style="margin-right:auto;font-size:10px;color:var(--text-muted);">PDF ↗</span></a>
+              <a href="https://baghdadic.gov.iq/" target="_blank" style="display:flex;align-items:center;gap:8px;padding:9px 12px;border:1px solid var(--border);border-radius:7px;font-size:12px;font-weight:600;color:var(--text);text-decoration:none;transition:all 0.15s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text)'">🏙 هيئة استثمار بغداد <span style="margin-right:auto;font-size:10px;color:var(--text-muted);">↗</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── REQUIREMENTS TAB ── -->
+    <div id="invest-tab-requirements" class="invest-tab-panel" style="display:none;">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:6px;" data-t="inv-req-eyebrow">الشروط والوثائق</div>
+      <div style="font-size:20px;font-weight:700;margin-bottom:6px;letter-spacing:-0.3px;" data-t="inv-req-title">متطلبات التقديم للفرص الاستثمارية</div>
+      <div style="font-size:14px;color:var(--text-sec);margin-bottom:28px;" data-t="inv-req-sub">يجب استيفاء هذه الشروط للتأهل للحصول على إجازة الاستثمار</div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;">
+        <!-- Card 1 -->
+        <div style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow-sm);">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;font-size:14px;font-weight:700;">
+            <div style="width:32px;height:32px;border-radius:8px;background:#dbeafe;display:flex;align-items:center;justify-content:center;font-size:15px;">🏢</div>
+            متطلبات الكيان القانوني
+          </div>
+          <div style="display:flex;flex-direction:column;gap:9px;">
+            <div class="rq-item"><div class="rq-ck">✓</div><div><div class="rq-t" data-t="rq-c1-r1t">تأسيس كيان قانوني مسجل في العراق</div><div class="rq-s" data-t="rq-c1-r1s">ش.م.م · مساهمة · مؤسسة فردية · تضامنية</div></div></div>
+            <div class="rq-item"><div class="rq-ck">✓</div><div><div class="rq-t" data-t="rq-c1-r2t">عقد تأسيس موثق لدى الكاتب العدل</div><div class="rq-s" data-t="rq-c1-r2s">يتضمن أسماء المؤسسين ورأس المال والنشاط</div></div></div>
+            <div class="rq-item"><div class="rq-ck">✓</div><div><div class="rq-t" data-t="rq-c1-r3t">الحد الأدنى لرأس المال: 250,000$</div><div class="rq-s" data-t="rq-c1-r3s">للشركات الأجنبية في معظم القطاعات</div></div></div>
+            <div class="rq-item"><div class="rq-ck">✓</div><div><div class="rq-t" data-t="rq-c1-r4t">شهادة تسجيل الشركة في بلد المنشأ</div><div class="rq-s" data-t="rq-c1-r4s">مترجمة للعربية ومصدقة رسمياً</div></div></div>
+          </div>
+        </div>
+        <!-- Card 2 -->
+        <div style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow-sm);">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;font-size:14px;font-weight:700;">
+            <div style="width:32px;height:32px;border-radius:8px;background:#d1fae5;display:flex;align-items:center;justify-content:center;font-size:15px;">📊</div>
+            المتطلبات المالية والفنية
+          </div>
+          <div style="display:flex;flex-direction:column;gap:9px;">
+            <div class="rq-item"><div class="rq-ck">✓</div><div><div class="rq-t" data-t="rq-c2-r1t">دراسة جدوى اقتصادية وفنية شاملة</div><div class="rq-s" data-t="rq-c2-r1s">مصدقة من مكتب استشاري معتمد</div></div></div>
+            <div class="rq-item"><div class="rq-ck">✓</div><div><div class="rq-t" data-t="rq-c2-r2t">إثبات الكفاءة المالية لتنفيذ المشروع</div><div class="rq-s" data-t="rq-c2-r2s">خطة تمويل معتمدة من مصرف رصين</div></div></div>
+            <div class="rq-item"><div class="rq-ck">✓</div><div><div class="rq-t" data-t="rq-c2-r3t">القوائم المالية المعتمدة</div><div class="rq-s" data-t="rq-c2-r3s">للسنوات الثلاث الأخيرة من مدقق قانوني</div></div></div>
+            <div class="rq-item"><div class="rq-ck">✓</div><div><div class="rq-t" data-t="rq-c2-r4t">المخططات الأولية للمشروع</div><div class="rq-s" data-t="rq-c2-r4s">مع جدول الكميات المسعر قبل منح الإجازة</div></div></div>
+          </div>
+        </div>
+        <!-- Card 3 -->
+        <div style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow-sm);">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;font-size:14px;font-weight:700;">
+            <div style="width:32px;height:32px;border-radius:8px;background:#fef3c7;display:flex;align-items:center;justify-content:center;font-size:15px;">⚖️</div>
+            الشروط القانونية والاجتماعية
+          </div>
+          <div style="display:flex;flex-direction:column;gap:9px;">
+            <div class="rq-item"><div class="rq-ck">✓</div><div><div class="rq-t" data-t="rq-c3-r1t">الأولوية في توظيف العراقيين</div><div class="rq-s" data-t="rq-c3-r1s">الإفصاح عن عدد فرص العمل المحلية</div></div></div>
+            <div class="rq-item"><div class="rq-ck">✓</div><div><div class="rq-t" data-t="rq-c3-r2t">الالتزام بمعايير البيئة والسلامة</div><div class="rq-s" data-t="rq-c3-r2s">موافقة وزارة البيئة للمشاريع الصناعية</div></div></div>
+            <div class="rq-item"><div class="rq-ck">✓</div><div><div class="rq-t" data-t="rq-c3-r3t">عدم وجود مخالفات في مشاريع سابقة</div><div class="rq-s" data-t="rq-c3-r3s">نسب إنجاز مقبولة في أي مشاريع سابقة</div></div></div>
+            <div class="rq-item"><div class="rq-ck">✓</div><div><div class="rq-t" data-t="rq-c3-r4t">التأمين على المشروع الاستثماري</div><div class="rq-s" data-t="rq-c3-r4s">لدى شركة تأمين وطنية أو أجنبية معتمدة</div></div></div>
+          </div>
+        </div>
+        <!-- Card 4: Fees -->
+        <div style="background:linear-gradient(135deg,#fffbf0,#fff);border:1px solid rgba(200,168,75,0.3);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow-sm);">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;font-size:14px;font-weight:700;">
+            <div style="width:32px;height:32px;border-radius:8px;background:#fef3c7;display:flex;align-items:center;justify-content:center;font-size:15px;">💰</div>
+            الرسوم الرسمية للتقديم
+          </div>
+          <div style="display:flex;flex-direction:column;gap:9px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:11px 14px;background:#fffbf0;border-radius:8px;border:1px solid rgba(200,168,75,0.15);">
+              <span style="font-size:13px;color:var(--text-sec);" data-t="rq-c4-r1t">استمارة طلب الإجازة الاستثمارية</span>
+              <span style="font-size:13px;font-weight:700;color:#b45309;" data-t="inv-fee1-val">500,000 د.ع</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:11px 14px;background:#fffbf0;border-radius:8px;border:1px solid rgba(200,168,75,0.15);">
+              <span style="font-size:13px;color:var(--text-sec);" data-t="rq-c4-r2t">وثائق التقديم للفرصة المعلنة</span>
+              <span style="font-size:13px;font-weight:700;color:#b45309;" data-t="inv-fee2-val">1,000,000 د.ع</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:11px 14px;background:var(--success-bg);border-radius:8px;">
+              <span style="font-size:13px;color:var(--success);" data-t="rq-c4-r3t">الإعفاء الضريبي بعد الموافقة</span>
+              <span style="font-size:13px;font-weight:700;color:var(--success);" data-t="rq-c4-r3s">10 سنوات كاملة</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── OPPORTUNITIES TAB ── -->
+    <div id="invest-tab-opportunities" class="invest-tab-panel" style="display:none;">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:6px;" data-t="inv-opp-eyebrow">الفرص المتاحة — 2025</div>
+      <div style="font-size:20px;font-weight:700;margin-bottom:6px;letter-spacing:-0.3px;" data-t="inv-opp-title">الفرص الاستثمارية المعلنة</div>
+      <div style="font-size:14px;color:var(--text-sec);margin-bottom:24px;" data-t="inv-opp-sub">أكثر من 135 فرصة مكتملة الموافقات موزعة على القطاعات الحيوية</div>
+
+      <!-- Filters -->
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;">
+        <button class="opp-f active" onclick="filterOpps(this,'all')" data-t="opp-f-all">الكل</button>
+        <button class="opp-f" onclick="filterOpps(this,'energy')" data-t="opp-f-energy" data-t="opp3-badge">⚡ الطاقة</button>
+        <button class="opp-f" onclick="filterOpps(this,'housing')" data-t="opp-f-housing" data-t="opp5-badge">🏘 الإسكان</button>
+        <button class="opp-f" onclick="filterOpps(this,'industry')" data-t="opp-f-industry" data-t="opp7-badge">🏭 الصناعة</button>
+        <button class="opp-f" onclick="filterOpps(this,'transport')" data-t="opp-f-transport" data-t="opp1-badge" data-t="opp2-badge">🚇 النقل</button>
+        <button class="opp-f" onclick="filterOpps(this,'health')" data-t="opp-f-health" data-t="opp9-badge">🏥 الصحة</button>
+        <button class="opp-f" onclick="filterOpps(this,'agri')" data-t="opp-f-agri" data-t="opp10-badge">🌾 الزراعة</button>
+        <button class="opp-f" onclick="filterOpps(this,'tourism')" data-t="opp-f-tourism" data-t="opp11-badge">🏛 السياحة</button>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px;" id="opp-grid">
+
+        <div class="opp-card" data-s="transport">
+          <div class="opp-top"><span class="opp-badge ob-transport" data-t="opp-f-transport">🚇 النقل</span><span class="opp-status os-open" data-t="opp1-status">متاح</span></div>
+          <div class="opp-title" data-t="opp1-title">مشروع مترو بغداد — المرحلة الأولى</div>
+          <div class="opp-loc" data-t="opp1-loc">📍 بغداد العاصمة</div>
+          <div class="opp-tags"><span class="opp-tag" data-t="opp1-t1">DBOMFT</span><span class="opp-tag" data-t="opp1-t2">فرصة 3/2024</span></div>
+          <div class="opp-foot"><div><div class="opp-val-lbl" data-t="opp1-val-lbl">نموذج العقد</div><div class="opp-val">DBOMFT</div></div><a href="https://investpromo.gov.iq/ar/" target="_blank" class="opp-apply-btn" data-t="opp1-btn">التفاصيل ↗</a></div>
+        </div>
+
+        <div class="opp-card" data-s="transport">
+          <div class="opp-top"><span class="opp-badge ob-transport" data-t="opp-f-transport">🚇 النقل</span><span class="opp-status os-open">متاح</span></div>
+          <div class="opp-title" data-t="opp2-title">مترو النجف–كربلاء — المرحلة الأولى</div>
+          <div class="opp-loc" data-t="opp2-loc">📍 النجف — كربلاء</div>
+          <div class="opp-tags"><span class="opp-tag">BOT</span><span class="opp-tag" data-t="opp2-t2">فرصة 2/2024</span></div>
+          <div class="opp-foot"><div><div class="opp-val-lbl" data-t="opp2-val-lbl">طول الخط</div><div class="opp-val" data-t="opp2-val">80+ كم</div></div><a href="https://investpromo.gov.iq/ar/" target="_blank" class="opp-apply-btn">التفاصيل ↗</a></div>
+        </div>
+
+        <div class="opp-card" data-s="energy">
+          <div class="opp-top"><span class="opp-badge ob-energy" data-t="opp-f-energy">⚡ الطاقة</span><span class="opp-status os-open">متاح</span></div>
+          <div class="opp-title" data-t="opp3-title">محطة توليد الكهرباء من النفايات (الجيل الرابع)</div>
+          <div class="opp-loc" data-t="opp3-loc" data-t="opp9-loc">📍 بغداد</div>
+          <div class="opp-tags"><span class="opp-tag" data-t="opp3-t1">طاقة متجددة</span><span class="opp-tag">DBOMFT</span></div>
+          <div class="opp-foot"><div><div class="opp-val-lbl" data-t="opp3-val-lbl">نوع العقد</div><div class="opp-val">DBOMFT</div></div><a href="https://investpromo.gov.iq/ar/" target="_blank" class="opp-apply-btn">التفاصيل ↗</a></div>
+        </div>
+
+        <div class="opp-card" data-s="energy">
+          <div class="opp-top"><span class="opp-badge ob-energy" data-t="opp4-badge">☀ الطاقة الشمسية</span><span class="opp-status os-open">متاح</span></div>
+          <div class="opp-title" data-t="opp4-title">محطات الطاقة الشمسية وطاقة الرياح</div>
+          <div class="opp-loc" data-t="opp4-loc">📍 الأنبار — ذي قار — البصرة</div>
+          <div class="opp-tags"><span class="opp-tag" data-t="opp4-t1">BOO / PPA</span><span class="opp-tag" data-t="opp4-t2">طاقة نظيفة</span></div>
+          <div class="opp-foot"><div><div class="opp-val-lbl" data-t="opp4-val-lbl">القدرة المستهدفة</div><div class="opp-val">GW+</div></div><a href="https://investpromo.gov.iq/ar/" target="_blank" class="opp-apply-btn">التفاصيل ↗</a></div>
+        </div>
+
+        <div class="opp-card" data-s="housing">
+          <div class="opp-top"><span class="opp-badge ob-housing" data-t="opp-f-housing">🏘 الإسكان</span><span class="opp-status os-review" data-t="opp5-status" data-t="opp9-status">قيد التطوير</span></div>
+          <div class="opp-title" data-t="opp5-title">مجمع بسمايا السكني — توسعة وتطوير</div>
+          <div class="opp-loc" data-t="opp5-loc">📍 جنوب بغداد</div>
+          <div class="opp-tags"><span class="opp-tag" data-t="opp5-t1">100,000 وحدة</span><span class="opp-tag">PPP</span></div>
+          <div class="opp-foot"><div><div class="opp-val-lbl" data-t="opp5-val-lbl">حجم المشروع</div><div class="opp-val" data-t="opp5-val">مليارات $</div></div><a href="https://investpromo.gov.iq/ar/" target="_blank" class="opp-apply-btn">التفاصيل ↗</a></div>
+        </div>
+
+        <div class="opp-card" data-s="housing">
+          <div class="opp-top"><span class="opp-badge ob-housing" data-t="opp6-badge">🏙 مناطق حرة</span><span class="opp-status os-open">متاح</span></div>
+          <div class="opp-title" data-t="opp6-title">الاستثمار في المناطق الاقتصادية الحرة</div>
+          <div class="opp-loc" data-t="opp6-loc">📍 بغداد · البصرة · أربيل · النجف</div>
+          <div class="opp-tags"><span class="opp-tag" data-t="opp6-t1">إعفاء جمركي كامل</span><span class="opp-tag">إعفاء ضريبي</span></div>
+          <div class="opp-foot"><div><div class="opp-val-lbl" data-t="opp6-val-lbl">المزايا</div><div class="opp-val" data-t="opp6-val">إعفاء شامل</div></div><a href="https://investpromo.gov.iq/ar/" target="_blank" class="opp-apply-btn">التفاصيل ↗</a></div>
+        </div>
+
+        <div class="opp-card" data-s="industry">
+          <div class="opp-top"><span class="opp-badge ob-industry" data-t="opp-f-industry">🏭 الصناعة</span><span class="opp-status os-open">متاح</span></div>
+          <div class="opp-title" data-t="opp7-title">مشاريع الأسمدة والكبريت والفوسفات</div>
+          <div class="opp-loc" data-t="opp7-loc">📍 البصرة — الأنبار</div>
+          <div class="opp-tags"><span class="opp-tag" data-t="opp7-t1" data-t="opp12-t1">صناعة ثقيلة</span><span class="opp-tag" data-t="opp7-t2">تصدير</span></div>
+          <div class="opp-foot"><div><div class="opp-val-lbl" data-t="opp7-val-lbl">الاستثمار المطلوب</div><div class="opp-val">+250M$</div></div><a href="https://investpromo.gov.iq/ar/" target="_blank" class="opp-apply-btn">التفاصيل ↗</a></div>
+        </div>
+
+        <div class="opp-card" data-s="industry">
+          <div class="opp-top"><span class="opp-badge ob-industry" data-t="opp-f-industry">🏭 الصناعة</span><span class="opp-status os-open">متاح</span></div>
+          <div class="opp-title" data-t="opp8-title">الحديد والصناعات الإنشائية والغذائية</div>
+          <div class="opp-loc" data-t="opp8-loc">📍 المدن الصناعية</div>
+          <div class="opp-tags"><span class="opp-tag" data-t="opp8-t1">صناعة متوسطة</span><span class="opp-tag" data-t="opp8-t2">غذائية</span></div>
+          <div class="opp-foot"><div><div class="opp-val-lbl" data-t="opp8-val-lbl">الحد الأدنى</div><div class="opp-val">250,000$</div></div><a href="https://investpromo.gov.iq/ar/" target="_blank" class="opp-apply-btn">التفاصيل ↗</a></div>
+        </div>
+
+        <div class="opp-card" data-s="health">
+          <div class="opp-top"><span class="opp-badge ob-health" data-t="opp-f-health">🏥 الصحة</span><span class="opp-status os-review">قيد التطوير</span></div>
+          <div class="opp-title" data-t="opp9-title">مصنع الأدوية وعلاجات الأمراض المزمنة</div>
+          <div class="opp-loc">📍 بغداد</div>
+          <div class="opp-tags"><span class="opp-tag" data-t="opp9-t1">صناعة دوائية</span><span class="opp-tag">PPP</span></div>
+          <div class="opp-foot"><div><div class="opp-val-lbl" data-t="opp9-val-lbl" data-t="opp12-val-lbl">القطاع</div><div class="opp-val" data-t="opp9-val">صحي — حيوي</div></div><a href="https://baghdadic.gov.iq/" target="_blank" class="opp-apply-btn">التفاصيل ↗</a></div>
+        </div>
+
+        <div class="opp-card" data-s="agri">
+          <div class="opp-top"><span class="opp-badge ob-agri" data-t="opp-f-agri">🌾 الزراعة</span><span class="opp-status os-open">متاح</span></div>
+          <div class="opp-title" data-t="opp10-title">المجمعات الزراعية والإنتاج الغذائي</div>
+          <div class="opp-loc" data-t="opp10-loc">📍 ديالى — واسط — ميسان</div>
+          <div class="opp-tags"><span class="opp-tag" data-t="opp10-t1">ألبان وأغذية</span><span class="opp-tag" data-t="opp10-t2">زراعة حديثة</span></div>
+          <div class="opp-foot"><div><div class="opp-val-lbl">إعفاء ضريبي</div><div class="opp-val">10 سنوات</div></div><a href="https://investpromo.gov.iq/ar/" target="_blank" class="opp-apply-btn">التفاصيل ↗</a></div>
+        </div>
+
+        <div class="opp-card" data-s="tourism">
+          <div class="opp-top"><span class="opp-badge ob-tourism" data-t="opp-f-tourism">🏛 السياحة</span><span class="opp-status os-open">متاح</span></div>
+          <div class="opp-title" data-t="opp11-title">مشاريع السياحة الدينية والفنادق</div>
+          <div class="opp-loc" data-t="opp11-loc">📍 النجف — كربلاء — أربيل</div>
+          <div class="opp-tags"><span class="opp-tag" data-t="opp11-t1">سياحة دينية</span><span class="opp-tag" data-t="opp11-t2">20M+ زائر/سنة</span></div>
+          <div class="opp-foot"><div><div class="opp-val-lbl" data-t="opp11-val-lbl">الزوار سنوياً</div><div class="opp-val" data-t="opp11-val">20M+</div></div><a href="https://investpromo.gov.iq/ar/" target="_blank" class="opp-apply-btn">التفاصيل ↗</a></div>
+        </div>
+
+        <div class="opp-card" data-s="energy">
+          <div class="opp-top"><span class="opp-badge ob-energy" data-t="opp12-badge">⛽ النفط والغاز</span><span class="opp-status os-open">متاح</span></div>
+          <div class="opp-title" data-t="opp12-title">صناعات البتروكيماويات والغاز الطبيعي</div>
+          <div class="opp-loc" data-t="opp12-loc">📍 البصرة — ذي قار</div>
+          <div class="opp-tags"><span class="opp-tag">صناعة ثقيلة</span><span class="opp-tag" data-t="opp12-t2">شراكة دولية</span></div>
+          <div class="opp-foot"><div><div class="opp-val-lbl">القطاع</div><div class="opp-val" data-t="opp12-val">نفط وغاز</div></div><a href="https://investpromo.gov.iq/ar/" target="_blank" class="opp-apply-btn">التفاصيل ↗</a></div>
+        </div>
+
+      </div>
+
+      <!-- Link to full list -->
+      <div style="margin-top:28px;text-align:center;padding:24px;background:var(--white);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-sm);">
+        <div style="font-size:14px;font-weight:700;margin-bottom:6px;" data-t="opp-more-title">+135 فرصة استثمارية إضافية</div>
+        <div style="font-size:13px;color:var(--text-sec);margin-bottom:16px;" data-t="opp-more-sub">جميع الفرص مكتملة الموافقات ومدرجة على الموقع الرسمي للهيئة الوطنية للاستثمار</div>
+        <a href="https://investpromo.gov.iq/ar/" target="_blank" class="btn-hero-p" style="text-decoration:none;display:inline-flex;align-items:center;gap:7px;" data-t="opp-more-btn">🔗 تصفح جميع الفرص على موقع الهيئة</a>
+      </div>
+    </div>
+
+    <!-- ── BENEFITS TAB ── -->
+    <div id="invest-tab-benefits" class="invest-tab-panel" style="display:none;">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:6px;" data-t="inv-ben-eyebrow">المزايا والإعفاءات</div>
+      <div style="font-size:20px;font-weight:700;margin-bottom:6px;letter-spacing:-0.3px;" data-t="inv-ben-title">لماذا تستثمر في العراق؟</div>
+      <div style="font-size:14px;color:var(--text-sec);margin-bottom:32px;" data-t="inv-ben-sub">بموجب قانون الاستثمار رقم 13 لسنة 2006 المُعدَّل</div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:32px;">
+        <div class="ben-card"><div class="ben-icon" style="background:#dbeafe;">💸</div><div class="ben-title" data-t="ben1-title">إعفاء ضريبي كامل</div><div class="ben-desc" data-t="ben1-desc">إعفاء من ضريبة الدخل لمدة تصل إلى 10 سنوات لمعظم المشاريع الاستثمارية</div></div>
+        <div class="ben-card"><div class="ben-icon" style="background:#d1fae5;">🏛</div><div class="ben-title" data-t="ben2-title">إعفاء جمركي</div><div class="ben-desc" data-t="ben2-desc">إعفاء من الرسوم الجمركية على جميع مستلزمات وآلات المشروع الاستثماري</div></div>
+        <div class="ben-card"><div class="ben-icon" style="background:#ede9fe;">🌍</div><div class="ben-title" data-t="ben3-title">تحويل الأرباح</div><div class="ben-desc" data-t="ben3-desc">حق تحويل رأس المال والأرباح الصافية إلى الخارج بعملة أجنبية بدون قيود</div></div>
+        <div class="ben-card"><div class="ben-icon" style="background:#fef3c7;">🛡</div><div class="ben-title" data-t="ben4-title">حماية من التأميم</div><div class="ben-desc" data-t="ben4-desc">ضمان قانوني كامل بعدم التأميم أو المصادرة لأي مشروع حاصل على إجازة استثمار</div></div>
+        <div class="ben-card"><div class="ben-icon" style="background:#d1fae5;">👤</div><div class="ben-title" data-t="ben5-title">تملك أجنبي 100%</div><div class="ben-desc" data-t="ben5-desc">حق المستثمر الأجنبي في تملك المشروع بنسبة 100% في معظم القطاعات الاقتصادية</div></div>
+        <div class="ben-card"><div class="ben-icon" style="background:#cffafe;">🏠</div><div class="ben-title" data-t="ben6-title">إقامة للمستثمر</div><div class="ben-desc" data-t="ben6-desc">حق الإقامة في العراق للمستثمر وعائلته والعاملين الأجانب في المشروع</div></div>
+        <div class="ben-card"><div class="ben-icon" style="background:#fee2e2;">🔐</div><div class="ben-title" data-t="ben7-title">حقوق الملكية الفكرية</div><div class="ben-desc" data-t="ben7-desc">ضمان حقوق الملكية الفكرية والعلامات التجارية بموجب القانون العراقي</div></div>
+        <div class="ben-card"><div class="ben-icon" style="background:#fef3c7;">🏦</div><div class="ben-title" data-t="ben8-title">حساب بعملة أجنبية</div><div class="ben-desc" data-t="ben8-desc">حق فتح حسابات بالعملة العراقية أو الأجنبية أو كليهما في أي مصرف محلي أو خارجي</div></div>
+      </div>
+
+      <!-- CTA -->
+      <div style="background:linear-gradient(135deg,var(--primary),#0d2a52);border-radius:var(--radius);padding:40px 32px;text-align:center;position:relative;overflow:hidden;">
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 50% 50%,rgba(26,86,219,0.2) 0%,transparent 65%);"></div>
+        <div style="position:relative;">
+          <div style="font-size:24px;font-weight:700;color:#fff;margin-bottom:10px;" data-t="ben-cta-title">جاهز للاستثمار في العراق؟</div>
+          <div style="font-size:14px;color:rgba(255,255,255,0.55);margin-bottom:24px;" data-t="ben-cta-sub">فريق تصريح يتولى تجهيز الوثائق وتقديم الطلب ومتابعة الإجراءات كاملة نيابة عنك</div>
+          <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+            <button onclick="showPage('login')" class="btn-hero-p" data-t="ben-cta-btn1">ابدأ مع تصريح الآن</button>
+            <a href="https://investpromo.gov.iq/ar/" target="_blank" class="btn-hero-o" style="text-decoration:none;display:inline-flex;align-items:center;" data-t="ben-cta-btn2">🔗 موقع الهيئة الوطنية</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end page wrap -->
+
+  <footer>
+    <div class="footer-inner">
+      <span><strong>تصريح | Tasreeh</strong></span>
+      <span id="footer-copy2">جميع الحقوق محفوظة © 2025</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══ PRICING PAGE ═══ -->
+<div id="page-pricing" class="page">
+  <div class="pricing-hero">
+    <div class="sec-eyebrow" style="margin-bottom:10px;" id="pr-eyebrow">الباقات</div>
+    <h1 id="pr-title">الأسعار والباقات</h1>
+    <p id="pr-sub">اختر الباقة المناسبة — الأسعار بالدينار العراقي · التحكم الكامل بعدد المعاملات</p>
+  </div>
+  <div class="pricing-grid">
+    <div class="pcard">
+      <div class="p-name" id="p1n">الباقة الأساسية</div>
+      <div class="p-amount">75,000 <span class="p-curr">د.ع</span></div>
+      <div class="p-period" id="p1p">شهرياً</div>
+      <div class="p-quota" id="p1q">حتى 5 معاملات / شهر</div>
+      <ul class="p-feats">
+        <li><span class="ck">✓</span> <span id="pf11">إجازات العمل</span></li>
+        <li><span class="ck">✓</span> <span id="pf12">الضمان الاجتماعي</span></li>
+        <li><span class="ck">✓</span> <span id="pf13">تتبع الطلبات</span></li>
+        <li><span class="ck">✓</span> <span id="pf14">تصدير PDF</span></li>
+        <li><span class="ck">✓</span> <span id="pf15">دعم عبر البريد</span></li>
+      </ul>
+      <button class="p-btn" onclick="showPage('login')" id="p1btn">اشترك الآن</button>
+    </div>
+    <div class="pcard featured">
+      <div class="feat-badge" id="feat-badge">الأكثر شيوعاً</div>
+      <div class="p-name" id="p2n">الباقة المتقدمة</div>
+      <div class="p-amount">180,000 <span class="p-curr">د.ع</span></div>
+      <div class="p-period" id="p2p">شهرياً</div>
+      <div class="p-quota" id="p2q">حتى 20 معاملة / شهر</div>
+      <ul class="p-feats">
+        <li><span class="ck">✓</span> <span id="pf21">كل خدمات الأساسية</span></li>
+        <li><span class="ck">✓</span> <span id="pf22">تأشيرات الدخول والإقامة</span></li>
+        <li><span class="ck">✓</span> <span id="pf23">تأسيس الشركات</span></li>
+        <li><span class="ck">✓</span> <span id="pf24">دعم الاستثمار</span></li>
+        <li><span class="ck">✓</span> <span id="pf25">دعم ذو أولوية</span></li>
+        <li><span class="ck">✓</span> <span id="pf26">تقارير شهرية</span></li>
+      </ul>
+      <button class="p-btn" onclick="showPage('login')" id="p2btn">اشترك الآن</button>
+    </div>
+    <div class="pcard">
+      <div class="p-name" id="p3n">دفع لكل معاملة</div>
+      <div class="p-amount">35,000 <span class="p-curr">د.ع</span></div>
+      <div class="p-period" id="p3p">لكل معاملة · بدون اشتراك</div>
+      <div class="p-quota" id="p3q">بدون حد أدنى</div>
+      <ul class="p-feats">
+        <li><span class="ck">✓</span> <span id="pf31">جميع أنواع المعاملات</span></li>
+        <li><span class="ck">✓</span> <span id="pf32">تتبع الحالة</span></li>
+        <li><span class="ck">✓</span> <span id="pf33">تصدير PDF</span></li>
+        <li><span class="ck">✓</span> <span id="pf34">صالح 30 يوم</span></li>
+        <li><span class="ck">✓</span> <span id="pf35">بدون التزام شهري</span></li>
+      </ul>
+      <button class="p-btn" onclick="showPage('login')" id="p3btn">ابدأ بدون اشتراك</button>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="faq-section">
+    <div class="faq-title" id="faq-title">أسئلة شائعة</div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span id="fq1">هل يمكنني تغيير باقتي لاحقاً؟</span>
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a" id="fa1">نعم، يمكنك الترقية أو تخفيض الباقة في أي وقت من إعدادات حسابك. التغيير يسري من الدورة الشهرية القادمة.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span id="fq2">ما طرق الدفع المتاحة؟</span>
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a" id="fa2">نقبل التحويل البنكي والدفع الإلكتروني عبر البطاقات الائتمانية والمدينة.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span id="fq3">كيف أتتبع حالة طلبي؟</span>
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a" id="fa3">من لوحة التحكم يمكنك متابعة جميع طلباتك لحظة بلحظة وستصلك إشعارات فورية عند كل تحديث.</div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <span><strong>تصريح | Tasreeh</strong></span>
+      <span id="footer-copy3">جميع الحقوق محفوظة © 2025</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══ LOGIN / REGISTER PAGE ═══ -->
+<div id="page-login" class="page">
+  <div class="auth-page">
+    <div class="auth-card">
+      <div class="login-logo">
+        <div class="login-logo-name">
+          <div class="login-logo-badge">ت</div>
+          <span id="login-logo-text">تصريح</span>
+        </div>
+        <div class="login-sub" id="login-sub">منصة معاملات العمال الأجانب</div>
+      </div>
+
+      <div class="auth-tabs">
+        <button class="auth-tab active" onclick="switchAuth('login')" id="tab-login">تسجيل الدخول</button>
+        <button class="auth-tab" onclick="switchAuth('register')" id="tab-register">حساب جديد</button>
+      </div>
+
+      <!-- Login Form -->
+      <div class="auth-form active" id="form-login">
+        <div class="form-group">
+          <label class="form-label" id="lbl-email">البريد الإلكتروني</label>
+          <input class="form-input" type="email" id="inp-email" placeholder="example@company.com"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label" id="lbl-pass">كلمة المرور</label>
+          <input class="form-input" type="password" id="inp-pass" placeholder="••••••••"/>
+        </div>
+        <button class="form-btn" onclick="doLogin()" id="login-btn">تسجيل الدخول</button>
+        <div class="form-divider"><span id="or-text">أو</span></div>
+        <button class="google-btn" onclick="showToast('Google login coming soon', 'success')">
+          <svg width="16" height="16" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+          <span id="google-btn-text">المتابعة مع Google</span>
+        </button>
+        <div class="form-link" style="margin-top:14px;"><a id="forgot-link" onclick="showToast(lang==='ar'?'سيتم إرسال رابط إعادة التعيين':'Password reset link will be sent','success')">نسيت كلمة المرور؟</a></div>
+      </div>
+
+      <!-- Register Form -->
+      <div class="auth-form" id="form-register">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" id="lbl-fname">الاسم الأول</label>
+            <input class="form-input" type="text" placeholder="أحمد" id="inp-fname"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label" id="lbl-lname">الاسم الأخير</label>
+            <input class="form-input" type="text" placeholder="الحسيني" id="inp-lname"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" id="lbl-company">اسم الشركة</label>
+          <input class="form-input" type="text" placeholder="شركة المستقبل" id="inp-company"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label" id="lbl-email2">البريد الإلكتروني</label>
+          <input class="form-input" type="email" placeholder="example@company.com" id="inp-email2"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label" id="lbl-pass2">كلمة المرور</label>
+          <input class="form-input" type="password" placeholder="8 أحرف على الأقل" id="inp-pass2"/>
+        </div>
+        <button class="form-btn" onclick="doRegister()" id="register-btn">إنشاء الحساب</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ DASHBOARD ═══ -->
+<div id="page-dashboard" class="page">
+  <div class="dash-wrap">
+
+    <div class="dash-sidebar">
+      <div class="sidebar-section-label" id="sbl-main">الرئيسية</div>
+      <button class="sidebar-item active" onclick="highlightSidebar(this)">
+        <div class="si-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
+        <span id="sb1">لوحة التحكم</span>
+      </button>
+      <button class="sidebar-item" onclick="highlightSidebar(this)">
+        <div class="si-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+        <span id="sb2">طلباتي</span>
+      </button>
+      <button class="sidebar-item" onclick="highlightSidebar(this)">
+        <div class="si-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+        <span id="sb3">دليل الإجراءات</span>
+      </button>
+      <button class="sidebar-item" onclick="highlightSidebar(this)">
+        <div class="si-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        <span id="sb4">حسابي</span>
+      </button>
+      <div style="flex:1;"></div>
+      <div class="sidebar-upgrade" onclick="showPage('pricing')">
+        <div class="sidebar-upgrade-title" id="sb5">ترقية الباقة</div>
+        <div class="sidebar-upgrade-sub" id="sb5-sub">الوصول لجميع الخدمات</div>
+      </div>
+    </div>
+
+    <div class="dash-main">
+      <div class="dash-header">
+        <div>
+          <div class="dash-welcome" id="dash-welcome">مرحباً، أحمد الحسيني 👋</div>
+          <div class="dash-sub" id="dash-sub">الأحد، 18 أبريل 2025</div>
+        </div>
+        <div class="dash-header-right">
+          <div class="notif-btn" onclick="showToast(lang==='ar'?'لا توجد إشعارات جديدة':'No new notifications')">
+            <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <div class="notif-dot"></div>
+          </div>
+          <div class="dash-plan-badge" id="dash-plan">الباقة المتقدمة · 20 معاملة/شهر</div>
+        </div>
+      </div>
+
+      <div class="dash-body">
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="m-icon blue"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+            <div class="m-val">12</div>
+            <div class="m-label" id="m1">إجمالي الطلبات</div>
+          </div>
+          <div class="metric-card">
+            <div class="m-icon amber"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div class="m-val">5</div>
+            <div class="m-label" id="m2">قيد المعالجة</div>
+          </div>
+          <div class="metric-card">
+            <div class="m-icon green"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="m-val">6</div>
+            <div class="m-label" id="m3">مكتملة</div>
+          </div>
+          <div class="metric-card">
+            <div class="m-icon red"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+            <div class="m-val">1</div>
+            <div class="m-label" id="m4">تنتهي قريباً</div>
+          </div>
+        </div>
+
+        <div class="quota-card">
+          <div class="quota-header">
+            <div class="quota-title" id="qb-title">كوتا المعاملات — هذا الشهر</div>
+            <div class="quota-info" id="qb-info">12 من 20 معاملة</div>
+          </div>
+          <div class="quota-track">
+            <div class="quota-fill" style="width: 60%"></div>
+          </div>
+          <div class="quota-footer">
+            <span id="qb-used">مستخدم: 12</span>
+            <span id="qb-left">متبقي: 8</span>
+          </div>
+        </div>
+
+        <div class="table-card">
+          <div class="table-head">
+            <div class="table-title" id="rt-title">آخر الطلبات</div>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <div class="table-filters">
+                <button class="filter-btn active" onclick="filterTable(this,'all')" id="f-all" data-t="opp-f-all">الكل</button>
+                <button class="filter-btn" onclick="filterTable(this,'prog')" id="f-prog">جاري</button>
+                <button class="filter-btn" onclick="filterTable(this,'done')" id="f-done">مكتمل</button>
+              </div>
+              <button class="btn-new" onclick="showToast(lang==='ar'?'سيتم إضافة هذه الميزة قريباً':'This feature coming soon')" id="rt-add">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                <span id="rt-add-text">طلب جديد</span>
+              </button>
+            </div>
+          </div>
+          <div style="overflow-x:auto;">
+            <table class="rt" id="requests-table">
+              <thead>
+                <tr>
+                  <th id="th1">رقم الطلب</th>
+                  <th id="th2">نوع المعاملة</th>
+                  <th id="th3">اسم العامل</th>
+                  <th id="th4">الجنسية</th>
+                  <th id="th5">الحالة</th>
+                </tr>
+              </thead>
+              <tbody id="table-body">
+                <tr data-status="prog">
+                  <td><strong>#1024</strong></td>
+                  <td id="td11">إجازة عمل</td>
+                  <td><div class="worker-cell"><div class="worker-avatar">RK</div>Ramesh Kumar</div></td>
+                  <td id="td13">🇮🇳 هندي</td>
+                  <td><span class="status-badge s-prog" id="td14">جاري</span></td>
+                </tr>
+                <tr data-status="done">
+                  <td><strong>#1023</strong></td>
+                  <td id="td21">ضمان اجتماعي</td>
+                  <td><div class="worker-cell"><div class="worker-avatar">LW</div>Liu Wei</div></td>
+                  <td id="td23">🇨🇳 صيني</td>
+                  <td><span class="status-badge s-done" id="td24">مكتمل</span></td>
+                </tr>
+                <tr data-status="pend">
+                  <td><strong>#1022</strong></td>
+                  <td id="td31">تأشيرة إقامة</td>
+                  <td><div class="worker-cell"><div class="worker-avatar">AH</div>Ahmed Hassan</div></td>
+                  <td id="td33">🇪🇬 مصري</td>
+                  <td><span class="status-badge s-pend" id="td34">بانتظار وثائق</span></td>
+                </tr>
+                <tr data-status="done">
+                  <td><strong>#1021</strong></td>
+                  <td id="td41">نقل كفالة</td>
+                  <td><div class="worker-cell"><div class="worker-avatar">MS</div>Maria Santos</div></td>
+                  <td id="td43">🇵🇭 فلبينية</td>
+                  <td><span class="status-badge s-done" id="td44">مكتمل</span></td>
+                </tr>
+                <tr data-status="prog">
+                  <td><strong>#1020</strong></td>
+                  <td id="td51">تأسيس شركة</td>
+                  <td><div class="worker-cell"><div class="worker-avatar">WF</div>Wang Fang Corp</div></td>
+                  <td id="td53">🇨🇳 صينية</td>
+                  <td><span class="status-badge s-prog" id="td54">جاري</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast container -->
+<div class="toast-wrap" id="toast-wrap"></div>
+
+<script>
+var lang = 'ar';
+
+var translations = {
+  'nav-logo': ['تصريح', 'Tasreeh'],
+  'nl-home': ['الرئيسية', 'Home'],
+  'nl-invest': ['الاستثمار والشركات', 'Investment & Companies'],
+  'nl-pricing': ['الأسعار', 'Pricing'],
+  'nl-dash': ['لوحة التحكم', 'Dashboard'],
+  'btn-login-nav': ['تسجيل الدخول', 'Login'],
+  'btn-signup-nav': ['ابدأ الآن', 'Get Started'],
+  'h-badge': ['منصة معاملات العمال الأجانب في العراق', 'Iraq Foreign Worker Permit Platform'],
+  'h-title': ['أنجز معاملاتك <em>بسرعة</em><br>مع فريق متخصص', 'Complete transactions <em>fast</em><br>with expert support'],
+  'h-desc': ['إجازات العمل · الضمان الاجتماعي · تأشيرات الدخول والإقامة<br>تأسيس الشركات · دعم الاستثمار', 'Work Permits · Social Security · Residency Visas<br>Company Setup · Investment Support'],
+  'h-btn1': ['ابدأ الآن', 'Get Started'],
+  'h-btn2': ['استثمر في العراق', 'Invest in Iraq'],
+  's1': ['معاملة منجزة', 'Transactions Done'],
+  's2': ['شركة تثق بنا', 'Companies Trust Us'],
+  's3': ['أيام متوسط الإنجاز', 'Avg. Days'],
+  's4': ['نسبة رضا العملاء', 'Satisfaction Rate'],
+  'srv-eyebrow': ['الخدمات', 'Services'],
+  'srv-title': ['كل ما تحتاجه في مكان واحد', 'Everything you need in one place'],
+  'srv-sub': ['كل ما يحتاجه العامل الأجنبي والمستثمر في العراق', 'Everything a foreign worker and investor needs in Iraq'],
+  'sv1': ['إجازة العمل', 'Work Permit'],
+  'sv1d': ['استخراج وتجديد تصاريح العمل بالتنسيق مع وزارة العمل العراقية', 'Work permit issuance and renewal with Iraqi Ministry of Labor'],
+  'sv1-arr': ['← المزيد', 'More →'],
+  'sv2': ['الضمان الاجتماعي', 'Social Security'],
+  'sv2d': ['تسجيل العمال وإدارة الاشتراكات في منظومة الضمان الاجتماعي', 'Worker registration and subscription management'],
+  'sv2-arr': ['← المزيد', 'More →'],
+  'sv3': ['تأشيرة الدخول والإقامة', 'Entry & Residency Visa'],
+  'sv3d': ['إجراءات التأشيرة وتصاريح الإقامة للعمال الأجانب في العراق', 'Visa and residency permit procedures for foreign workers'],
+  'sv3-arr': ['← المزيد', 'More →'],
+  'sv4': ['تأسيس الشركات', 'Company Formation'],
+  'sv4d': ['متطلبات تأسيس الشركات الأجنبية والعراقية ومشاريع الاستثمار', 'Requirements for foreign & Iraqi company formation and investment'],
+  'sv4-arr': ['← المزيد', 'More →'],
+  'trust-label': ['جهات حكومية معتمدة', 'Official Government Partners'],
+  'tl1': ['وزارة العمل والشؤون الاجتماعية', 'Ministry of Labor & Social Affairs'],
+  'tl2': ['هيئة الاستثمار الوطنية', 'National Investment Commission'],
+  'tl3': ['وزارة الداخلية', 'Ministry of Interior'],
+  'tl4': ['وزارة التجارة', 'Ministry of Trade'],
+  'how-eyebrow': ['كيف نعمل', 'How It Works'],
+  'how-title': ['أربع خطوات بسيطة', 'Four Simple Steps'],
+  'how-sub': ['أنجز معاملتك بدون تعقيد', 'Complete your transaction without complexity'],
+  'st1': ['أنشئ حساباً', 'Create Account'],
+  'sd1': ['سجّل بإيميل وكلمة مرور واختر الباقة المناسبة لحجم شركتك', 'Sign up with email and choose the right plan for your company size'],
+  'st2': ['قدّم طلبك', 'Submit Request'],
+  'sd2': ['أدخل بيانات العامل وارفع الوثائق المطلوبة إلكترونياً', 'Enter worker data and upload required documents online'],
+  'st3': ['تابع الحالة', 'Track Status'],
+  'sd3': ['راقب تقدم المعاملة لحظة بلحظة من لوحة التحكم', 'Monitor transaction progress in real-time from your dashboard'],
+  'st4': ['استلم المستندات', 'Receive Documents'],
+  'sd4': ['حمّل المستندات المعتمدة بصيغة PDF جاهزة للطباعة والإرسال', 'Download approved documents as print-ready PDFs'],
+  'cta-title': ['جاهز تبدأ؟', 'Ready to Start?'],
+  'cta-desc': ['أنشئ حسابك الآن وأنجز أول معاملة خلال دقائق', 'Create your account now and complete your first transaction in minutes'],
+  'cta-btn': ['أنشئ حساباً مجانياً', 'Create Free Account'],
+  'footer-name': ['تصريح | Tasreeh', 'تصريح | Tasreeh'],
+  'footer-copy': ['جميع الحقوق محفوظة © 2025', 'All rights reserved © 2025'],
+  'footer-copy2': ['جميع الحقوق محفوظة © 2025', 'All rights reserved © 2025'],
+  'footer-copy3': ['جميع الحقوق محفوظة © 2025', 'All rights reserved © 2025'],
+  'inv-badge': ['الاستثمار والشركات في العراق', 'Investment & Companies in Iraq'],
+  'inv-title': ['دليلك الشامل للاستثمار وتأسيس الشركات', 'Your Complete Guide to Investment & Company Formation'],
+  'inv-desc': ['متطلبات الشركات الأجنبية والعراقية · مشاريع الاستثمار · كيفية التقديم', 'Foreign & Iraqi company requirements · Investment projects · How to apply'],
+  'it1': ['الشركات الأجنبية', 'Foreign Companies'],
+  'it2': ['الشركات العراقية', 'Iraqi Companies'],
+  'it3': ['مشاريع الاستثمار', 'Investment Projects'],
+  'it4': ['كيفية التقديم', 'How to Apply'],
+  'fc1t': ['التسجيل في هيئة الاستثمار الوطنية', 'Registration with NIC'],
+  'fc1d': ['تقديم طلب الترخيص الاستثماري مع دراسة الجدوى الاقتصادية وخطة العمل التفصيلية', 'Submit investment license application with feasibility study and detailed business plan'],
+  'fc2t': ['الوثائق المطلوبة', 'Required Documents'],
+  'fc2d': ['عقد التأسيس · جوازات سفر المؤسسين · شهادة تسجيل الشركة في البلد الأصلي · القوائم المالية المعتمدة', 'Articles of incorporation · Founders passports · Home country registration certificate · Certified financial statements'],
+  'fc3t': ['رأس المال المطلوب', 'Required Capital'],
+  'fc3d': ['الحد الأدنى 250,000 دولار للشركات الأجنبية في معظم القطاعات الاقتصادية', 'Minimum $250,000 for foreign companies in most economic sectors'],
+  'fc4t': ['التسجيل في وزارة التجارة', 'Ministry of Trade Registration'],
+  'fc4d': ['استخراج السجل التجاري وشهادة التسجيل الضريبي والانتساب للغرفة التجارية العراقية', 'Obtain commercial registry, tax certificate, and Chamber of Commerce membership'],
+  'fc5t': ['تراخيص القطاع', 'Sector Licenses'],
+  'fc5d': ['الحصول على ترخيص مزاولة النشاط من الوزارة المختصة حسب نوع النشاط التجاري', 'Obtain operating license from the relevant ministry based on business type'],
+  'fc-btn': ['ابدأ تأسيس شركتك', 'Start Company Formation'],
+  'ic1t': ['اختيار نوع الشركة', 'Choose Company Type'],
+  'ic1d': ['شركة محدودة المسؤولية · شركة مساهمة · مؤسسة فردية · شركة تضامنية', 'LLC · Joint stock · Sole proprietorship · Partnership'],
+  'ic2t': ['التسجيل لدى مسجل الشركات', 'Company Registrar'],
+  'ic2d': ['تقديم عقد التأسيس والنظام الأساسي موثقاً لدى الكاتب العدل مع هويات المؤسسين', 'Submit notarized articles and statutes with founder IDs'],
+  'ic3t': ['رأس المال', 'Capital Requirements'],
+  'ic3d': ['الحد الأدنى مليون دينار عراقي للشركة المحدودة · يُودع في حساب مصرفي مجمد', 'Minimum 1,000,000 IQD for LLC · Deposited in a frozen bank account'],
+  'ic4t': ['التسجيل الضريبي', 'Tax Registration'],
+  'ic4d': ['الحصول على الرقم الضريبي من الهيئة العامة للضرائب خلال 30 يوماً من التأسيس', 'Obtain tax number from General Tax Authority within 30 days of formation'],
+  'ic5t': ['الانتساب للغرفة التجارية', 'Chamber of Commerce'],
+  'ic5d': ['التسجيل في غرفة تجارة المحافظة والحصول على شهادة العضوية السنوية', 'Register with provincial Chamber of Commerce and obtain annual membership'],
+  'ic-btn': ['أسّس شركتك العراقية', 'Form Your Iraqi Company'],
+  'ii1t': ['قانون الاستثمار رقم 13 لسنة 2006', 'Investment Law No. 13 of 2006'],
+  'ii1d': ['يتيح للمستثمرين الأجانب تملك المشاريع بنسبة 100% في معظم القطاعات مع إعفاءات ضريبية لمدة 10 سنوات', 'Allows foreign investors 100% ownership in most sectors with 10-year tax exemptions'],
+  'ii2t': ['القطاعات المتاحة للاستثمار', 'Available Investment Sectors'],
+  'ii2d': ['الصناعة · السياحة · التعليم · الصحة · الزراعة · البنية التحتية · الإسكان · تجارة التجزئة', 'Industry · Tourism · Education · Healthcare · Agriculture · Infrastructure · Housing · Retail'],
+  'ii3t': ['المناطق الاستثمارية الحرة', 'Free Investment Zones'],
+  'ii3d': ['مناطق بإعفاءات جمركية وضريبية كاملة تشمل: بغداد · البصرة · أربيل · النجف', 'Zones with full exemptions including: Baghdad · Basra · Erbil · Najaf'],
+  'ii4t': ['الضمانات القانونية للمستثمر', 'Legal Guarantees'],
+  'ii4d': ['حماية من التأميم · حق تحويل الأرباح للخارج · ضمان حقوق الملكية الفكرية بموجب القانون العراقي', 'Protection from nationalization · Right to repatriate profits · IP rights under Iraqi law'],
+  'ap1t': ['إعداد دراسة الجدوى', 'Prepare Feasibility Study'],
+  'ap1d': ['دراسة اقتصادية شاملة تتضمن حجم الاستثمار والتوقعات المالية وعدد فرص العمل المحلية', 'Comprehensive economic study with investment size, financial projections, and local job creation'],
+  'ap2t': ['تقديم الطلب للهيئة', 'Submit to Commission'],
+  'ap2d': ['تعبئة نموذج الطلب الرسمي لهيئة الاستثمار الوطنية مع كافة الوثائق المطلوبة', 'Complete official NIC application form with all required documents'],
+  'ap3t': ['مراجعة الطلب', 'Application Review'],
+  'ap3d': ['تستغرق المراجعة من 30 إلى 60 يوم عمل وقد تُطلب معلومات أو تعديلات إضافية', 'Review takes 30–60 working days; additional information may be requested'],
+  'ap4t': ['استلام الترخيص الاستثماري', 'Receive Investment License'],
+  'ap4d': ['بعد الموافقة يُصدر الترخيص الرسمي الذي يتيح البدء بإجراءات التأسيس الفعلي', 'Upon approval, the official license is issued to commence formation procedures'],
+  'ap5t': ['منصة تصريح تساعدك', 'Tasreeh Assists You'],
+  'ap5d': ['نتولى تجهيز الوثائق وتقديم الطلب ومتابعة الإجراءات نيابة عنك في جميع المراحل', 'We handle document preparation, submission, and follow-up at every stage'],
+  'ap-btn': ['ابدأ إجراءات الاستثمار', 'Start Investment Process'],
+  'pr-eyebrow': ['الباقات', 'Plans'],
+  'pr-title': ['الأسعار والباقات', 'Pricing & Plans'],
+  'pr-sub': ['اختر الباقة المناسبة — الأسعار بالدينار العراقي', 'Choose your plan — Prices in Iraqi Dinar'],
+  'p1n': ['الباقة الأساسية', 'Basic Plan'],
+  'p1p': ['شهرياً', 'Monthly'],
+  'p1q': ['حتى 5 معاملات / شهر', 'Up to 5 transactions / month'],
+  'p2n': ['الباقة المتقدمة', 'Advanced Plan'],
+  'p2p': ['شهرياً', 'Monthly'],
+  'p2q': ['حتى 20 معاملة / شهر', 'Up to 20 transactions / month'],
+  'feat-badge': ['الأكثر شيوعاً', 'Most Popular'],
+  'p3n': ['دفع لكل معاملة', 'Pay Per Transaction'],
+  'p3p': ['لكل معاملة · بدون اشتراك', 'Per transaction · No subscription'],
+  'p3q': ['بدون حد أدنى', 'No minimum'],
+  'pf11': ['إجازات العمل', 'Work Permits'],
+  'pf12': ['الضمان الاجتماعي', 'Social Security'],
+  'pf13': ['تتبع الطلبات', 'Request Tracking'],
+  'pf14': ['تصدير PDF', 'PDF Export'],
+  'pf15': ['دعم عبر البريد', 'Email Support'],
+  'pf21': ['كل خدمات الأساسية', 'All Basic Features'],
+  'pf22': ['تأشيرات الدخول والإقامة', 'Entry & Residency Visas'],
+  'pf23': ['تأسيس الشركات', 'Company Formation'],
+  'pf24': ['دعم الاستثمار', 'Investment Support'],
+  'pf25': ['دعم ذو أولوية', 'Priority Support'],
+  'pf26': ['تقارير شهرية', 'Monthly Reports'],
+  'pf31': ['جميع أنواع المعاملات', 'All Transaction Types'],
+  'pf32': ['تتبع الحالة', 'Status Tracking'],
+  'pf33': ['تصدير PDF', 'PDF Export'],
+  'pf34': ['صالح 30 يوم', 'Valid 30 days'],
+  'pf35': ['بدون التزام شهري', 'No monthly commitment'],
+  'p1btn': ['اشترك الآن', 'Subscribe Now'],
+  'p2btn': ['اشترك الآن', 'Subscribe Now'],
+  'p3btn': ['ابدأ بدون اشتراك', 'Start Without Subscription'],
+  'faq-title': ['أسئلة شائعة', 'Frequently Asked Questions'],
+  'fq1': ['هل يمكنني تغيير باقتي لاحقاً؟', 'Can I change my plan later?'],
+  'fa1': ['نعم، يمكنك الترقية أو تخفيض الباقة في أي وقت من إعدادات حسابك. التغيير يسري من الدورة الشهرية القادمة.', 'Yes, you can upgrade or downgrade at any time from your account settings. Changes take effect from the next billing cycle.'],
+  'fq2': ['ما طرق الدفع المتاحة؟', 'What payment methods are available?'],
+  'fa2': ['نقبل التحويل البنكي والدفع الإلكتروني عبر البطاقات الائتمانية والمدينة.', 'We accept bank transfers and electronic payments via credit and debit cards.'],
+  'fq3': ['كيف أتتبع حالة طلبي؟', 'How do I track my request status?'],
+  'fa3': ['من لوحة التحكم يمكنك متابعة جميع طلباتك لحظة بلحظة وستصلك إشعارات فورية عند كل تحديث.', 'From the dashboard you can monitor all your requests in real-time and receive instant notifications for every update.'],
+  'login-logo-text': ['تصريح', 'Tasreeh'],
+  'login-sub': ['منصة معاملات العمال الأجانب', 'Foreign Worker Transactions Platform'],
+  'tab-login': ['تسجيل الدخول', 'Login'],
+  'tab-register': ['حساب جديد', 'New Account'],
+  'lbl-email': ['البريد الإلكتروني', 'Email Address'],
+  'lbl-pass': ['كلمة المرور', 'Password'],
+  'login-btn': ['تسجيل الدخول', 'Login'],
+  'or-text': ['أو', 'or'],
+  'google-btn-text': ['المتابعة مع Google', 'Continue with Google'],
+  'forgot-link': ['نسيت كلمة المرور؟', 'Forgot your password?'],
+  'lbl-fname': ['الاسم الأول', 'First Name'],
+  'lbl-lname': ['الاسم الأخير', 'Last Name'],
+  'lbl-company': ['اسم الشركة', 'Company Name'],
+  'lbl-email2': ['البريد الإلكتروني', 'Email Address'],
+  'lbl-pass2': ['كلمة المرور', 'Password'],
+  'register-btn': ['إنشاء الحساب', 'Create Account'],
+  'dash-welcome': ['مرحباً، أحمد الحسيني 👋', 'Welcome, Ahmed Al-Husseini 👋'],
+  'dash-sub': ['الأحد، 18 أبريل 2025', 'Sunday, April 18, 2025'],
+  'dash-plan': ['الباقة المتقدمة · 20 معاملة/شهر', 'Advanced Plan · 20 transactions/month'],
+  'sbl-main': ['الرئيسية', 'Main'],
+  'sb1': ['لوحة التحكم', 'Dashboard'],
+  'sb2': ['طلباتي', 'My Requests'],
+  'sb3': ['دليل الإجراءات', 'Procedures Guide'],
+  'sb4': ['حسابي', 'My Account'],
+  'sb5': ['ترقية الباقة', 'Upgrade Plan'],
+  'sb5-sub': ['الوصول لجميع الخدمات', 'Access all services'],
+  'm1': ['إجمالي الطلبات', 'Total Requests'],
+  'm2': ['قيد المعالجة', 'In Progress'],
+  'm3': ['مكتملة', 'Completed'],
+  'm4': ['تنتهي قريباً', 'Expiring Soon'],
+  'qb-title': ['كوتا المعاملات — هذا الشهر', 'Transaction Quota — This Month'],
+  'qb-info': ['12 من 20 معاملة', '12 of 20 transactions'],
+  'qb-used': ['مستخدم: 12', 'Used: 12'],
+  'qb-left': ['متبقي: 8', 'Remaining: 8'],
+  'rt-title': ['آخر الطلبات', 'Recent Requests'],
+  'rt-add-text': ['طلب جديد', 'New Request'],
+  'th1': ['رقم الطلب', 'Request No.'],
+  'th2': ['نوع المعاملة', 'Type'],
+  'th3': ['اسم العامل', 'Worker Name'],
+  'th4': ['الجنسية', 'Nationality'],
+  'th5': ['الحالة', 'Status'],
+  'td11': ['إجازة عمل', 'Work Permit'],
+  'td13': ['🇮🇳 هندي', '🇮🇳 Indian'],
+  'td14': ['جاري', 'In Progress'],
+  'td21': ['ضمان اجتماعي', 'Social Security'],
+  'td23': ['🇨🇳 صيني', '🇨🇳 Chinese'],
+  'td24': ['مكتمل', 'Completed'],
+  'td31': ['تأشيرة إقامة', 'Residency Visa'],
+  'td33': ['🇪🇬 مصري', '🇪🇬 Egyptian'],
+  'td34': ['بانتظار وثائق', 'Pending Docs'],
+  'td41': ['نقل كفالة', 'Sponsorship Transfer'],
+  'td43': ['🇵🇭 فلبينية', '🇵🇭 Filipino'],
+  'td44': ['مكتمل', 'Completed'],
+  'td51': ['تأسيس شركة', 'Company Formation'],
+  'td53': ['🇨🇳 صينية', '🇨🇳 Chinese'],
+  'td54': ['جاري', 'In Progress'],
+  'f-all': ['الكل', 'All'],
+  'f-prog': ['جاري', 'In Progress'],
+  'f-done': ['مكتمل', 'Completed'],
+  'dnl-home': ['الرئيسية', 'Home'],
+  'dnl-invest': ['الاستثمار والشركات', 'Investment & Companies'],
+  'dnl-pricing': ['الأسعار', 'Pricing'],
+  'dnl-dash': ['لوحة التحكم', 'Dashboard'],
+  'dnl-login': ['تسجيل الدخول', 'Login'],
+};
+
+/* ── INVEST PAGE TRANSLATIONS ── */
+var investContent = {
+  /* Hero */
+  'inv-badge':   ['الهيئة الوطنية للاستثمار — جمهورية العراق', 'National Investment Commission — Republic of Iraq'],
+  'inv-title':   ['دليلك الشامل للاستثمار\nوتأسيس الشركات في العراق', 'Your Complete Guide to Investment\n& Company Formation in Iraq'],
+  'inv-desc':    ['خطوات التسجيل · شروط التقديم · الفرص الاستثمارية المتاحة · الإعفاءات والمزايا', 'Registration Steps · Eligibility · Available Opportunities · Exemptions & Benefits'],
+  'inv-btn-portal': ['🔗 بوابة التقديم الإلكتروني', '🔗 Online Application Portal'],
+  'inv-btn-opps':   ['📋 تصفح الفرص الاستثمارية', '📋 Browse Investment Opportunities'],
+  /* Stats */
+  'inv-stat1-lbl': ['فرصة استثمارية', 'Investment Opportunities'],
+  'inv-stat2-lbl': ['إعفاء ضريبي', 'Tax Exemption'],
+  'inv-stat3-lbl': ['تملك أجنبي مسموح', 'Foreign Ownership Allowed'],
+  'inv-stat4-lbl': ['حجم الفرص الإجمالي', 'Total Opportunity Value'],
+  /* Tabs */
+  'itab-steps':         ['📋 خطوات التسجيل', '📋 Registration Steps'],
+  'itab-requirements':  ['📄 المتطلبات والوثائق', '📄 Requirements & Documents'],
+  'itab-opportunities': ['🏗 الفرص الاستثمارية', '🏗 Investment Opportunities'],
+  'itab-benefits':      ['🎁 الإعفاءات والمزايا', '🎁 Exemptions & Benefits'],
+  /* Steps Tab header */
+  'inv-steps-eyebrow': ['الإجراءات الرسمية', 'Official Procedures'],
+  'inv-steps-title':   ['خطوات الحصول على إجازة الاستثمار', 'Steps to Obtain an Investment License'],
+  'inv-steps-sub':     ['اتبع هذه الخطوات للتسجيل في الهيئة الوطنية للاستثمار والحصول على الترخيص الرسمي', 'Follow these steps to register with the National Investment Commission and obtain the official license'],
+  /* Step 1 */
+  's1-title': ['إنشاء حساب في البوابة الإلكترونية', 'Create an Account on the Online Portal'],
+  's1-meta':  ['النافذة الواحدة — inic.gov.iq', 'One-Stop-Shop — inic.gov.iq'],
+  's1-dur':   ['1-2 يوم', '1-2 Days'],
+  's1-desc':  ['توجّه إلى البوابة الإلكترونية للهيئة الوطنية للاستثمار وأنشئ حساباً خاصاً بك. من خلاله تستطيع تقديم الطلبات الاستثمارية ومتابعتها إلكترونياً في جميع المراحل.', 'Visit the National Investment Commission online portal and create your personal account. Through it you can submit investment applications and track them electronically at every stage.'],
+  's1-d1': ['📧 بريد إلكتروني فعّال ورقم هاتف للتحقق', '📧 Valid email address and phone number for verification'],
+  's1-d2': ['🪪 نسخة من جواز السفر أو الهوية الوطنية', '🪪 Copy of passport or national ID'],
+  's1-note': ['✅ البوابة تتيح تتبع حالة الطلب آنياً دون مراجعة شخصية في المرحلة الأولى', '✅ The portal enables real-time application tracking without an in-person visit in the first stage'],
+  /* Step 2 */
+  's2-title': ['اختيار الفرصة وتعبئة الاستمارة', 'Select an Opportunity & Fill the Application Form'],
+  's2-meta':  ['تحديد القطاع والمشروع المستهدف', 'Define the target sector and project'],
+  's2-dur':   ['3-5 أيام', '3-5 Days'],
+  's2-desc':  ['تصفح قائمة الفرص الاستثمارية المعلنة واختر المشروع المناسب لرأس مالك وقطاعك. عبّئ الاستمارة الرسمية بدقة مع تحديد نوع النشاط ورأس المال المخصص.', 'Browse the list of announced investment opportunities and choose the project that suits your capital and sector. Complete the official form accurately, specifying the type of activity and allocated capital.'],
+  's2-d1': ['🏭 نوع النشاط التجاري والقطاع المستهدف', '🏭 Type of business activity and target sector'],
+  's2-d2': ['💰 رأس المال المخصص للمشروع', '💰 Capital allocated for the project'],
+  's2-d3': ['📍 الموقع الجغرافي المقترح للمشروع', '📍 Proposed geographical location of the project'],
+  's2-d4': ['👷 عدد فرص العمل العراقية المتوقعة', '👷 Expected number of Iraqi job opportunities'],
+  's2-note': ['⚠ رسوم الاستمارة: 500,000 د.ع · رسوم وثائق التقديم: 1,000,000 د.ع', '⚠ Application form fee: 500,000 IQD · Submission documents fee: 1,000,000 IQD'],
+  /* Step 3 */
+  's3-title': ['تجهيز وتقديم الوثائق المطلوبة', 'Prepare & Submit the Required Documents'],
+  's3-meta':  ['رفع الملفات عبر البوابة أو النافذة الواحدة', 'Upload via the portal or submit at the One-Stop-Shop'],
+  's3-dur':   ['7-14 يوم', '7-14 Days'],
+  's3-desc':  ['جهّز الوثائق وارفعها عبر البوابة الإلكترونية. يمكن تسليم المستندات ورقياً في ظرف مغلق إلى قسم النافذة الواحدة في الهيئة.', 'Prepare the documents and upload them via the online portal. Paper copies can also be submitted in a sealed envelope to the One-Stop-Shop department at the Commission.'],
+  's3-d1': ['📜 عقد تأسيس الشركة موثق لدى الكاتب العدل', '📜 Notarized articles of incorporation'],
+  's3-d2': ['🛂 جوازات سفر جميع المؤسسين والشركاء', '🛂 Passports of all founders and partners'],
+  's3-d3': ['🏢 شهادة تسجيل الشركة في بلد المنشأ (للأجانب)', '🏢 Company registration certificate from country of origin (for foreigners)'],
+  's3-d4': ['📊 دراسة جدوى اقتصادية وفنية مصدقة من مكتب استشاري معتمد', '📊 Feasibility study certified by an accredited consulting office'],
+  's3-d5': ['🏗 المخططات الأولية للمشروع', '🏗 Preliminary project drawings'],
+  's3-d6': ['🏦 كفاءة مالية بخطة تمويل معتمدة من مصرف رصين', '🏦 Financial capacity with a financing plan approved by a reputable bank'],
+  's3-d7': ['📋 القوائم المالية المعتمدة للسنوات الثلاث الأخيرة', '📋 Certified financial statements for the last three years'],
+  's3-note': ['⚠ دراسة الجدوى يجب أن تكون مصدقة من مكتب استشاري هندسي معتمد', '⚠ The feasibility study must be certified by an accredited engineering consulting office'],
+  /* Step 4 */
+  's4-title': ['مراجعة الطلب والدراسة الفنية', 'Application Review & Technical Evaluation'],
+  's4-meta':  ['الدائرة الاقتصادية والفنية في الهيئة', 'Economic and Technical Department of the Commission'],
+  's4-dur':   ['30-60 يوم عمل', '30-60 Working Days'],
+  's4-desc':  ['تتولى الهيئة مراجعة الطلب والتحقق من اكتمال الوثائق وسلامة الإجراءات القانونية وموافقة الجهات المالكة. قد يُطلب تقديم معلومات إضافية أو تعديلات.', 'The Commission reviews the application and verifies document completeness, legal procedure integrity, and owner entity approvals. Additional information or amendments may be requested.'],
+  's4-d1': ['✅ التحقق من اكتمال الوثائق وصحتها القانونية', '✅ Verifying document completeness and legal validity'],
+  's4-d2': ['📈 تقييم الجدوى الاقتصادية وحجم الاستثمار', '📈 Assessing economic feasibility and investment scale'],
+  's4-d3': ['👷 التحقق من عدد فرص العمل للمواطنين العراقيين', '👷 Verifying number of Iraqi citizen employment opportunities'],
+  's4-d4': ['🌿 الالتزام بمعايير البيئة والسلامة العامة', '🌿 Compliance with environmental and public safety standards'],
+  's4-note': ['⚠ المشاريع التي لم تحقق نسب إنجاز في طلبات سابقة قد يُهمل طلبها', '⚠ Applications from companies with poor completion rates on prior projects may be rejected'],
+  /* Step 5 */
+  's5-title': ['استلام إجازة الاستثمار وبدء التنفيذ', 'Receive Investment License & Begin Implementation'],
+  's5-meta':  ['الترخيص الرسمي من الهيئة الوطنية', 'Official license from the National Commission'],
+  's5-dur':   ['✓ إنجاز', '✓ Complete'],
+  's5-desc':  ['بعد الموافقة تُصدر الهيئة إجازة الاستثمار الرسمية التي تمنحك الامتيازات والإعفاءات بموجب قانون الاستثمار رقم 13 لسنة 2006. يمكنك الشروع في إجراءات التأسيس الفعلي.', 'Upon approval the Commission issues the official investment license granting you all privileges and exemptions under Investment Law No. 13 of 2006. You may then begin actual formation procedures.'],
+  's5-d1': ['💸 إعفاء ضريبي كامل لمدة تصل إلى 10 سنوات', '💸 Full tax exemption for up to 10 years'],
+  's5-d2': ['🏛 إعفاء من الرسوم الجمركية على مستلزمات المشروع', '🏛 Customs duty exemption on project inputs'],
+  's5-d3': ['🌍 حق تحويل الأرباح إلى الخارج بالكامل', '🌍 Right to fully repatriate profits abroad'],
+  's5-d4': ['🛡 حماية من التأميم وضمان الملكية الكاملة', '🛡 Protection from nationalisation and full ownership guarantee'],
+  's5-note': ['✅ منصة تصريح تتابع جميع مراحل حصولك على الإجازة نيابة عنك', '✅ Tasreeh platform follows up on every stage of your license acquisition on your behalf'],
+  /* Sidebar */
+  'inv-fees-title':  ['💳 الرسوم الرسمية', '💳 Official Fees'],
+  'inv-fee1-lbl':    ['استمارة طلب الإجازة', 'License Application Form'],
+  'inv-fee1-val':    ['500,000 د.ع', '500,000 IQD'],
+  'inv-fee2-lbl':    ['وثائق التقديم للفرصة', 'Opportunity Submission Docs'],
+  'inv-fee2-val':    ['1,000,000 د.ع', '1,000,000 IQD'],
+  'inv-fee3-lbl':    ['الضرائب بعد الموافقة', 'Taxes After Approval'],
+  'inv-fee3-val':    ['معفى 10 سنوات', 'Exempt 10 Years'],
+  'inv-contact-title': ['🏛 تواصل مع الهيئة', '🏛 Contact the Commission'],
+  'inv-contact-lbl1':  ['البوابة الإلكترونية', 'Online Portal'],
+  'inv-contact-lbl2':  ['موقع الهيئة', 'Commission Website'],
+  'inv-contact-lbl3':  ['أوقات العمل', 'Working Hours'],
+  'inv-contact-val3':  ['الأحد – الخميس، 9 ص – 3 م', 'Sunday – Thursday, 9 AM – 3 PM'],
+  'inv-cta-title':  ['تحتاج مساعدة في التقديم؟', 'Need Help with Your Application?'],
+  'inv-cta-sub':    ['فريق تصريح يتولى الإجراءات كاملة نيابة عنك', 'Tasreeh team handles the full process on your behalf'],
+  'inv-cta-btn':    ['ابدأ مع تصريح', 'Start with Tasreeh'],
+  'inv-links-title':['🔗 روابط مفيدة', '🔗 Useful Links'],
+  'inv-link1':      ['📝 بوابة التقديم الإلكتروني', '📝 Online Application Portal'],
+  'inv-link2':      ['📄 كراس فرص الاستثمار 2025', '📄 Investment Opportunities Booklet 2025'],
+  'inv-link3':      ['🏙 هيئة استثمار بغداد', '🏙 Baghdad Investment Commission'],
+  /* Requirements Tab */
+  'inv-req-eyebrow': ['الشروط والوثائق', 'Conditions & Documents'],
+  'inv-req-title':   ['متطلبات التقديم للفرص الاستثمارية', 'Application Requirements for Investment Opportunities'],
+  'inv-req-sub':     ['يجب استيفاء هذه الشروط للتأهل للحصول على إجازة الاستثمار', 'These conditions must be met to qualify for an investment license'],
+  'rq-c1-title': ['متطلبات الكيان القانوني', 'Legal Entity Requirements'],
+  'rq-c1-r1t': ['تأسيس كيان قانوني مسجل في العراق', 'Establish a legally registered entity in Iraq'],
+  'rq-c1-r1s': ['ش.م.م · مساهمة · مؤسسة فردية · تضامنية', 'LLC · Joint stock · Sole proprietorship · Partnership'],
+  'rq-c1-r2t': ['عقد تأسيس موثق لدى الكاتب العدل', 'Notarized articles of incorporation'],
+  'rq-c1-r2s': ['يتضمن أسماء المؤسسين ورأس المال والنشاط', 'Including founders names, capital and activity'],
+  'rq-c1-r3t': ['الحد الأدنى لرأس المال: 250,000$', 'Minimum Capital: $250,000'],
+  'rq-c1-r3s': ['للشركات الأجنبية في معظم القطاعات', 'For foreign companies in most sectors'],
+  'rq-c1-r4t': ['شهادة تسجيل الشركة في بلد المنشأ', 'Company registration certificate from country of origin'],
+  'rq-c1-r4s': ['مترجمة للعربية ومصدقة رسمياً', 'Translated to Arabic and officially certified'],
+  'rq-c2-title': ['المتطلبات المالية والفنية', 'Financial & Technical Requirements'],
+  'rq-c2-r1t': ['دراسة جدوى اقتصادية وفنية شاملة', 'Comprehensive economic and technical feasibility study'],
+  'rq-c2-r1s': ['مصدقة من مكتب استشاري معتمد', 'Certified by an accredited consulting office'],
+  'rq-c2-r2t': ['إثبات الكفاءة المالية لتنفيذ المشروع', 'Proof of financial capacity to implement the project'],
+  'rq-c2-r2s': ['خطة تمويل معتمدة من مصرف رصين', 'Financing plan approved by a reputable bank'],
+  'rq-c2-r3t': ['القوائم المالية المعتمدة', 'Certified financial statements'],
+  'rq-c2-r3s': ['للسنوات الثلاث الأخيرة من مدقق قانوني', 'For the last three years from a legal auditor'],
+  'rq-c2-r4t': ['المخططات الأولية للمشروع', 'Preliminary project drawings'],
+  'rq-c2-r4s': ['مع جدول الكميات المسعر قبل منح الإجازة', 'With priced bill of quantities before license issuance'],
+  'rq-c3-title': ['الشروط القانونية والاجتماعية', 'Legal & Social Conditions'],
+  'rq-c3-r1t': ['الأولوية في توظيف العراقيين', 'Priority in hiring Iraqi citizens'],
+  'rq-c3-r1s': ['الإفصاح عن عدد فرص العمل المحلية', 'Disclose the number of local job opportunities'],
+  'rq-c3-r2t': ['الالتزام بمعايير البيئة والسلامة', 'Compliance with environmental and safety standards'],
+  'rq-c3-r2s': ['موافقة وزارة البيئة للمشاريع الصناعية', 'Ministry of Environment approval for industrial projects'],
+  'rq-c3-r3t': ['عدم وجود مخالفات في مشاريع سابقة', 'No violations in previous projects'],
+  'rq-c3-r3s': ['نسب إنجاز مقبولة في أي مشاريع سابقة', 'Acceptable completion rates in any prior projects'],
+  'rq-c3-r4t': ['التأمين على المشروع الاستثماري', 'Investment project insurance'],
+  'rq-c3-r4s': ['لدى شركة تأمين وطنية أو أجنبية معتمدة', 'With a licensed national or foreign insurance company'],
+  'rq-c4-title': ['الرسوم الرسمية للتقديم', 'Official Application Fees'],
+  'rq-c4-r1t': ['استمارة طلب الإجازة الاستثمارية', 'Investment License Application Form'],
+  'rq-c4-r1s': ['500,000 دينار عراقي', '500,000 Iraqi Dinars'],
+  'rq-c4-r2t': ['وثائق التقديم للفرصة المعلنة', 'Documents for the announced opportunity'],
+  'rq-c4-r2s': ['1,000,000 دينار عراقي', '1,000,000 Iraqi Dinars'],
+  'rq-c4-r3t': ['الإعفاء الضريبي بعد الموافقة', 'Tax exemption after approval'],
+  'rq-c4-r3s': ['10 سنوات كاملة', '10 Full Years'],
+  /* Opportunities Tab */
+  'inv-opp-eyebrow': ['الفرص المتاحة — 2025', 'Available Opportunities — 2025'],
+  'inv-opp-title':   ['الفرص الاستثمارية المعلنة', 'Announced Investment Opportunities'],
+  'inv-opp-sub':     ['أكثر من 135 فرصة مكتملة الموافقات موزعة على القطاعات الحيوية', 'Over 135 fully approved opportunities across vital sectors'],
+  'opp-f-all':       ['الكل', 'All'],
+  'opp-f-energy':    ['⚡ الطاقة', '⚡ Energy'],
+  'opp-f-housing':   ['🏘 الإسكان', '🏘 Housing'],
+  'opp-f-industry':  ['🏭 الصناعة', '🏭 Industry'],
+  'opp-f-transport': ['🚇 النقل', '🚇 Transport'],
+  'opp-f-health':    ['🏥 الصحة', '🏥 Health'],
+  'opp-f-agri':      ['🌾 الزراعة', '🌾 Agriculture'],
+  'opp-f-tourism':   ['🏛 السياحة', '🏛 Tourism'],
+  /* Opp cards */
+  'opp1-badge':['🚇 النقل','🚇 Transport'],'opp1-status':['متاح','Available'],'opp1-title':['مشروع مترو بغداد — المرحلة الأولى','Baghdad Metro Project — Phase 1'],'opp1-loc':['📍 بغداد العاصمة','📍 Baghdad Capital'],'opp1-t1':['DBOMFT','DBOMFT'],'opp1-t2':['فرصة 3/2024','Opp. 3/2024'],'opp1-val-lbl':['نموذج العقد','Contract Model'],'opp1-val':['DBOMFT','DBOMFT'],'opp1-btn':['التفاصيل ↗','Details ↗'],
+  'opp2-badge':['🚇 النقل','🚇 Transport'],'opp2-status':['متاح','Available'],'opp2-title':['مترو النجف–كربلاء — المرحلة الأولى','Najaf–Karbala Metro — Phase 1'],'opp2-loc':['📍 النجف — كربلاء','📍 Najaf — Karbala'],'opp2-t1':['BOT','BOT'],'opp2-t2':['فرصة 2/2024','Opp. 2/2024'],'opp2-val-lbl':['طول الخط','Line Length'],'opp2-val':['80+ كم','80+ km'],'opp2-btn':['التفاصيل ↗','Details ↗'],
+  'opp3-badge':['⚡ الطاقة','⚡ Energy'],'opp3-status':['متاح','Available'],'opp3-title':['محطة توليد الكهرباء من النفايات (الجيل الرابع)','Waste-to-Energy Power Plant (4th Gen)'],'opp3-loc':['📍 بغداد','📍 Baghdad'],'opp3-t1':['طاقة متجددة','Renewable Energy'],'opp3-t2':['DBOMFT','DBOMFT'],'opp3-val-lbl':['نوع العقد','Contract Type'],'opp3-val':['DBOMFT','DBOMFT'],'opp3-btn':['التفاصيل ↗','Details ↗'],
+  'opp4-badge':['☀ الطاقة الشمسية','☀ Solar Energy'],'opp4-status':['متاح','Available'],'opp4-title':['محطات الطاقة الشمسية وطاقة الرياح','Solar & Wind Energy Plants'],'opp4-loc':['📍 الأنبار — ذي قار — البصرة','📍 Anbar — Dhi Qar — Basra'],'opp4-t1':['BOO / PPA','BOO / PPA'],'opp4-t2':['طاقة نظيفة','Clean Energy'],'opp4-val-lbl':['القدرة المستهدفة','Target Capacity'],'opp4-val':['GW+','GW+'],'opp4-btn':['التفاصيل ↗','Details ↗'],
+  'opp5-badge':['🏘 الإسكان','🏘 Housing'],'opp5-status':['قيد التطوير','In Development'],'opp5-title':['مجمع بسمايا السكني — توسعة وتطوير','Bismaya Residential Complex — Expansion'],'opp5-loc':['📍 جنوب بغداد','📍 South Baghdad'],'opp5-t1':['100,000 وحدة','100,000 Units'],'opp5-t2':['PPP','PPP'],'opp5-val-lbl':['حجم المشروع','Project Scale'],'opp5-val':['مليارات $','Billions $'],'opp5-btn':['التفاصيل ↗','Details ↗'],
+  'opp6-badge':['🏙 مناطق حرة','🏙 Free Zones'],'opp6-status':['متاح','Available'],'opp6-title':['الاستثمار في المناطق الاقتصادية الحرة','Investment in Free Economic Zones'],'opp6-loc':['📍 بغداد · البصرة · أربيل · النجف','📍 Baghdad · Basra · Erbil · Najaf'],'opp6-t1':['إعفاء جمركي كامل','Full Customs Exemption'],'opp6-t2':['إعفاء ضريبي','Tax Exempt'],'opp6-val-lbl':['المزايا','Benefits'],'opp6-val':['إعفاء شامل','Full Exemption'],'opp6-btn':['التفاصيل ↗','Details ↗'],
+  'opp7-badge':['🏭 الصناعة','🏭 Industry'],'opp7-status':['متاح','Available'],'opp7-title':['مشاريع الأسمدة والكبريت والفوسفات','Fertilizer, Sulfur & Phosphate Projects'],'opp7-loc':['📍 البصرة — الأنبار','📍 Basra — Anbar'],'opp7-t1':['صناعة ثقيلة','Heavy Industry'],'opp7-t2':['تصدير','Export'],'opp7-val-lbl':['الاستثمار المطلوب','Required Investment'],'opp7-val':['+250M$','+$250M'],'opp7-btn':['التفاصيل ↗','Details ↗'],
+  'opp8-badge':['🏭 الصناعة','🏭 Industry'],'opp8-status':['متاح','Available'],'opp8-title':['الحديد والصناعات الإنشائية والغذائية','Steel, Construction & Food Industries'],'opp8-loc':['📍 المدن الصناعية','📍 Industrial Cities'],'opp8-t1':['صناعة متوسطة','Medium Industry'],'opp8-t2':['غذائية','Food'],'opp8-val-lbl':['الحد الأدنى','Minimum'],'opp8-val':['250,000$','$250,000'],'opp8-btn':['التفاصيل ↗','Details ↗'],
+  'opp9-badge':['🏥 الصحة','🏥 Health'],'opp9-status':['قيد التطوير','In Development'],'opp9-title':['مصنع الأدوية وعلاجات الأمراض المزمنة','Pharmaceuticals & Chronic Disease Treatments'],'opp9-loc':['📍 بغداد','📍 Baghdad'],'opp9-t1':['صناعة دوائية','Pharmaceutical'],'opp9-t2':['PPP','PPP'],'opp9-val-lbl':['القطاع','Sector'],'opp9-val':['صحي — حيوي','Health — Vital'],'opp9-btn':['التفاصيل ↗','Details ↗'],
+  'opp10-badge':['🌾 الزراعة','🌾 Agriculture'],'opp10-status':['متاح','Available'],'opp10-title':['المجمعات الزراعية والإنتاج الغذائي','Agricultural Complexes & Food Production'],'opp10-loc':['📍 ديالى — واسط — ميسان','📍 Diyala — Wasit — Maysan'],'opp10-t1':['ألبان وأغذية','Dairy & Food'],'opp10-t2':['زراعة حديثة','Modern Farming'],'opp10-val-lbl':['إعفاء ضريبي','Tax Exemption'],'opp10-val':['10 سنوات','10 Years'],'opp10-btn':['التفاصيل ↗','Details ↗'],
+  'opp11-badge':['🏛 السياحة','🏛 Tourism'],'opp11-status':['متاح','Available'],'opp11-title':['مشاريع السياحة الدينية والفنادق','Religious Tourism & Hotel Projects'],'opp11-loc':['📍 النجف — كربلاء — أربيل','📍 Najaf — Karbala — Erbil'],'opp11-t1':['سياحة دينية','Religious Tourism'],'opp11-t2':['20M+ زائر/سنة','20M+ visitors/yr'],'opp11-val-lbl':['الزوار سنوياً','Annual Visitors'],'opp11-val':['20M+','20M+'],'opp11-btn':['التفاصيل ↗','Details ↗'],
+  'opp12-badge':['⛽ النفط والغاز','⛽ Oil & Gas'],'opp12-status':['متاح','Available'],'opp12-title':['صناعات البتروكيماويات والغاز الطبيعي','Petrochemical & Natural Gas Industries'],'opp12-loc':['📍 البصرة — ذي قار','📍 Basra — Dhi Qar'],'opp12-t1':['صناعة ثقيلة','Heavy Industry'],'opp12-t2':['شراكة دولية','International Partnership'],'opp12-val-lbl':['القطاع','Sector'],'opp12-val':['نفط وغاز','Oil & Gas'],'opp12-btn':['التفاصيل ↗','Details ↗'],
+  /* Opp footer CTA */
+  'opp-more-title': ['+135 فرصة استثمارية إضافية', '+135 Additional Investment Opportunities'],
+  'opp-more-sub':   ['جميع الفرص مكتملة الموافقات ومدرجة على الموقع الرسمي للهيئة الوطنية للاستثمار', 'All opportunities are fully approved and listed on the National Investment Commission official website'],
+  'opp-more-btn':   ['🔗 تصفح جميع الفرص على موقع الهيئة', '🔗 Browse All Opportunities on NIC Website'],
+  /* Benefits Tab */
+  'inv-ben-eyebrow': ['المزايا والإعفاءات', 'Benefits & Exemptions'],
+  'inv-ben-title':   ['لماذا تستثمر في العراق؟', 'Why Invest in Iraq?'],
+  'inv-ben-sub':     ['بموجب قانون الاستثمار رقم 13 لسنة 2006 المُعدَّل', 'Under the amended Investment Law No. 13 of 2006'],
+  'ben1-title':['إعفاء ضريبي كامل','Full Tax Exemption'],'ben1-desc':['إعفاء من ضريبة الدخل لمدة تصل إلى 10 سنوات لمعظم المشاريع الاستثمارية','Income tax exemption for up to 10 years for most investment projects'],
+  'ben2-title':['إعفاء جمركي','Customs Exemption'],'ben2-desc':['إعفاء من الرسوم الجمركية على جميع مستلزمات وآلات المشروع الاستثماري','Customs duty exemption on all project inputs, equipment and machinery'],
+  'ben3-title':['تحويل الأرباح','Profit Repatriation'],'ben3-desc':['حق تحويل رأس المال والأرباح الصافية إلى الخارج بعملة أجنبية بدون قيود','Right to transfer capital and net profits abroad in foreign currency without restrictions'],
+  'ben4-title':['حماية من التأميم','Nationalization Protection'],'ben4-desc':['ضمان قانوني كامل بعدم التأميم أو المصادرة لأي مشروع حاصل على إجازة استثمار','Full legal guarantee against nationalization or confiscation for any licensed investment project'],
+  'ben5-title':['تملك أجنبي 100%','100% Foreign Ownership'],'ben5-desc':['حق المستثمر الأجنبي في تملك المشروع بنسبة 100% في معظم القطاعات الاقتصادية','Foreign investor right to own 100% of the project in most economic sectors'],
+  'ben6-title':['إقامة للمستثمر','Residency Rights'],'ben6-desc':['حق الإقامة في العراق للمستثمر وعائلته والعاملين الأجانب في المشروع','Residency rights in Iraq for the investor, their family and foreign employees'],
+  'ben7-title':['حقوق الملكية الفكرية','Intellectual Property'],'ben7-desc':['ضمان حقوق الملكية الفكرية والعلامات التجارية بموجب القانون العراقي','Intellectual property and trademark rights guaranteed under Iraqi law'],
+  'ben8-title':['حساب بعملة أجنبية','Foreign Currency Account'],'ben8-desc':['حق فتح حسابات بالعملة العراقية أو الأجنبية أو كليهما في أي مصرف محلي أو خارجي','Right to open accounts in Iraqi or foreign currency or both at any local or foreign bank'],
+  /* Benefits CTA */
+  'ben-cta-title': ['جاهز للاستثمار في العراق؟', 'Ready to Invest in Iraq?'],
+  'ben-cta-sub':   ['فريق تصريح يتولى تجهيز الوثائق وتقديم الطلب ومتابعة الإجراءات كاملة نيابة عنك', 'Tasreeh team handles document preparation, application submission and full procedure follow-up on your behalf'],
+  'ben-cta-btn1':  ['ابدأ مع تصريح الآن', 'Start with Tasreeh Now'],
+  'ben-cta-btn2':  ['🔗 موقع الهيئة الوطنية', '🔗 NIC Official Website'],
+};
+
+function setLang(l) {
+  lang = l;
+  document.documentElement.lang = l;
+  document.body.className = l === 'en' ? 'ltr' : '';
+  document.documentElement.dir = l === 'en' ? 'ltr' : 'rtl';
+  document.querySelectorAll('.lang-btn').forEach(function(b) {
+    b.classList.toggle('active', (l === 'ar' && b.textContent.trim() === 'ع') || (l === 'en' && b.textContent.trim() === 'EN'));
+  });
+  var i = (l === 'ar') ? 0 : 1;
+  /* Standard id-based translations */
+  Object.keys(translations).forEach(function(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var val = translations[id][i];
+    if (id === 'h-title') { el.innerHTML = val; } else { el.textContent = val; }
+  });
+  /* Invest page data-t attribute translations */
+  Object.keys(investContent).forEach(function(key) {
+    document.querySelectorAll('[data-t="' + key + '"]').forEach(function(el) {
+      var val = investContent[key][i];
+      if (el.tagName === 'A' || el.tagName === 'BUTTON') { el.textContent = val; }
+      else { el.innerHTML = val; }
+    });
+  });
+}
+
+function switchInvestTab(tab) {
+  document.querySelectorAll('.invest-tab-panel').forEach(function(p){ p.style.display='none'; });
+  document.querySelectorAll('.itab').forEach(function(b){ b.classList.remove('active'); });
+  var panel = document.getElementById('invest-tab-'+tab);
+  var btn = document.getElementById('itab-'+tab);
+  if(panel) panel.style.display='block';
+  if(btn) btn.classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function toggleInvStep(el) {
+  var wasOpen = el.classList.contains('is-open');
+  document.querySelectorAll('.inv-step-card').forEach(function(c){ c.classList.remove('is-open'); });
+  if(!wasOpen) el.classList.add('is-open');
+}
+
+function filterOpps(btn, sector) {
+  document.querySelectorAll('.opp-f').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  document.querySelectorAll('.opp-card').forEach(function(c){
+    c.style.display = (sector==='all' || c.dataset.s===sector) ? '' : 'none';
+  });
+}
+
+
+function showPage(p) {
+  document.querySelectorAll('.page').forEach(function(pg) { pg.classList.remove('active'); });
+  document.querySelectorAll('.nav-link').forEach(function(nl) { nl.classList.remove('active'); });
+  var el = document.getElementById('page-' + p);
+  if (el) el.classList.add('active');
+  var map = { home: 'nl-home', invest: 'nl-invest', pricing: 'nl-pricing', dashboard: 'nl-dash' };
+  if (map[p]) { var nl = document.getElementById(map[p]); if (nl) nl.classList.add('active'); }
+  if (p === 'invest') {
+    switchInvestTab('steps');
+    setTimeout(function(){ var first=document.querySelector('.inv-step-card'); if(first) first.classList.add('is-open'); },60);
+  }
+  window.scrollTo(0, 0);
+  closeDrawer();
+}
+
+function navTo(p) { showPage(p); closeDrawer(); }
+
+function showInvest(tab) {
+  document.querySelectorAll('.invest-content').forEach(function(c) { c.classList.remove('active'); });
+  document.querySelectorAll('.itab').forEach(function(b) { b.classList.remove('active'); });
+  var el = document.getElementById('inv-' + tab);
+  if (el) el.classList.add('active');
+  var tabMap = { foreign: 'it1', iraqi: 'it2', invest: 'it3', apply: 'it4' };
+  if (tabMap[tab]) { var btn = document.getElementById(tabMap[tab]); if (btn) btn.classList.add('active'); }
+}
+
+function switchAuth(tab) {
+  document.querySelectorAll('.auth-tab').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.auth-form').forEach(function(f) { f.classList.remove('active'); });
+  document.getElementById('tab-' + tab).classList.add('active');
+  document.getElementById('form-' + tab).classList.add('active');
+}
+
+function doLogin() {
+  var email = document.getElementById('inp-email').value;
+  if (!email) { showToast(lang === 'ar' ? 'الرجاء إدخال البريد الإلكتروني' : 'Please enter your email', 'error'); return; }
+  showToast(lang === 'ar' ? 'جاري تسجيل الدخول...' : 'Logging in...', 'success');
+  setTimeout(function() { showPage('dashboard'); }, 800);
+}
+
+function doRegister() {
+  var email = document.getElementById('inp-email2').value;
+  if (!email) { showToast(lang === 'ar' ? 'الرجاء إدخال البريد الإلكتروني' : 'Please enter your email', 'error'); return; }
+  showToast(lang === 'ar' ? 'تم إنشاء الحساب بنجاح!' : 'Account created successfully!', 'success');
+  setTimeout(function() { showPage('dashboard'); }, 800);
+}
+
+function highlightSidebar(el) {
+  document.querySelectorAll('.sidebar-item').forEach(function(s) { s.classList.remove('active'); });
+  el.classList.add('active');
+}
+
+function filterTable(btn, status) {
+  document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  var rows = document.querySelectorAll('#table-body tr');
+  rows.forEach(function(row) {
+    if (status === 'all') { row.style.display = ''; }
+    else if (status === 'prog') { row.style.display = (row.dataset.status === 'prog' || row.dataset.status === 'pend') ? '' : 'none'; }
+    else if (status === 'done') { row.style.display = row.dataset.status === 'done' ? '' : 'none'; }
+  });
+}
+
+function toggleFaq(el) {
+  var item = el.closest('.faq-item');
+  var isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(function(f) { f.classList.remove('open'); });
+  if (!isOpen) item.classList.add('open');
+}
+
+var toastTimeout;
+function showToast(msg, type) {
+  var wrap = document.getElementById('toast-wrap');
+  var toast = document.createElement('div');
+  toast.className = 'toast' + (type ? ' ' + type : '');
+  toast.innerHTML = (type === 'success' ? '✓ ' : type === 'error' ? '✕ ' : 'ℹ ') + msg;
+  wrap.appendChild(toast);
+  setTimeout(function() {
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateY(8px)';
+    toast.style.transition = 'all 0.3s';
+    setTimeout(function() { toast.remove(); }, 300);
+  }, 3000);
+}
+
+function openDrawer() {
+  document.getElementById('mobile-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDrawer() {
+  document.getElementById('mobile-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// Animate stats numbers
+function animateStats() {
+  document.querySelectorAll('.stat-num').forEach(function(el) {
+    var target = el.textContent;
+    var isPercent = target.includes('%');
+    var isPlus = target.includes('+');
+    var num = parseInt(target.replace(/[^0-9]/g, ''));
+    var start = 0;
+    var duration = 1200;
+    var startTime = null;
+    function step(ts) {
+      if (!startTime) startTime = ts;
+      var prog = Math.min((ts - startTime) / duration, 1);
+      var eased = 1 - Math.pow(1 - prog, 3);
+      var val = Math.round(eased * num);
+      el.textContent = (isPlus ? '+' : '') + val + (isPercent ? '%' : '');
+      if (prog < 1) requestAnimationFrame(step);
+      else el.textContent = target;
+    }
+    requestAnimationFrame(step);
+  });
+}
+
+// Run stat animation when home page loads
+var statsAnimated = false;
+var observer = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting && !statsAnimated) {
+      statsAnimated = true;
+      animateStats();
+    }
+  });
+});
+
+var statsBar = document.querySelector('.stats-bar');
+if (statsBar) observer.observe(statsBar);
+</script>
+</body>
+</html>
