@@ -1,3 +1,10 @@
 {
-  "version": 2
+  "version": 2,
+  "routes": [
+    { "src": "/api/(.*)", "dest": "/api/$1" },
+    { "src": "/login", "dest": "/public/login.html" },
+    { "src": "/dashboard", "dest": "/public/dashboard.html" },
+    { "src": "/js/(.*)", "dest": "/public/js/$1" },
+    { "src": "/css/(.*)", "dest": "/public/css/$1" }
+  ]
 }

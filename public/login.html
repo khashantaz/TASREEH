@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>تسجيل الدخول | تصريح — Tasreeh</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/auth.css" />
+</head>
+<body>
+
+  <!-- ── LOGO ── -->
+  <a href="/" class="logo-back">
+    <span class="logo-mark">ت</span>
+    <span class="logo-text">تصريح / Tasreeh</span>
+  </a>
+
+  <div class="auth-wrapper">
+    <div class="auth-card">
+
+      <!-- TAB SWITCHER -->
+      <div class="tabs">
+        <button class="tab active" id="tab-login"    onclick="switchTab('login')">تسجيل الدخول / Sign In</button>
+        <button class="tab"        id="tab-register" onclick="switchTab('register')">حساب جديد / Register</button>
+      </div>
+
+      <!-- ── LOGIN FORM ── -->
+      <div id="panel-login" class="panel active">
+        <div class="panel-title">مرحباً بعودتك</div>
+        <div class="panel-sub">Welcome back — sign in to manage your applications</div>
+
+        <div id="login-msg" class="msg-box hidden"></div>
+
+        <div class="field">
+          <label>البريد الإلكتروني / Email</label>
+          <input type="email" id="l-email" placeholder="you@company.com" autocomplete="email" />
+        </div>
+        <div class="field">
+          <label>كلمة المرور / Password</label>
+          <input type="password" id="l-pass" placeholder="••••••••" autocomplete="current-password" />
+          <a class="forgot" onclick="showReset()">نسيت كلمة المرور؟ / Forgot password?</a>
+        </div>
+
+        <button class="btn-primary" id="btn-login" onclick="doLogin()">
+          <span>تسجيل الدخول</span>
+          <span class="btn-en">Sign In</span>
+        </button>
+
+        <div class="divider"><span>أو / or</span></div>
+
+        <button class="btn-google" onclick="doGoogle()">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z" fill="#34A853"/><path d="M3.964 10.71c-.18-.54-.282-1.117-.282-1.71s.102-1.17.282-1.71V4.958H.957C.347 6.173 0 7.548 0 9s.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z" fill="#EA4335"/></svg>
+          <span>المتابعة مع Google / Continue with Google</span>
+        </button>
+
+        <!-- RESET PASSWORD SECTION (hidden) -->
+        <div id="reset-section" class="reset-box hidden">
+          <div class="reset-title">إعادة تعيين كلمة المرور / Reset password</div>
+          <div class="field">
+            <input type="email" id="reset-email" placeholder="your@email.com" />
+          </div>
+          <button class="btn-outline" onclick="doReset()">إرسال رابط الإعادة / Send reset link</button>
+          <button class="btn-ghost"   onclick="hideReset()">إلغاء / Cancel</button>
+        </div>
+      </div>
+
+      <!-- ── REGISTER FORM ── -->
+      <div id="panel-register" class="panel hidden">
+        <div class="panel-title">أنشئ حسابك</div>
+        <div class="panel-sub">Start your Iraq business journey with Tasreeh</div>
+
+        <div id="reg-msg" class="msg-box hidden"></div>
+
+        <div class="field-row">
+          <div class="field">
+            <label>الاسم الأول / First name</label>
+            <input type="text" id="r-fname" placeholder="Ahmed" />
+          </div>
+          <div class="field">
+            <label>الاسم الأخير / Last name</label>
+            <input type="text" id="r-lname" placeholder="Al-Rashidi" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label>اسم الشركة / Company name</label>
+          <input type="text" id="r-company" placeholder="Your Company Ltd." />
+        </div>
+
+        <div class="field">
+          <label>نوع الشركة / Company type</label>
+          <select id="r-type">
+            <option value="">اختر النوع / Select type...</option>
+            <option value="international">شركة أجنبية / International Company</option>
+            <option value="national">شركة عراقية / National (Iraqi) Company</option>
+            <option value="joint">مشروع مشترك / Joint Venture</option>
+            <option value="individual">مستثمر فرد / Individual Investor</option>
+            <option value="ngo">منظمة / NGO / Non-profit</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>البريد الإلكتروني / Email</label>
+          <input type="email" id="r-email" placeholder="contact@company.com" autocomplete="email" />
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label>كلمة المرور / Password</label>
+            <input type="password" id="r-pass" placeholder="8 أحرف على الأقل" autocomplete="new-password" />
+          </div>
+          <div class="field">
+            <label>التأكيد / Confirm</label>
+            <input type="password" id="r-confirm" placeholder="أعد كلمة المرور" autocomplete="new-password" />
+          </div>
+        </div>
+
+        <button class="btn-primary" id="btn-register" onclick="doRegister()">
+          <span>إنشاء الحساب</span>
+          <span class="btn-en">Create Account</span>
+        </button>
+      </div>
+
+    </div>
+
+    <div class="auth-footer">
+      © 2025 تصريح | Tasreeh — منصة معاملات العمال الأجانب في العراق
+    </div>
+  </div>
+
+  <script type="module">
+    import {
+      loginClient,
+      registerClient,
+      loginWithGoogle,
+      resetPassword,
+      translateAuthError
+    } from "/js/auth.js";
+
+    window.switchTab = (tab) => {
+      ["login", "register"].forEach(t => {
+        document.getElementById(`tab-${t}`).classList.toggle("active", t === tab);
+        document.getElementById(`panel-${t}`).classList.toggle("active", t === tab);
+        document.getElementById(`panel-${t}`).classList.toggle("hidden", t !== tab);
+      });
+      clearMsgs();
+    };
+
+    window.doLogin = async () => {
+      const email = document.getElementById("l-email").value.trim();
+      const pass  = document.getElementById("l-pass").value;
+      const btn   = document.getElementById("btn-login");
+
+      if (!email || !pass) { showMsg("login-msg", "error", "الرجاء إدخال البريد الإلكتروني وكلمة المرور"); return; }
+
+      btn.disabled = true;
+      btn.textContent = "جاري التحقق...";
+
+      try {
+        await loginClient(email, pass);
+        showMsg("login-msg", "success", "✓ تم تسجيل الدخول — جاري التوجيه إلى لوحة التحكم");
+        setTimeout(() => { window.location.href = "/dashboard"; }, 1000);
+      } catch (err) {
+        showMsg("login-msg", "error", translateAuthError(err.code));
+        btn.disabled = false;
+        btn.innerHTML = "<span>تسجيل الدخول</span><span class='btn-en'>Sign In</span>";
+      }
+    };
+
+    window.doRegister = async () => {
+      const firstName   = document.getElementById("r-fname").value.trim();
+      const lastName    = document.getElementById("r-lname").value.trim();
+      const company     = document.getElementById("r-company").value.trim();
+      const companyType = document.getElementById("r-type").value;
+      const email       = document.getElementById("r-email").value.trim();
+      const password    = document.getElementById("r-pass").value;
+      const confirm     = document.getElementById("r-confirm").value;
+      const btn         = document.getElementById("btn-register");
+
+      if (!firstName || !lastName || !company || !companyType || !email || !password) {
+        showMsg("reg-msg", "error", "الرجاء ملء جميع الحقول / Please fill all fields"); return;
+      }
+      if (password.length < 8) {
+        showMsg("reg-msg", "error", "كلمة المرور يجب أن تكون 8 أحرف على الأقل / Min 8 characters"); return;
+      }
+      if (password !== confirm) {
+        showMsg("reg-msg", "error", "كلمتا المرور غير متطابقتين / Passwords do not match"); return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = "جاري إنشاء الحساب...";
+
+      try {
+        await registerClient({ firstName, lastName, company, companyType, email, password });
+        showMsg("reg-msg", "success", "✓ تم إنشاء الحساب! تحقق من بريدك الإلكتروني لتفعيل الحساب — Account created! Check your email to verify.");
+        btn.disabled = false;
+        btn.innerHTML = "<span>إنشاء الحساب</span><span class='btn-en'>Create Account</span>";
+      } catch (err) {
+        showMsg("reg-msg", "error", translateAuthError(err.code));
+        btn.disabled = false;
+        btn.innerHTML = "<span>إنشاء الحساب</span><span class='btn-en'>Create Account</span>";
+      }
+    };
+
+    window.doGoogle = async () => {
+      try {
+        await loginWithGoogle();
+        window.location.href = "/dashboard";
+      } catch (err) {
+        showMsg("login-msg", "error", translateAuthError(err.code));
+      }
+    };
+
+    window.showReset = () => {
+      document.getElementById("reset-section").classList.remove("hidden");
+    };
+    window.hideReset = () => {
+      document.getElementById("reset-section").classList.add("hidden");
+    };
+
+    window.doReset = async () => {
+      const email = document.getElementById("reset-email").value.trim();
+      if (!email) return;
+      try {
+        await resetPassword(email);
+        showMsg("login-msg", "success", "✓ تم إرسال رابط إعادة التعيين إلى بريدك / Reset link sent to your email");
+        hideReset();
+      } catch (err) {
+        showMsg("login-msg", "error", translateAuthError(err.code));
+      }
+    };
+
+    function showMsg(id, type, text) {
+      const el = document.getElementById(id);
+      el.textContent = text;
+      el.className = `msg-box ${type}`;
+    }
+    function clearMsgs() {
+      document.querySelectorAll(".msg-box").forEach(el => { el.className = "msg-box hidden"; el.textContent = ""; });
+    }
+
+    // Enter key support
+    document.addEventListener("keydown", (e) => {
+      if (e.key !== "Enter") return;
+      const loginActive = document.getElementById("panel-login").classList.contains("active");
+      if (loginActive) doLogin(); else doRegister();
+    });
+  </script>
+</body>
+</html>
