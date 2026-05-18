@@ -1,168 +1,358 @@
-// ============================================================
-// TASREEH — Authentication Module
-// File: public/js/auth.js
-//
-// Handles: login, register, logout, password reset,
-//          Google sign-in, session state, email verification
-// ============================================================
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>لوحة التحكم | تصريح — Tasreeh</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/auth.css" />
+  <style>
+    body { font-family: 'IBM Plex Sans Arabic', 'DM Sans', sans-serif; background: #0D1B2A; color: #F0EBE0; min-height: 100vh; }
 
-import { auth, db } from "./firebase-config.js";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
-  sendPasswordResetEmail,
-  sendEmailVerification,
-  onAuthStateChanged,
-  GoogleAuthProvider,
-  signInWithPopup,
-  updateProfile
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import {
-  doc,
-  setDoc,
-  getDoc,
-  serverTimestamp
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-// ─────────────────────────────────────────────
-// REGISTER NEW CLIENT
-// ─────────────────────────────────────────────
-export async function registerClient({ firstName, lastName, company, companyType, email, password }) {
-  // 1. Create Firebase Auth user
-  const credential = await createUserWithEmailAndPassword(auth, email, password);
-  const user = credential.user;
-
-  // 2. Set display name
-  await updateProfile(user, { displayName: `${firstName} ${lastName}` });
-
-  // 3. Send email verification
-  await sendEmailVerification(user, {
-    url: "https://tasreeh.co.uk/dashboard"
-  });
-
-  // 4. Create client document in Firestore
-  await setDoc(doc(db, "clients", user.uid), {
-    uid:         user.uid,
-    firstName,
-    lastName,
-    fullName:    `${firstName} ${lastName}`,
-    company,
-    companyType,
-    email,
-    plan:        "basic",           // default plan on signup
-    quota: {
-      used:  0,
-      total: 5                      // basic plan = 5 tx/month
-    },
-    verified:    false,
-    status:      "active",
-    createdAt:   serverTimestamp(),
-    updatedAt:   serverTimestamp()
-  });
-
-  return user;
-}
-
-// ─────────────────────────────────────────────
-// LOGIN WITH EMAIL + PASSWORD
-// ─────────────────────────────────────────────
-export async function loginClient(email, password) {
-  const credential = await signInWithEmailAndPassword(auth, email, password);
-  return credential.user;
-}
-
-// ─────────────────────────────────────────────
-// GOOGLE SIGN-IN
-// ─────────────────────────────────────────────
-export async function loginWithGoogle() {
-  const provider = new GoogleAuthProvider();
-  provider.setCustomParameters({ prompt: "select_account" });
-
-  const credential = await signInWithPopup(auth, provider);
-  const user = credential.user;
-
-  // Check if first time Google login → create profile
-  const clientRef = doc(db, "clients", user.uid);
-  const existing  = await getDoc(clientRef);
-
-  if (!existing.exists()) {
-    const nameParts = (user.displayName || "").split(" ");
-    await setDoc(clientRef, {
-      uid:         user.uid,
-      firstName:   nameParts[0] || "",
-      lastName:    nameParts.slice(1).join(" ") || "",
-      fullName:    user.displayName || "",
-      company:     "",
-      companyType: "",
-      email:       user.email,
-      plan:        "basic",
-      quota:       { used: 0, total: 5 },
-      verified:    user.emailVerified,
-      status:      "active",
-      createdAt:   serverTimestamp(),
-      updatedAt:   serverTimestamp()
-    });
-  }
-
-  return user;
-}
-
-// ─────────────────────────────────────────────
-// LOGOUT
-// ─────────────────────────────────────────────
-export async function logoutClient() {
-  await signOut(auth);
-  window.location.href = "/";
-}
-
-// ─────────────────────────────────────────────
-// PASSWORD RESET
-// ─────────────────────────────────────────────
-export async function resetPassword(email) {
-  await sendPasswordResetEmail(auth, email, {
-    url: "https://tasreeh.co.uk/login"
-  });
-}
-
-// ─────────────────────────────────────────────
-// GET CURRENT CLIENT PROFILE FROM FIRESTORE
-// ─────────────────────────────────────────────
-export async function getClientProfile(uid) {
-  const snap = await getDoc(doc(db, "clients", uid));
-  if (snap.exists()) return snap.data();
-  return null;
-}
-
-// ─────────────────────────────────────────────
-// SESSION GUARD — protect dashboard pages
-// Call this at the top of any protected page.
-// Redirects to / if no user is logged in.
-// ─────────────────────────────────────────────
-export function requireAuth(callback) {
-  return onAuthStateChanged(auth, async (user) => {
-    if (!user) {
-      window.location.href = "/";
-      return;
+    .loading-screen {
+      position: fixed; inset: 0;
+      background: #0D1B2A;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 12px;
+      z-index: 100;
     }
-    const profile = await getClientProfile(user.uid);
-    if (callback) callback(user, profile);
-  });
-}
+    .loading-logo { width: 44px; height: 44px; background: #C9A84C; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 500; color: #0D1B2A; }
+    .loading-text { font-size: 13px; color: #8A9BAD; }
 
-// ─────────────────────────────────────────────
-// TRANSLATE FIREBASE ERROR CODES → Arabic/English
-// ─────────────────────────────────────────────
-export function translateAuthError(code) {
-  const errors = {
-    "auth/user-not-found":        "البريد الإلكتروني غير مسجل / Email not found",
-    "auth/wrong-password":        "كلمة المرور غير صحيحة / Wrong password",
-    "auth/email-already-in-use":  "البريد الإلكتروني مسجل مسبقاً / Email already registered",
-    "auth/weak-password":         "كلمة المرور قصيرة جداً (8 أحرف على الأقل) / Password too short",
-    "auth/invalid-email":         "صيغة البريد الإلكتروني غير صحيحة / Invalid email format",
-    "auth/too-many-requests":     "تم تجاوز عدد المحاولات، حاول لاحقاً / Too many attempts",
-    "auth/popup-closed-by-user":  "تم إغلاق نافذة تسجيل الدخول / Popup closed",
-    "auth/network-request-failed":"خطأ في الاتصال بالإنترنت / Network error"
-  };
-  return errors[code] || `حدث خطأ غير متوقع (${code}) / Unexpected error`;
-}
+    .dash-layout { display: grid; grid-template-columns: 220px 1fr; min-height: 100vh; }
+
+    /* SIDEBAR */
+    .sidebar {
+      background: #1A2F45;
+      border-left: 1px solid rgba(201,168,76,0.15);
+      padding: 1.5rem 1rem;
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .sidebar-logo { display: flex; align-items: center; gap: 8px; margin-bottom: 1.5rem; }
+    .sidebar-logo .mark { width: 30px; height: 30px; background: #C9A84C; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 500; color: #0D1B2A; }
+    .sidebar-logo .name { font-size: 14px; font-weight: 500; }
+    .nav-item {
+      padding: 9px 12px; border-radius: 7px; cursor: pointer;
+      font-size: 13px; color: #8A9BAD;
+      display: flex; align-items: center; gap: 10px;
+      transition: all 0.15s; text-decoration: none;
+    }
+    .nav-item:hover { background: rgba(255,255,255,0.06); color: #F0EBE0; }
+    .nav-item.active { background: rgba(201,168,76,0.15); color: #C9A84C; }
+    .nav-icon { font-size: 16px; }
+    .sidebar-bottom { margin-top: auto; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 1rem; }
+    .plan-badge {
+      background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 6px; padding: 8px 10px; margin-bottom: 10px;
+      font-size: 11px;
+    }
+    .plan-badge .plan-name { color: #C9A84C; font-weight: 500; }
+    .plan-badge .plan-sub  { color: #8A9BAD; margin-top: 2px; }
+    .btn-logout { width: 100%; padding: 8px; background: transparent; border: 1px solid rgba(255,255,255,0.12); border-radius: 7px; cursor: pointer; font-family: inherit; font-size: 12px; color: #8A9BAD; transition: color 0.2s, border-color 0.2s; }
+    .btn-logout:hover { color: #eb7a6f; border-color: rgba(235,122,111,0.4); }
+
+    /* MAIN */
+    .main { padding: 2rem; overflow-y: auto; }
+    .dash-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2rem; }
+    .greeting { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
+    .greeting span { color: #C9A84C; }
+    .greeting-sub { font-size: 13px; color: #8A9BAD; font-weight: 300; }
+    .date-badge { font-size: 12px; color: #8A9BAD; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 5px 12px; }
+
+    /* STAT CARDS */
+    .stats-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 2rem; }
+    .stat-card { background: #1A2F45; border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 14px 16px; }
+    .stat-label { font-size: 11px; color: #8A9BAD; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+    .stat-value { font-size: 26px; font-weight: 500; color: #F0EBE0; }
+    .stat-sub   { font-size: 11px; color: #8A9BAD; margin-top: 2px; }
+
+    /* QUOTA */
+    .quota-bar-wrap { background: #1A2F45; border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 16px; margin-bottom: 2rem; }
+    .quota-header { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 13px; }
+    .quota-bar { height: 6px; background: rgba(255,255,255,0.08); border-radius: 3px; overflow: hidden; }
+    .quota-fill { height: 100%; background: #C9A84C; border-radius: 3px; transition: width 0.6s ease; }
+
+    /* SERVICES */
+    .section-title { font-size: 14px; font-weight: 500; color: #F0EBE0; margin-bottom: 1rem; }
+    .services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 2rem; }
+    .service-card {
+      background: #1A2F45; border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px; padding: 16px; cursor: pointer;
+      transition: border-color 0.2s;
+      text-decoration: none; display: block;
+    }
+    .service-card:hover { border-color: #C9A84C; }
+    .service-icon { font-size: 22px; margin-bottom: 8px; color: #C9A84C; }
+    .service-name { font-size: 13px; font-weight: 500; color: #F0EBE0; margin-bottom: 4px; }
+    .service-desc { font-size: 11px; color: #8A9BAD; font-weight: 300; line-height: 1.5; }
+    .service-badge { display: inline-block; margin-top: 8px; font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: 500; }
+    .badge-live { background: rgba(46,125,82,0.2); color: #6fcf97; }
+    .badge-soon { background: rgba(138,155,173,0.15); color: #8A9BAD; }
+
+    /* TRANSACTIONS TABLE */
+    .tx-card { background: #1A2F45; border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; overflow: hidden; }
+    .tx-header { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .tx-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .tx-table th { padding: 10px 16px; text-align: right; color: #8A9BAD; font-weight: 500; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .tx-table td { padding: 11px 16px; text-align: right; border-bottom: 1px solid rgba(255,255,255,0.04); color: #F0EBE0; }
+    .tx-table tr:last-child td { border-bottom: none; }
+    .status-pill { display: inline-block; padding: 3px 10px; border-radius: 10px; font-size: 10px; font-weight: 500; }
+    .status-active  { background: rgba(55,138,221,0.15); color: #85B7EB; }
+    .status-done    { background: rgba(46,125,82,0.15);  color: #6fcf97; }
+    .status-waiting { background: rgba(201,168,76,0.15); color: #C9A84C; }
+    .avatar { width: 24px; height: 24px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 500; background: rgba(201,168,76,0.15); color: #C9A84C; margin-left: 8px; }
+
+    @media (max-width: 900px) {
+      .dash-layout { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Loading screen shown until Firebase session resolves -->
+  <div class="loading-screen" id="loading">
+    <div class="loading-logo">ت</div>
+    <div class="loading-text">جاري التحقق من جلستك... / Verifying session</div>
+  </div>
+
+  <div class="dash-layout" id="dash-layout" style="display:none;">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="sidebar-logo">
+        <div class="mark">ت</div>
+        <div class="name">تصريح / Tasreeh</div>
+      </div>
+
+      <a href="/dashboard" class="nav-item active">
+        <span class="nav-icon">⊞</span> لوحة التحكم / Dashboard
+      </a>
+      <a href="/transactions" class="nav-item">
+        <span class="nav-icon">📋</span> طلباتي / My Applications
+      </a>
+      <a href="/new-transaction" class="nav-item">
+        <span class="nav-icon">＋</span> طلب جديد / New Request
+      </a>
+      <a href="/investment" class="nav-item">
+        <span class="nav-icon">🏗</span> الاستثمار / Investment
+      </a>
+      <a href="/pricing" class="nav-item">
+        <span class="nav-icon">💳</span> الأسعار / Pricing
+      </a>
+      <a href="/account" class="nav-item">
+        <span class="nav-icon">👤</span> حسابي / My Account
+      </a>
+
+      <div class="sidebar-bottom">
+        <div class="plan-badge">
+          <div class="plan-name" id="sb-plan">الباقة الأساسية</div>
+          <div class="plan-sub" id="sb-quota">5 معاملات / شهر</div>
+        </div>
+        <button class="btn-logout" onclick="doLogout()">تسجيل الخروج / Sign Out</button>
+      </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main">
+      <div class="dash-header">
+        <div>
+          <div class="greeting">مرحباً، <span id="welcome-name">...</span> 👋</div>
+          <div class="greeting-sub" id="welcome-company">جاري التحميل...</div>
+        </div>
+        <div class="date-badge" id="date-today"></div>
+      </div>
+
+      <!-- STATS -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">إجمالي الطلبات / Total</div>
+          <div class="stat-value" id="stat-total">—</div>
+          <div class="stat-sub">جميع المعاملات</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">قيد المعالجة / Active</div>
+          <div class="stat-value" id="stat-active">—</div>
+          <div class="stat-sub">جارية الآن</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">مكتملة / Completed</div>
+          <div class="stat-value" id="stat-done">—</div>
+          <div class="stat-sub">منجزة بنجاح</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">متبقي / Quota left</div>
+          <div class="stat-value" id="stat-left">—</div>
+          <div class="stat-sub">هذا الشهر</div>
+        </div>
+      </div>
+
+      <!-- QUOTA BAR -->
+      <div class="quota-bar-wrap">
+        <div class="quota-header">
+          <span>كوتا المعاملات — هذا الشهر / Monthly quota</span>
+          <span id="quota-text" style="color:#C9A84C;">...</span>
+        </div>
+        <div class="quota-bar">
+          <div class="quota-fill" id="quota-fill" style="width:0%"></div>
+        </div>
+      </div>
+
+      <!-- SERVICES -->
+      <div class="section-title">الخدمات المتاحة / Available services</div>
+      <div class="services-grid">
+        <a href="/new-transaction?type=work-permit" class="service-card">
+          <div class="service-icon">📋</div>
+          <div class="service-name">إجازة العمل / Work Permit</div>
+          <div class="service-desc">استخراج وتجديد تصاريح العمل مع وزارة العمل</div>
+          <span class="service-badge badge-live">متاح / Live</span>
+        </a>
+        <a href="/new-transaction?type=social-security" class="service-card">
+          <div class="service-icon">🛡</div>
+          <div class="service-name">الضمان الاجتماعي / Social Security</div>
+          <div class="service-desc">تسجيل العمال وإدارة الاشتراكات</div>
+          <span class="service-badge badge-live">متاح / Live</span>
+        </a>
+        <a href="/new-transaction?type=visa" class="service-card">
+          <div class="service-icon">🛂</div>
+          <div class="service-name">تأشيرة الدخول / Entry Visa</div>
+          <div class="service-desc">إجراءات التأشيرة وتصاريح الإقامة</div>
+          <span class="service-badge badge-live">متاح / Live</span>
+        </a>
+        <a href="/new-transaction?type=company" class="service-card">
+          <div class="service-icon">🏢</div>
+          <div class="service-name">تأسيس شركة / Company Setup</div>
+          <div class="service-desc">تسجيل الشركات في وزارة التجارة</div>
+          <span class="service-badge badge-live">متاح / Live</span>
+        </a>
+        <a href="/investment" class="service-card">
+          <div class="service-icon">📈</div>
+          <div class="service-name">الاستثمار / NIC Investment</div>
+          <div class="service-desc">الهيئة الوطنية للاستثمار — 135+ فرصة</div>
+          <span class="service-badge badge-live">متاح / Live</span>
+        </a>
+        <div class="service-card" style="opacity:0.55;cursor:default;">
+          <div class="service-icon">💳</div>
+          <div class="service-name">الدفع الإلكتروني / Online Payment</div>
+          <div class="service-desc">سداد الرسوم الحكومية إلكترونياً</div>
+          <span class="service-badge badge-soon">قريباً / Coming soon</span>
+        </div>
+      </div>
+
+      <!-- RECENT TRANSACTIONS -->
+      <div class="tx-card">
+        <div class="tx-header">
+          <div class="section-title" style="margin:0;">آخر الطلبات / Recent applications</div>
+          <a href="/transactions" style="font-size:12px;color:#C9A84C;text-decoration:none;">عرض الكل / View all</a>
+        </div>
+        <table class="tx-table">
+          <thead>
+            <tr>
+              <th>رقم</th>
+              <th>نوع المعاملة</th>
+              <th>اسم العامل</th>
+              <th>الجنسية</th>
+              <th>الحالة</th>
+              <th>التاريخ</th>
+            </tr>
+          </thead>
+          <tbody id="tx-body">
+            <tr>
+              <td colspan="6" style="text-align:center;color:#8A9BAD;padding:24px;">جاري تحميل البيانات... / Loading</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { requireAuth, logoutClient } from "/js/auth.js";
+    import { db } from "/js/firebase-config.js";
+    import { collection, query, where, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    // Date display
+    const now = new Date();
+    document.getElementById("date-today").textContent =
+      now.toLocaleDateString("ar-IQ", { weekday:"long", year:"numeric", month:"long", day:"numeric" });
+
+    // Session guard — redirects to / if not logged in
+    requireAuth(async (user, profile) => {
+      document.getElementById("loading").style.display = "none";
+      document.getElementById("dash-layout").style.display = "grid";
+
+      // Populate header
+      document.getElementById("welcome-name").textContent    = profile?.firstName || user.displayName || "عميل";
+      document.getElementById("welcome-company").textContent = profile?.company    || user.email;
+
+      // Plan & quota
+      const planNames = { basic: "الباقة الأساسية / Basic", advanced: "الباقة المتقدمة / Advanced" };
+      document.getElementById("sb-plan").textContent  = planNames[profile?.plan] || "الباقة الأساسية";
+      document.getElementById("sb-quota").textContent = `${profile?.quota?.total || 5} معاملات / شهر`;
+
+      // Quota bar
+      const used  = profile?.quota?.used  || 0;
+      const total = profile?.quota?.total || 5;
+      const pct   = Math.round((used / total) * 100);
+      document.getElementById("quota-fill").style.width = `${pct}%`;
+      document.getElementById("quota-text").textContent = `${used} من ${total} مستخدم`;
+      document.getElementById("stat-left").textContent  = total - used;
+
+      // Load transactions from Firestore
+      try {
+        const q   = query(
+          collection(db, "transactions"),
+          where("clientId", "==", user.uid),
+          orderBy("createdAt", "desc"),
+          limit(10)
+        );
+        const snap = await getDocs(q);
+        const txs  = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+
+        const total_tx  = txs.length;
+        const active_tx = txs.filter(t => t.status === "active" || t.status === "pending").length;
+        const done_tx   = txs.filter(t => t.status === "done").length;
+
+        document.getElementById("stat-total").textContent  = total_tx;
+        document.getElementById("stat-active").textContent = active_tx;
+        document.getElementById("stat-done").textContent   = done_tx;
+
+        // Render rows
+        const statusMap = {
+          active:  ["جاري", "status-active"],
+          pending: ["بانتظار وثائق", "status-waiting"],
+          done:    ["مكتمل", "status-done"]
+        };
+        const tbody = document.getElementById("tx-body");
+        if (txs.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:#8A9BAD;padding:24px;">لا توجد طلبات بعد — ابدأ بطلبك الأول / No applications yet</td></tr>`;
+        } else {
+          tbody.innerHTML = txs.map(tx => {
+            const [statusAr, statusClass] = statusMap[tx.status] || ["—", ""];
+            const initials = (tx.workerName || "?").split(" ").map(w => w[0]).join("").slice(0,2).toUpperCase();
+            const date = tx.createdAt?.toDate ? tx.createdAt.toDate().toLocaleDateString("ar-IQ") : "—";
+            return `
+              <tr>
+                <td style="color:#8A9BAD;">#${tx.id.slice(-4)}</td>
+                <td>${tx.type || "—"}</td>
+                <td><span class="avatar">${initials}</span>${tx.workerName || "—"}</td>
+                <td>${tx.nationality || "—"}</td>
+                <td><span class="status-pill ${statusClass}">${statusAr}</span></td>
+                <td style="color:#8A9BAD;">${date}</td>
+              </tr>`;
+          }).join("");
+        }
+      } catch (err) {
+        console.error("Error loading transactions:", err);
+      }
+    });
+
+    window.doLogout = async () => {
+      await logoutClient();
+    };
+  </script>
+</body>
+</html>
