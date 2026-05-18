@@ -37,8 +37,7 @@ export async function registerClient({ firstName, lastName, company, companyType
   await updateProfile(user, { displayName: `${firstName} ${lastName}` });
 
   // 3. Send email verification
-  await sendEmailVerification(user, {
-    await sendEmailVerification(user);"
+  await sendEmailVerification(user);
   });
 
   // 4. Create client document in Firestore
@@ -121,7 +120,7 @@ export async function logoutClient() {
 // ─────────────────────────────────────────────
 export async function resetPassword(email) {
   await sendPasswordResetEmail(auth, email, {
-    url: "https://tasreeh.co.uk/login"
+    await sendPasswordResetEmail(auth, email);
   });
 }
 
