@@ -38,7 +38,7 @@ export async function registerClient({ firstName, lastName, company, companyType
 
   // 3. Send email verification
   await sendEmailVerification(user, {
-    url: "https://tasreeh.co.uk/dashboard"
+    await sendEmailVerification(user);"
   });
 
   // 4. Create client document in Firestore
