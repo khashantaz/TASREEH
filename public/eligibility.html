@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>فحص الأهلية | تصريح</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./ai.css" />
+</head>
+<body>
+  <div class="ai-page">
+    <div class="ai-sidebar">
+      <a href="./ai-hub.html" class="back-btn">← الذكاء الاصطناعي</a>
+      <div class="feature-icon">✅</div>
+      <div class="feature-title">فحص الأهلية<br><span>Eligibility Checker</span></div>
+      <div class="feature-desc">أجب على بعض الأسئلة وسيحدد الذكاء الاصطناعي فوراً التأشيرة أو التصريح المناسب لحالتك والخطوات التالية.</div>
+    </div>
+
+    <div class="ai-main" style="padding: 1.5rem;">
+
+      <div class="form-card">
+        <div class="form-section-title">بيانات المتقدم / Applicant Details</div>
+        <div class="form-grid">
+          <div class="form-field">
+            <label>الجنسية / Nationality</label>
+            <select id="eq-nationality" class="ai-select">
+              <option value="">اختر / Select...</option>
+              <option>British / بريطاني</option>
+              <option>American / أمريكي</option>
+              <option>Indian / هندي</option>
+              <option>Filipino / فلبيني</option>
+              <option>Egyptian / مصري</option>
+              <option>Turkish / تركي</option>
+              <option>Jordanian / أردني</option>
+              <option>Lebanese / لبناني</option>
+              <option>Pakistani / باكستاني</option>
+              <option>Bangladeshi / بنغلاديشي</option>
+              <option>Chinese / صيني</option>
+              <option>Korean / كوري</option>
+              <option>Other / أخرى</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>الغرض / Purpose</label>
+            <select id="eq-purpose" class="ai-select">
+              <option value="">اختر / Select...</option>
+              <option>Employment / توظيف</option>
+              <option>Investment / استثمار</option>
+              <option>Business visit / زيارة أعمال</option>
+              <option>Company setup / تأسيس شركة</option>
+              <option>Consulting / استشارات</option>
+              <option>Construction project / مشروع إنشائي</option>
+              <option>Oil & Gas work / عمل نفطي</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>مدة الإقامة / Duration</label>
+            <select id="eq-duration" class="ai-select">
+              <option value="">اختر / Select...</option>
+              <option>Less than 1 month / أقل من شهر</option>
+              <option>1-3 months / 1-3 أشهر</option>
+              <option>3-6 months / 3-6 أشهر</option>
+              <option>6-12 months / 6-12 شهر</option>
+              <option>More than 1 year / أكثر من سنة</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>القطاع / Sector</label>
+            <select id="eq-sector" class="ai-select">
+              <option value="">اختر / Select...</option>
+              <option>Oil & Gas / نفط وغاز</option>
+              <option>Construction / إنشاء</option>
+              <option>Healthcare / صحة</option>
+              <option>IT / تقنية معلومات</option>
+              <option>Manufacturing / تصنيع</option>
+              <option>Hospitality / ضيافة</option>
+              <option>Education / تعليم</option>
+              <option>Finance / مالية</option>
+              <option>Other / أخرى</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>نوع صاحب العمل / Employer type</label>
+            <select id="eq-employer" class="ai-select">
+              <option value="">اختر / Select...</option>
+              <option>Iraqi company / شركة عراقية</option>
+              <option>Foreign company branch / فرع شركة أجنبية</option>
+              <option>Self-employed / عمل حر</option>
+              <option>Government contract / عقد حكومي</option>
+              <option>Own investment / استثمار شخصي</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>المنطقة / Region</label>
+            <select id="eq-region" class="ai-select">
+              <option value="">اختر / Select...</option>
+              <option>Baghdad / بغداد</option>
+              <option>Basra / البصرة</option>
+              <option>Erbil / أربيل</option>
+              <option>Sulaymaniyah / السليمانية</option>
+              <option>Najaf / النجف</option>
+              <option>Kirkuk / كركوك</option>
+              <option>Other / أخرى</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <button class="ai-btn-primary" id="check-btn" onclick="checkEligibility()" style="margin-top: 14px; width: 100%;">
+        فحص الأهلية / Check Eligibility
+      </button>
+
+      <div id="result-area" style="margin-top: 14px; display: none;">
+        <div class="result-card" id="result-content"></div>
+        <button class="ai-btn-secondary" style="margin-top: 10px; width: 100%;" onclick="window.location.href='./assistant.html'">
+          أسئلة أخرى؟ تحدث مع المساعد الذكي ↗
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <script type="module">
+    import TASREEH_AI from "./tasreeh-ai.js";
+
+    window.checkEligibility = async () => {
+      const nationality = document.getElementById("eq-nationality").value;
+      const purpose = document.getElementById("eq-purpose").value;
+      const duration = document.getElementById("eq-duration").value;
+      const sector = document.getElementById("eq-sector").value;
+      const employer = document.getElementById("eq-employer").value;
+      const region = document.getElementById("eq-region").value;
+      const btn = document.getElementById("check-btn");
+
+      if (!nationality || !purpose) {
+        alert("الرجاء اختيار الجنسية والغرض على الأقل / Please select at least nationality and purpose");
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = "جاري الفحص... / Checking...";
+      const resultArea = document.getElementById("result-area");
+      const resultContent = document.getElementById("result-content");
+      resultArea.style.display = "block";
+      resultContent.innerHTML = '<div class="loading-dots">جاري التحليل...</div>';
+
+      const prompt = `Applicant details:
+- Nationality: ${nationality}
+- Purpose: ${purpose}
+- Intended duration: ${duration || "not specified"}
+- Sector: ${sector || "not specified"}
+- Employer type: ${employer || "not specified"}
+- Region in Iraq: ${region || "not specified"}
+
+Determine their Iraq visa/permit eligibility and requirements.`;
+
+      try {
+        const reply = await TASREEH_AI.ask(TASREEH_AI.systems.eligibility, prompt);
+        resultContent.innerHTML = `<pre style="white-space:pre-wrap;font-family:inherit;font-size:13px;line-height:1.8">${reply}</pre>`;
+      } catch (err) {
+        resultContent.textContent = "Connection error. Please try again.";
+      }
+
+      btn.disabled = false;
+      btn.textContent = "فحص الأهلية / Check Eligibility";
+    };
+  </script>
+</body>
+</html>

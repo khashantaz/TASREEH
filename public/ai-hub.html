@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>الذكاء الاصطناعي | تصريح — Tasreeh AI</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500&family=Playfair+Display:wght@500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #C9A84C; --gold-light: #E8D5A3;
+      --navy: #0D1B2A; --navy-mid: #1A2F45; --navy-light: #243B55;
+      --text: #F0EBE0; --muted: #8A9BAD;
+    }
+    body { font-family: 'IBM Plex Sans Arabic', 'DM Sans', sans-serif; background: var(--navy); color: var(--text); min-height: 100vh; }
+
+    .hub-header {
+      padding: 2rem 2rem 1rem;
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .hub-logo { display: flex; align-items: center; gap: 10px; }
+    .hub-logo .mark { width: 34px; height: 34px; background: var(--gold); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 500; color: var(--navy); }
+    .hub-logo .name { font-size: 15px; font-weight: 500; }
+    .back-to-dash { font-size: 12px; color: var(--muted); text-decoration: none; border: 1px solid rgba(255,255,255,0.12); padding: 6px 14px; border-radius: 6px; }
+    .back-to-dash:hover { color: var(--gold); border-color: rgba(201,168,76,0.4); }
+
+    .hub-hero {
+      text-align: center;
+      padding: 3rem 2rem 2rem;
+    }
+    .hub-badge {
+      display: inline-block; margin-bottom: 1rem;
+      font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--gold); background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.25);
+      padding: 5px 16px; border-radius: 20px;
+    }
+    .hub-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px; font-weight: 500; color: var(--text);
+      margin-bottom: 0.75rem; line-height: 1.3;
+    }
+    .hub-title span { color: var(--gold); }
+    .hub-sub { font-size: 14px; font-weight: 300; color: var(--muted); max-width: 520px; margin: 0 auto; line-height: 1.7; }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      padding: 0 2rem 3rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      background: var(--navy-mid);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-decoration: none;
+      display: block;
+      transition: border-color 0.2s, transform 0.15s;
+      position: relative;
+      overflow: hidden;
+    }
+    .feature-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .feature-card:hover { border-color: rgba(201,168,76,0.4); transform: translateY(-2px); }
+    .feature-card:hover::before { opacity: 1; }
+
+    .fc-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 12px; }
+    .fc-emoji { font-size: 28px; }
+    .fc-badge { font-size: 10px; font-weight: 500; padding: 3px 10px; border-radius: 10px; background: rgba(46,125,82,0.2); color: #6fcf97; }
+    .fc-badge.soon { background: rgba(138,155,173,0.15); color: var(--muted); }
+    .fc-title { font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+    .fc-title-en { font-size: 12px; font-weight: 300; color: var(--gold); margin-bottom: 8px; font-family: 'DM Sans', sans-serif; }
+    .fc-desc { font-size: 12px; font-weight: 300; color: var(--muted); line-height: 1.6; }
+    .fc-arrow { margin-top: 14px; font-size: 12px; color: var(--gold); display: flex; align-items: center; gap: 4px; }
+
+    @media (max-width: 600px) {
+      .features-grid { grid-template-columns: 1fr; padding: 0 1rem 2rem; }
+      .hub-title { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hub-header">
+    <div class="hub-logo">
+      <div class="mark">ت</div>
+      <div class="name">تصريح / Tasreeh</div>
+    </div>
+    <a href="/dashboard.html" class="back-to-dash">← لوحة التحكم / Dashboard</a>
+  </div>
+
+  <div class="hub-hero">
+    <div class="hub-badge">⚡ مدعوم بالذكاء الاصطناعي / Powered by AI</div>
+    <h1 class="hub-title">خدمات <span>تصريح</span> الذكية</h1>
+    <p class="hub-sub">8 أدوات ذكاء اصطناعي متخصصة في خدمات الأعمال العراقية — تأشيرات، إجازات عمل، استثمار، وأكثر. متاحة 24/7 بالعربية والإنجليزية.</p>
+  </div>
+
+  <div class="features-grid">
+
+    <a href="./assistant.html" class="feature-card">
+      <div class="fc-top">
+        <div class="fc-emoji">💬</div>
+        <span class="fc-badge">مباشر / Live</span>
+      </div>
+      <div class="fc-title">المساعد الذكي</div>
+      <div class="fc-title-en">AI Assistant</div>
+      <div class="fc-desc">إجابات فورية على أسئلتك حول التأشيرات والتصاريح والرسوم والمواعيد — على مدار الساعة.</div>
+      <div class="fc-arrow">ابدأ المحادثة →</div>
+    </a>
+
+    <a href="./document-checker.html" class="feature-card">
+      <div class="fc-top">
+        <div class="fc-emoji">📋</div>
+        <span class="fc-badge">مباشر / Live</span>
+      </div>
+      <div class="fc-title">فاحص الوثائق</div>
+      <div class="fc-title-en">Document Checker</div>
+      <div class="fc-desc">أدخل وثائقك وسيحدد الذكاء الاصطناعي ما ينقصك قبل التقديم — يقلل نسبة الرفض.</div>
+      <div class="fc-arrow">فحص وثائقي →</div>
+    </a>
+
+    <a href="./ai-tool.html?p=guide" class="feature-card">
+      <div class="fc-top">
+        <div class="fc-emoji">🗺️</div>
+        <span class="fc-badge">مباشر / Live</span>
+      </div>
+      <div class="fc-title">دليل الطلبات</div>
+      <div class="fc-title-en">Application Guide</div>
+      <div class="fc-desc">خارطة طريق مخصصة لحالتك: خطوات، مسؤوليات، أوقات، ورسوم تقديرية.</div>
+      <div class="fc-arrow">احصل على دليلي →</div>
+    </a>
+
+    <a href="./eligibility.html" class="feature-card">
+      <div class="fc-top">
+        <div class="fc-emoji">✅</div>
+        <span class="fc-badge">مباشر / Live</span>
+      </div>
+      <div class="fc-title">فحص الأهلية</div>
+      <div class="fc-title-en">Eligibility Checker</div>
+      <div class="fc-desc">أجب على أسئلة بسيطة وسيحدد الذكاء الاصطناعي فوراً التأشيرة أو التصريح المناسب لك.</div>
+      <div class="fc-arrow">افحص أهليتي →</div>
+    </a>
+
+    <a href="./ai-tool.html?p=translation" class="feature-card">
+      <div class="fc-top">
+        <div class="fc-emoji">🌐</div>
+        <span class="fc-badge">مباشر / Live</span>
+      </div>
+      <div class="fc-title">الترجمة الذكية</div>
+      <div class="fc-title-en">Smart Translation</div>
+      <div class="fc-desc">ترجمة دقيقة للمصطلحات القانونية والحكومية — عربي، إنجليزي، فرنسي، أردو، صيني.</div>
+      <div class="fc-arrow">ترجمة وثيقة →</div>
+    </a>
+
+    <a href="./ai-tool.html?p=form" class="feature-card">
+      <div class="fc-top">
+        <div class="fc-emoji">📝</div>
+        <span class="fc-badge">مباشر / Live</span>
+      </div>
+      <div class="fc-title">مساعد النماذج</div>
+      <div class="fc-title-en">Form Assistant</div>
+      <div class="fc-desc">مساعدة في ملء النماذج الحكومية المعقدة — شرح كل خانة بلغة بسيطة.</div>
+      <div class="fc-arrow">مساعدة في النموذج →</div>
+    </a>
+
+    <a href="./ai-tool.html?p=investment" class="feature-card">
+      <div class="fc-top">
+        <div class="fc-emoji">📈</div>
+        <span class="fc-badge">مباشر / Live</span>
+      </div>
+      <div class="fc-title">مستكشف الاستثمار</div>
+      <div class="fc-title-en">Investment Explorer</div>
+      <div class="fc-desc">فرص استثمارية معتمدة من هيئة الاستثمار الوطنية تتناسب مع ميزانيتك وقطاعك.</div>
+      <div class="fc-arrow">استكشف الفرص →</div>
+    </a>
+
+    <a href="./ai-tool.html?p=status" class="feature-card">
+      <div class="fc-top">
+        <div class="fc-emoji">⏱️</div>
+        <span class="fc-badge">مباشر / Live</span>
+      </div>
+      <div class="fc-title">متتبع الحالة</div>
+      <div class="fc-title-en">Status Tracker</div>
+      <div class="fc-desc">تحديثات ذكية على مرحلة طلبك وتوقعات الجدول الزمني والخطوات القادمة.</div>
+      <div class="fc-arrow">تتبع طلبي →</div>
+    </a>
+
+  </div>
+
+</body>
+</html>

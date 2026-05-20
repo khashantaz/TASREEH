@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>فاحص الوثائق | تصريح</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./ai.css" />
+</head>
+<body>
+  <div class="ai-page">
+
+    <div class="ai-sidebar">
+      <a href="./ai-hub.html" class="back-btn">← الذكاء الاصطناعي</a>
+      <div class="feature-icon">📋</div>
+      <div class="feature-title">فاحص الوثائق<br><span>Document Checker</span></div>
+      <div class="feature-desc">أدخل قائمة وثائقك وسيتحقق الذكاء الاصطناعي من اكتمالها قبل التقديم — يقلل نسبة الرفض.</div>
+      <div class="quick-title">أنواع الطلبات</div>
+      <div class="quick-list">
+        <button class="quick-btn" onclick="setServiceType('work-permit')">إجازة العمل</button>
+        <button class="quick-btn" onclick="setServiceType('entry-visa')">تأشيرة الدخول</button>
+        <button class="quick-btn" onclick="setServiceType('business-visa')">تأشيرة الأعمال</button>
+        <button class="quick-btn" onclick="setServiceType('company-registration')">تسجيل الشركة</button>
+        <button class="quick-btn" onclick="setServiceType('investment-license')">رخصة الاستثمار</button>
+        <button class="quick-btn" onclick="setServiceType('social-security')">الضمان الاجتماعي</button>
+      </div>
+    </div>
+
+    <div class="ai-main" style="padding: 1.5rem;">
+
+      <div class="form-card">
+        <div class="form-section-title">نوع الطلب / Application Type</div>
+        <select id="service-type" class="ai-select">
+          <option value="">اختر نوع الطلب / Select application type...</option>
+          <option value="work-permit">إجازة العمل / Work Permit</option>
+          <option value="entry-visa">تأشيرة الدخول / Entry Visa</option>
+          <option value="business-visa">تأشيرة الأعمال / Business Visa</option>
+          <option value="company-registration">تسجيل الشركة / Company Registration</option>
+          <option value="investment-license">رخصة الاستثمار NIC / NIC Investment License</option>
+          <option value="social-security">الضمان الاجتماعي / Social Security</option>
+        </select>
+      </div>
+
+      <div class="form-card" style="margin-top: 12px;">
+        <div class="form-section-title">الوثائق المتوفرة لديك / Documents you have</div>
+        <div class="form-hint">أدخل كل وثيقة في سطر منفصل / Enter each document on a new line</div>
+        <textarea id="doc-list" class="ai-textarea" rows="8" placeholder="مثال / Example:
+- جواز السفر / Passport
+- صورة شخصية / Personal photo
+- شهادة طبية / Medical certificate
+- عقد العمل / Employment contract"></textarea>
+      </div>
+
+      <div class="form-card" style="margin-top: 12px;">
+        <div class="form-section-title">معلومات إضافية / Additional Info (optional)</div>
+        <input type="text" id="extra-info" class="ai-input" placeholder="مثال: جنسية فلبينية، عقد مع شركة نفطية / e.g. Filipino national, oil company contract" />
+      </div>
+
+      <button class="ai-btn-primary" id="check-btn" onclick="checkDocuments()" style="margin-top: 14px; width: 100%;">
+        فحص الوثائق / Check Documents
+      </button>
+
+      <div id="result-area" style="margin-top: 14px; display: none;">
+        <div class="result-card" id="result-content"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <script type="module">
+    import TASREEH_AI from "./tasreeh-ai.js";
+
+    window.setServiceType = (type) => {
+      document.getElementById("service-type").value = type;
+    };
+
+    window.checkDocuments = async () => {
+      const serviceType = document.getElementById("service-type").value;
+      const docList = document.getElementById("doc-list").value.trim();
+      const extraInfo = document.getElementById("extra-info").value.trim();
+      const btn = document.getElementById("check-btn");
+      const resultArea = document.getElementById("result-area");
+      const resultContent = document.getElementById("result-content");
+
+      if (!serviceType) { alert("الرجاء اختيار نوع الطلب / Please select application type"); return; }
+      if (!docList) { alert("الرجاء إدخال قائمة الوثائق / Please enter your documents"); return; }
+
+      btn.disabled = true;
+      btn.textContent = "جاري الفحص... / Checking...";
+      resultArea.style.display = "block";
+      resultContent.innerHTML = '<div class="loading-dots">...</div>';
+
+      const prompt = `Application type: ${serviceType}
+Documents the applicant has:
+${docList}
+${extraInfo ? "Additional info: " + extraInfo : ""}
+
+Check if these documents are complete for this Iraq government application.`;
+
+      try {
+        const reply = await TASREEH_AI.ask(TASREEH_AI.systems.documentChecker, prompt);
+        resultContent.innerHTML = `<pre style="white-space:pre-wrap;font-family:inherit;font-size:13px;line-height:1.7">${reply}</pre>`;
+      } catch (err) {
+        resultContent.textContent = "خطأ في الاتصال — Connection error. Please try again.";
+      }
+
+      btn.disabled = false;
+      btn.textContent = "فحص الوثائق / Check Documents";
+    };
+  </script>
+</body>
+</html>

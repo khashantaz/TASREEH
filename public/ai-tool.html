@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>دليل الطلبات | تصريح</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./ai.css" />
+</head>
+<body>
+  <div class="ai-page">
+    <div class="ai-sidebar">
+      <a href="./ai-hub.html" class="back-btn">← الذكاء الاصطناعي</a>
+      <div class="feature-icon" id="s-icon">🗺️</div>
+      <div class="feature-title" id="s-title">دليل الطلبات<br><span>Application Guide</span></div>
+      <div class="feature-desc" id="s-desc">احصل على خارطة طريق مخصصة خطوة بخطوة لحالتك الخاصة مع الأوقات والرسوم التقديرية.</div>
+      <div class="quick-title">أمثلة سريعة</div>
+      <div class="quick-list" id="s-quick"></div>
+    </div>
+    <div class="ai-main" style="padding: 1.5rem;">
+      <div id="page-content"></div>
+    </div>
+  </div>
+
+  <script type="module">
+    import TASREEH_AI from "./tasreeh-ai.js";
+
+    const PAGE = new URLSearchParams(location.search).get("p") || "guide";
+
+    const PAGES = {
+      guide: {
+        icon: "🗺️",
+        title: "دليل الطلبات / Application Guide",
+        desc: "احصل على خارطة طريق مخصصة خطوة بخطوة.",
+        quick: [
+          "إجازة عمل لمهندس فلبيني في شركة نفط",
+          "Work permit for British IT consultant in Baghdad",
+          "تأسيس فرع لشركة أجنبية في العراق",
+          "Investment license for a hotel project in Erbil"
+        ],
+        system: "assistant",
+        placeholder: "اوصف حالتك بالتفصيل / Describe your specific case in detail...",
+        btnText: "احصل على دليلك / Get Your Guide",
+        promptPrefix: "Generate a step-by-step application guide for: "
+      },
+      translation: {
+        icon: "🌐",
+        title: "الترجمة الذكية / Smart Translation",
+        desc: "ترجمة دقيقة للوثائق القانونية والحكومية.",
+        quick: ["العربية ← English", "English ← العربية", "English ← Français", "العربية ← اردو"],
+        system: "translator",
+        placeholder: "أدخل النص المراد ترجمته / Enter text to translate...",
+        btnText: "ترجم / Translate",
+        promptPrefix: ""
+      },
+      form: {
+        icon: "📝",
+        title: "مساعد النماذج / Form Assistant",
+        desc: "مساعدة في ملء النماذج الحكومية المعقدة بشكل صحيح.",
+        quick: [
+          "ماذا أكتب في خانة الغرض من الزيارة؟",
+          "What is 'establishment number' in the social security form?",
+          "كيف أملأ خانة صاحب العمل في نموذج إجازة العمل؟",
+          "What documents attach to work permit application form?"
+        ],
+        system: "formAssistant",
+        placeholder: "اسأل عن أي خانة أو نموذج حكومي / Ask about any field or government form...",
+        btnText: "احصل على مساعدة / Get Help",
+        promptPrefix: ""
+      },
+      investment: {
+        icon: "📈",
+        title: "مستكشف الاستثمار / Investment Explorer",
+        desc: "فرص استثمارية معتمدة من هيئة الاستثمار الوطنية تتناسب مع ملفك.",
+        quick: [
+          "فرص في قطاع السياحة والفنادق في أربيل",
+          "Industrial investment opportunities in Basra under $5M",
+          "زراعة وغذاء في المناطق الجنوبية",
+          "Healthcare investment Baghdad budget $2M"
+        ],
+        system: "investment",
+        placeholder: "اوصف مشروعك الاستثماري / Describe your investment project and criteria...",
+        btnText: "استكشف الفرص / Explore Opportunities",
+        promptPrefix: ""
+      },
+      status: {
+        icon: "⏱️",
+        title: "متتبع الحالة / Status Tracker",
+        desc: "تحديثات ذكية على حالة طلبك وتوقعات الجداول الزمنية.",
+        quick: [
+          "إجازة عمل قدمت منذ 3 أسابيع — ما المرحلة؟",
+          "Work permit submitted 5 weeks ago, no update yet",
+          "تأشيرة أعمال منذ شهر، لم أتلق ردًا",
+          "Company registration 6 weeks, what stage?"
+        ],
+        system: "statusTracker",
+        placeholder: "اوصف طلبك ومتى قدمته / Describe your application and when you submitted it...",
+        btnText: "تتبع الحالة / Track Status",
+        promptPrefix: ""
+      }
+    };
+
+    const cfg = PAGES[PAGE] || PAGES.guide;
+    document.getElementById("s-icon").textContent = cfg.icon;
+    document.getElementById("s-title").innerHTML = cfg.title.replace(" / ", "<br><span>") + "</span>";
+    document.getElementById("s-desc").textContent = cfg.desc;
+
+    const quickList = document.getElementById("s-quick");
+    cfg.quick.forEach(q => {
+      const btn = document.createElement("button");
+      btn.className = "quick-btn";
+      btn.textContent = q.length > 40 ? q.slice(0, 37) + "..." : q;
+      btn.onclick = () => document.getElementById("main-input").value = q;
+      quickList.appendChild(btn);
+    });
+
+    let langPair = "ar-en";
+    const content = document.getElementById("page-content");
+
+    if (PAGE === "translation") {
+      content.innerHTML = `
+        <div class="form-card">
+          <div class="form-section-title">اتجاه الترجمة / Translation direction</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px">
+            <button class="lang-pill active" onclick="setLangPair(this,'ar-en')">العربية ← English</button>
+            <button class="lang-pill" onclick="setLangPair(this,'en-ar')">English ← العربية</button>
+            <button class="lang-pill" onclick="setLangPair(this,'en-fr')">English ← Français</button>
+            <button class="lang-pill" onclick="setLangPair(this,'ar-ur')">العربية ← اردو</button>
+            <button class="lang-pill" onclick="setLangPair(this,'en-zh')">English ← 中文</button>
+          </div>
+          <textarea id="main-input" class="ai-textarea" rows="6" placeholder="${cfg.placeholder}"></textarea>
+        </div>
+        <button class="ai-btn-primary" id="action-btn" onclick="doAction()" style="margin-top:12px;width:100%">${cfg.btnText}</button>
+        <div id="result-area" style="margin-top:14px;display:none"><div class="result-card" id="result-content"></div></div>
+      `;
+      window.setLangPair = (el, pair) => {
+        document.querySelectorAll(".lang-pill").forEach(b => b.classList.remove("active"));
+        el.classList.add("active");
+        langPair = pair;
+      };
+    } else {
+      content.innerHTML = `
+        <div class="form-card">
+          <textarea id="main-input" class="ai-textarea" rows="6" placeholder="${cfg.placeholder}"></textarea>
+        </div>
+        <button class="ai-btn-primary" id="action-btn" onclick="doAction()" style="margin-top:12px;width:100%">${cfg.btnText}</button>
+        <div id="result-area" style="margin-top:14px;display:none"><div class="result-card" id="result-content"></div></div>
+      `;
+    }
+
+    window.doAction = async () => {
+      const input = document.getElementById("main-input").value.trim();
+      if (!input) return;
+      const btn = document.getElementById("action-btn");
+      btn.disabled = true;
+      btn.textContent = "جاري المعالجة... / Processing...";
+      const resultArea = document.getElementById("result-area");
+      const resultContent = document.getElementById("result-content");
+      resultArea.style.display = "block";
+      resultContent.innerHTML = '<div class="loading-dots">...</div>';
+
+      let prompt = input;
+      if (PAGE === "translation") {
+        const pairs = { "ar-en": "Arabic to English", "en-ar": "English to Arabic", "en-fr": "English to French", "ar-ur": "Arabic to Urdu", "en-zh": "English to Chinese" };
+        prompt = `Translate ${pairs[langPair]}: "${input}"`;
+      } else if (cfg.promptPrefix) {
+        prompt = cfg.promptPrefix + input;
+      }
+
+      try {
+        const reply = await TASREEH_AI.ask(TASREEH_AI.systems[cfg.system], prompt);
+        resultContent.innerHTML = `<pre style="white-space:pre-wrap;font-family:inherit;font-size:13px;line-height:1.8">${reply}</pre>`;
+      } catch (err) {
+        resultContent.textContent = "Connection error. Please try again.";
+      }
+
+      btn.disabled = false;
+      btn.textContent = cfg.btnText;
+    };
+  </script>
+</body>
+</html>

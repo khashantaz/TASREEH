@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>المساعد الذكي | تصريح — Tasreeh AI</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./ai.css" />
+</head>
+<body>
+  <div class="ai-page">
+
+    <div class="ai-sidebar">
+      <a href="./ai-hub.html" class="back-btn">
+        <span>←</span> الذكاء الاصطناعي
+      </a>
+      <div class="feature-icon">💬</div>
+      <div class="feature-title">المساعد الذكي<br><span>AI Assistant</span></div>
+      <div class="feature-desc">احصل على إجابات فورية حول التأشيرات وإجازات العمل والاستثمار في العراق — باللغتين العربية والإنجليزية على مدار الساعة.</div>
+      <div class="quick-title">أسئلة سريعة</div>
+      <div class="quick-list" id="quick-list"></div>
+    </div>
+
+    <div class="ai-main">
+      <div class="chat-messages" id="chat-messages">
+        <div class="msg msg-ai">
+          <div class="msg-avatar">ت</div>
+          <div class="msg-content">
+            مرحباً بك في تصريح! أنا مساعدك الذكي لخدمات الأعمال في العراق.<br><br>
+            Hello! I'm Tasreeh AI — your expert guide for Iraq business services including visas, work permits, company registration, and investment opportunities.<br><br>
+            How can I help you today? / كيف يمكنني مساعدتك؟
+          </div>
+        </div>
+      </div>
+
+      <div class="chat-input-area">
+        <div class="lang-toggle">
+          <button class="lang-btn active" id="btn-ar" onclick="setLang('ar')">عربي</button>
+          <button class="lang-btn" id="btn-en" onclick="setLang('en')">English</button>
+        </div>
+        <div class="input-row">
+          <textarea id="user-input" placeholder="اكتب سؤالك هنا / Type your question here..." rows="1" oninput="autoResize(this)" onkeydown="handleKey(event)"></textarea>
+          <button class="send-btn" id="send-btn" onclick="sendMessage()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script type="module">
+    import TASREEH_AI from "./tasreeh-ai.js";
+
+    const quickQuestions = {
+      ar: [
+        "ما هي وثائق إجازة العمل؟",
+        "كم رسوم تأشيرة الأعمال؟",
+        "كيف أسجل شركة في العراق؟",
+        "ما هي مزايا الاستثمار عبر هيئة الاستثمار؟",
+        "كم تستغرق معالجة تصريح الإقامة؟",
+        "ما هو الضمان الاجتماعي للعمال الأجانب؟"
+      ],
+      en: [
+        "What documents do I need for a work permit?",
+        "How long does visa processing take?",
+        "How to register a foreign company in Iraq?",
+        "What are NIC investment incentives?",
+        "Fees for work permit renewal?",
+        "Social security requirements for expats?"
+      ]
+    };
+
+    let currentLang = "ar";
+    let chatHistory = [];
+    let isLoading = false;
+
+    window.setLang = (lang) => {
+      currentLang = lang;
+      document.getElementById("btn-ar").classList.toggle("active", lang === "ar");
+      document.getElementById("btn-en").classList.toggle("active", lang === "en");
+      document.getElementById("user-input").placeholder = lang === "ar"
+        ? "اكتب سؤالك هنا..."
+        : "Type your question here...";
+      renderQuickQuestions();
+    };
+
+    function renderQuickQuestions() {
+      const list = document.getElementById("quick-list");
+      list.innerHTML = "";
+      quickQuestions[currentLang].forEach(q => {
+        const btn = document.createElement("button");
+        btn.className = "quick-btn";
+        btn.textContent = q;
+        btn.onclick = () => sendMessage(q);
+        list.appendChild(btn);
+      });
+    }
+
+    window.sendMessage = async (text) => {
+      if (isLoading) return;
+      const input = document.getElementById("user-input");
+      const msg = text || input.value.trim();
+      if (!msg) return;
+      input.value = "";
+      input.style.height = "auto";
+
+      appendMessage("user", msg);
+      chatHistory.push({ role: "user", content: msg });
+
+      isLoading = true;
+      const loadingEl = appendMessage("ai", "...", true);
+      document.getElementById("send-btn").disabled = true;
+
+      try {
+        const reply = await TASREEH_AI.ask(TASREEH_AI.systems.assistant, msg, chatHistory.slice(-10, -1));
+        loadingEl.querySelector(".msg-content").textContent = reply;
+        loadingEl.classList.remove("loading");
+        chatHistory.push({ role: "assistant", content: reply });
+      } catch (err) {
+        loadingEl.querySelector(".msg-content").textContent = "خطأ في الاتصال — Connection error. Please try again.";
+        loadingEl.classList.remove("loading");
+      }
+
+      isLoading = false;
+      document.getElementById("send-btn").disabled = false;
+      scrollToBottom();
+    };
+
+    function appendMessage(role, text, loading = false) {
+      const wrap = document.getElementById("chat-messages");
+      const div = document.createElement("div");
+      div.className = `msg msg-${role}${loading ? " loading" : ""}`;
+      if (role === "ai") {
+        div.innerHTML = `<div class="msg-avatar">ت</div><div class="msg-content">${text}</div>`;
+      } else {
+        div.innerHTML = `<div class="msg-content">${text}</div>`;
+      }
+      wrap.appendChild(div);
+      scrollToBottom();
+      return div;
+    }
+
+    function scrollToBottom() {
+      const wrap = document.getElementById("chat-messages");
+      wrap.scrollTop = wrap.scrollHeight;
+    }
+
+    window.handleKey = (e) => {
+      if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+    };
+
+    window.autoResize = (el) => {
+      el.style.height = "auto";
+      el.style.height = Math.min(el.scrollHeight, 120) + "px";
+    };
+
+    renderQuickQuestions();
+  </script>
+</body>
+</html>
